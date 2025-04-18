@@ -18,6 +18,9 @@ export default defineConfig({
       include: "**/*.svg",
     }),
   ],
+  css: {
+    postcss: './postcss.config.cjs', 
+  },
   server: {
     port: 3000,
   },

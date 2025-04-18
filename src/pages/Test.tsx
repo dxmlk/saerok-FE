@@ -1,5 +1,9 @@
 const Test = () => {
-  return <div className="h-100 w-100 bg-green">test</div>;
+  return (
+    <p className="text-15 font-pretendard">
+    15px 글자입니다 (Pretendard)
+  </p>
+  )
 };
 
 export default Test;
