@@ -31,7 +31,7 @@ const DexPage = () => {
     },
     {
         id: 3,
-        nameKor: "갈매기",
+        nameKor: "오유경",
         nameEng: "Larus canus",
         birdImg: "https://species.nibr.go.kr/UPLOAD/digital/species/12000000/120000001758/BIMGAV0000376125_20210615152412083845.jpeg"
     },
