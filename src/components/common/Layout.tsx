@@ -1,14 +1,11 @@
-import { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 
-interface Props {
-  children: ReactNode;
-}
 
-const Layout = ({ children }: Props) => {
+const Layout = () => {
   return (
     <div className="relative min-h-[100dvh] w-[100dvw] ">
-      <div className="mx-auto flex min-h-[100dvh] bg-[#000000] text-[#ffffff] max-w-[800px] flex-col shadow-xl">
-        {children}
+      <div className="mx-auto flex min-h-[100dvh] bg-[#F2F2F2] text-[#ffffff] max-w-[800px] flex-col shadow-xl">
+        <Outlet/>
       </div>
     </div>
   );

@@ -1,5 +1,12 @@
+import SearchBar from "components/common/SearchBar";
+
 const Test = () => {
-  return <div className="h-100 w-100 bg-green">test</div>;
+  return (
+    <>
+      <SearchBar/>
+
+    </>
+  )
 };
 
 export default Test;
