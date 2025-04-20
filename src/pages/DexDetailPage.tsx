@@ -1,5 +1,5 @@
 import { dexItems } from "features/dex/mock/dexItems";
-import DexDetailHeader from "features/dexDetail/components/DexDetailHeader";
+import DexDetailHeader from "features/dex/components/DexDetailHeader";
 import { useParams } from "react-router-dom";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 

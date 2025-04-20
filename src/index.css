@@ -11,3 +11,16 @@
     @apply text-14 font-400;
   }
 } */
+
+.swiper-pagination-bullet {
+  width: 11px !important;
+  height: 11px !important;
+  background-color: #fefefe !important;
+  opacity: 1 !important;
+  border-radius: 9999px !important;
+  margin: 8px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #51BEA6 !important;
+}

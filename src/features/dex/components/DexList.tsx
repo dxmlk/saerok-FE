@@ -15,7 +15,7 @@ const DexList = ({dexItems}: DexListProps ) => {
     const [scrappedItems, setScrappedItems] = useState<number[]>([]);
     
     const handleItemClick = (id: number) => {
-        navigate(`/dexdetail/${id}`);
+        navigate(`/dex-detail/${id}`);
     }
     const handleScrapClick = (id: number) => {
         setScrappedItems((prev) => 

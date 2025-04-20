@@ -21,7 +21,7 @@ const DexHeader = () => {
         );
     };
 
-    function handleSearchClick() {
+    const handleSearchClick = () => {
         navigate(`/search`);
     }
 

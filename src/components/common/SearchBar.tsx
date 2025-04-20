@@ -13,6 +13,7 @@ const SearchBar = ({searchTerm, setSearchTerm, onSearch}: SearchBarProps) => {
     const handleBackClick = () => {
         navigate(`/dex`);
     }
+    // 하단 바에서 선택 위치에 따라서 돌아갈 곳 정할 수 있을 듯, 지금은 컬렉션 검색으로 가도 다른 곳으로 이동 ㅠㅠ
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {

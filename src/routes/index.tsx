@@ -4,6 +4,8 @@ import DexPage from 'pages/DexPage';
 import Layout from "components/common/Layout";
 import DexDetailPage from "pages/DexDetailPage";
 import SearchPage from "pages/SearchPage";
+import CollectionPage from "pages/CollectionPage";
+import CollectionDetailPage from "pages/CollectionDetailPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -20,12 +22,20 @@ export const createRouter = () => {
           element: <DexPage />,
         },
         {
-          path: "/dexdetail/:id",
+          path: "/dex-detail/:id",
           element: <DexDetailPage />,
         },
         {
           path: "/search",
           element: <SearchPage/>,
+        },
+        {
+          path: "/collection",
+          element: <CollectionPage/>,
+        },
+        {
+          path: "/collection-detail/:id",
+          element: <CollectionDetailPage/>,
         },
       ]
     }
