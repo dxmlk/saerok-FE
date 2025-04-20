@@ -11,6 +11,8 @@ export interface DexItemsType {
     image_urls: string;
 }
 
+// 계절 데이터 안 불러왔네용
+
 export const dexItems: DexItemsType[] =  [
     {
         id: 1,
@@ -38,7 +40,7 @@ export const dexItems: DexItemsType[] =  [
     },
     {
         id: 4,
-        korean_name: "갈매기기",
+        korean_name: "갈매기",
         scientific_name: "Larus canus",
         order_kor: "도요목",
         family_kor: "갈매기과",

@@ -2,17 +2,12 @@ import { ReactComponent as ScrapIcon } from "assets/icons/scrap.svg";
 import { ReactComponent as ScrapFilledIcon } from "assets/icons/scrapfilled.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DexItemsType } from "../mock/dexItems";
 
-interface DexItemType {
-    id: number;
-    nameKor: string;
-    nameEng: string;
-    birdImg: string;
-  }
 
 
 interface DexListProps {
-    dexItems: DexItemType[];
+    dexItems: DexItemsType[];
 }
 
 const DexList = ({dexItems}: DexListProps ) => {
@@ -20,7 +15,7 @@ const DexList = ({dexItems}: DexListProps ) => {
     const [scrappedItems, setScrappedItems] = useState<number[]>([]);
     
     const handleItemClick = (id: number) => {
-        navigate(`/${id}/dexdetail`);
+        navigate(`/dexdetail/${id}`);
     }
     const handleScrapClick = (id: number) => {
         setScrappedItems((prev) => 
@@ -49,9 +44,9 @@ const DexList = ({dexItems}: DexListProps ) => {
                                     <ScrapIcon className="h-[21px] " />
                                 )}
                             </button>
-                            <img src={item.birdImg} alt={item.nameKor} className='w-full h-[142px] object-cover'/>
-                            <span className='mx-[11px] mt-[10px] font-pretendard flex flex-col text-[#000000] text-[15px] font-600'>{item.nameKor}</span>
-                            <span className='mx-[11px] font-pretendard flex flex-col text-[#979797] text-[13px] font-400'>{item.nameEng}</span>
+                            <img src={item.image_urls} alt={item.korean_name} className='w-full h-[142px] object-cover'/>
+                            <span className='mx-[11px] mt-[10px] font-pretendard flex flex-col text-[#000000] text-[15px] font-600'>{item.korean_name}</span>
+                            <span className='mx-[11px] font-pretendard flex flex-col text-[#979797] text-[13px] font-400'>{item.scientific_name}</span>
                     </button>
                 ))}
 

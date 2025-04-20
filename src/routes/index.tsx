@@ -19,7 +19,7 @@ export const createRouter = () => {
           element: <DexPage />,
         },
         {
-          path: "/dexdetail",
+          path: "/dexdetail/:id",
           element: <DexDetailPage />,
         },
       ]
