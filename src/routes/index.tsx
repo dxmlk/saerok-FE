@@ -12,10 +12,6 @@ export const createRouter = () => {
       element: <Layout />, // Layout을 최상위 route element로 설정
       children: [
         {
-          path: "/test",
-          element: <Test />,
-        },
-        {
           path: "/dex",
           element: <DexPage />,
         },
