@@ -3,6 +3,7 @@ import Test from "pages/Test";
 import DexPage from 'pages/DexPage';
 import Layout from "components/common/Layout";
 import DexDetailPage from "pages/DexDetailPage";
+import SearchPage from "pages/SearchPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -21,6 +22,10 @@ export const createRouter = () => {
         {
           path: "/dexdetail/:id",
           element: <DexDetailPage />,
+        },
+        {
+          path: "/search",
+          element: <SearchPage/>,
         },
       ]
     }

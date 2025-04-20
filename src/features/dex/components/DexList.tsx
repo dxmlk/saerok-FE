@@ -29,7 +29,7 @@ const DexList = ({dexItems}: DexListProps ) => {
 
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px]'>
                 {dexItems.map((item) => (
-                    <button key={item.id} onClick={() => handleItemClick(item.id)} className='relative rounded-[10px] border border-[1px] border-[#D9D9D9] bg-[#FEFEFE] flex flex-col w-full h-[198px] overflow-hidden transform transition-transform duration-300 hover:hover:scale-105'>
+                    <div key={item.id} onClick={() => handleItemClick(item.id)} className='relative rounded-[10px] border border-[1px] border-[#D9D9D9] bg-[#FEFEFE] flex flex-col w-full h-[198px] overflow-hidden transform transition-transform duration-300 hover:hover:scale-105'>
                             <button
                                 type="button"
                                 onClick={(e) => {
@@ -47,7 +47,7 @@ const DexList = ({dexItems}: DexListProps ) => {
                             <img src={item.image_urls} alt={item.korean_name} className='w-full h-[142px] object-cover'/>
                             <span className='mx-[11px] mt-[10px] font-pretendard flex flex-col text-[#000000] text-[15px] font-600'>{item.korean_name}</span>
                             <span className='mx-[11px] font-pretendard flex flex-col text-[#979797] text-[13px] font-400'>{item.scientific_name}</span>
-                    </button>
+                    </div>
                 ))}
 
             </div>
