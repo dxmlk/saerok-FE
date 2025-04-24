@@ -37,7 +37,7 @@ const AddImage = () => {
   }
 
   return (
-    <div className='px-[24px] py-[76px]'>
+    <div className='pt-[76px]'>
         <input
           type="file" 
           accept="image/*"

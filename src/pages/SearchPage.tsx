@@ -1,6 +1,7 @@
 import SearchBar from "components/common/SearchBar";
 import { ReactComponent as XIcon } from "assets/icons/x.svg";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface SearchRecord {
     keyword: string;
@@ -10,7 +11,7 @@ interface SearchRecord {
 const SearchPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchHistory, setSearchHistory ] = useState<SearchRecord[]>([]); 
-    
+
     const handleSearch = (keyword: string) => {
         if (!keyword) return;
         const now = new Date();

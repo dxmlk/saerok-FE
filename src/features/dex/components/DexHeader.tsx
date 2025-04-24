@@ -36,7 +36,7 @@ const DexHeader = () => {
                                 ) : (
                                     <ScrapBlackIcon className="h-[21px] stroke-black " />
                                 )}</button>
-                    <button onClick={handleSearchClick}><SearchIcon className='h-[18.28px]'/></button>
+                    <button onClick={handleSearchClick}><SearchIcon className='h-[18.28px] text-[#0d0d0d]'/></button>
                 </div>
             </div>
             <FilterHeader activeFilters={activeFilters} handleFilterClick={handleFilterClick}/>
