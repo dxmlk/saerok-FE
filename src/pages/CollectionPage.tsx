@@ -1,5 +1,5 @@
-import CollectionHeader from "features/collection/components/CollectionHeader";
-import CollectionList from "features/collection/components/CollectionList";
+import CollectionHeader from "features/collection/components/collection/CollectionHeader";
+import CollectionList from "features/collection/components/collection/CollectionList";
 
 const CollectionPage = () => {
     return (

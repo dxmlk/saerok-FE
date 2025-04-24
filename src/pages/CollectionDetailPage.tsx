@@ -1,8 +1,8 @@
 
 
-import CollectionDetailHeader from "features/collection/components/CollectionDetailHeader";
-import CollectionInfo from "features/collection/components/CollectionInfo";
-import ImgCarousel from "features/collection/components/ImgCarousel";
+import CollectionDetailHeader from "features/collection/components/collection/CollectionDetailHeader";
+import CollectionInfo from "features/collection/components/collection/CollectionInfo";
+import ImgCarousel from "features/collection/components/collection/ImgCarousel";
 import { collectionItems } from "features/collection/mock/collectionItems";
 import { useParams } from "react-router-dom";
 

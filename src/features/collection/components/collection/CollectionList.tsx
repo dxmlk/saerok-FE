@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { collectionItems } from "../mock/collectionItems";
+import { collectionItems } from "../../mock/collectionItems";
 import { dexItems } from "features/dex/mock/dexItems";
 
 
