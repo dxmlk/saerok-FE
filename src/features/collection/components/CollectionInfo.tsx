@@ -1,4 +1,6 @@
 import { ReactComponent as InstagramIcon } from "assets/icons/instagram.svg";
+import { dexItems } from "features/dex/mock/dexItems";
+import { useNavigate } from "react-router-dom";
 
 interface CollectionInfoProps {
     date: string;
@@ -7,12 +9,17 @@ interface CollectionInfoProps {
 }
 
 const CollectionInfo = ({date, location, comment}: CollectionInfoProps ) => {
+    
+    // const matchedDex = dexItems.find(dex => dex.korean_name === item.name);
+    // 이거 navigate랑 같이 경로 수정해야 할 것 같음. 
+    const navigate = useNavigate();
+    
     function handleShareClick(): void {
         throw new Error("Function not implemented.");
     }
 
     function handleToDexClick(): void {
-        throw new Error("Function not implemented.");
+        navigate(`/dex-detail`)
     }
 
     return (
