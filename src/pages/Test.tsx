@@ -1,9 +1,11 @@
-import SearchBar from "components/common/SearchBar";
-import SortBottomSheet from "features/collection/components/collection/SortBottomSheet";
-import SortBottomSheeet from "features/collection/components/collection/SortBottomSheet";
+import CustomCalendar from "components/common/CustomCalendar";
 
 const Test = () => {
-  return <></>;
+  return (
+    <>
+      <CustomCalendar />
+    </>
+  );
 };
 
 export default Test;

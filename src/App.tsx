@@ -6,7 +6,7 @@ const App = () => {
   const router = createRouter();
   return (
     <Provider>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </Provider>
   );
 };
