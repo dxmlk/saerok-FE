@@ -5,14 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 interface DexItem {
   id: number;
-  name: {
-    koreanName: string;
-    scientificName: string;
-  };
-  images: {
-    s3Url: string;
-    isThumb: boolean;
-  }[];
+  koreanName: string;
+  scientificName: string;
+  thumbImageUrl: string;
 }
 
 interface DexListProps {
@@ -53,12 +48,12 @@ const DexList = ({ dexItems }: DexListProps) => {
                 <ScrapIcon className="h-[21px] " />
               )}
             </button>
-            <img src={item.images[0]?.s3Url} alt={item.name.koreanName} className="w-full h-[142px] object-cover" />
+            <img src={item.thumbImageUrl} alt={item.koreanName} className="w-full h-[142px] object-cover" />
             <span className="mx-[11px] mt-[10px] font-pretendard flex flex-col text-[#000000] text-[15px] font-600">
-              {item.name.koreanName}
+              {item.koreanName}
             </span>
             <span className="mx-[11px] font-pretendard flex flex-col text-[#979797] text-[13px] font-400">
-              {item.name.scientificName}
+              {item.scientificName}
             </span>
           </div>
         ))}

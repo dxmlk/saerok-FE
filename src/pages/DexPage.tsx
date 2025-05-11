@@ -5,14 +5,9 @@ import { useEffect, useState } from "react";
 
 interface DexItem {
   id: number;
-  name: {
-    koreanName: string;
-    scientificName: string;
-  };
-  images: {
-    s3Url: string;
-    isThumb: boolean;
-  }[];
+  koreanName: string;
+  scientificName: string;
+  thumbImageUrl: string;
 }
 
 const DexPage = () => {
@@ -23,7 +18,7 @@ const DexPage = () => {
   useEffect(() => {
     const fetchDexItems = async () => {
       try {
-        const res = await axios.get("/api/v1/birds/full-sync");
+        const res = await axios.get("/api/v1/birds/");
         setDexItems(res.data.birds);
       } catch (err) {
         setError("도감 데이터를 불러오는 데 실패했습니다.");
