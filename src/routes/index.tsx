@@ -6,11 +6,14 @@ import SearchPage from "pages/SearchPage";
 import CollectionPage from "pages/CollectionPage";
 import CollectionDetailPage from "pages/CollectionDetailPage";
 import AddCollectionPage from "pages/AddCollectionPage";
+import MapPage from "pages/MapPage";
+import Layout from "components/common/Layout";
 
 export const createRouter = () => {
   return createBrowserRouter([
     {
       path: "/",
+      element: <Layout />,
       children: [
         {
           path: "/test",
@@ -39,6 +42,10 @@ export const createRouter = () => {
         {
           path: "/add-collection",
           element: <AddCollectionPage />,
+        },
+        {
+          path: "/map",
+          element: <MapPage />,
         },
       ],
     },
