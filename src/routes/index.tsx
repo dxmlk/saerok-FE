@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Test from "pages/Test";
-import DexPage from 'pages/DexPage';
-import Layout from "components/common/Layout";
+import DexPage from "pages/DexPage";
 import DexDetailPage from "pages/DexDetailPage";
 import SearchPage from "pages/SearchPage";
 import CollectionPage from "pages/CollectionPage";
@@ -11,8 +10,7 @@ import AddCollectionPage from "pages/AddCollectionPage";
 export const createRouter = () => {
   return createBrowserRouter([
     {
-      path: '/',
-      element: <Layout />, // Layout을 최상위 route element로 설정
+      path: "/",
       children: [
         {
           path: "/test",
@@ -28,21 +26,21 @@ export const createRouter = () => {
         },
         {
           path: "/search",
-          element: <SearchPage/>,
+          element: <SearchPage />,
         },
         {
           path: "/collection",
-          element: <CollectionPage/>,
+          element: <CollectionPage />,
         },
         {
           path: "/collection-detail/:id",
-          element: <CollectionDetailPage/>,
+          element: <CollectionDetailPage />,
         },
         {
           path: "/add-collection",
-          element: <AddCollectionPage/>,
-        }
-      ]
-    }
-  ])
+          element: <AddCollectionPage />,
+        },
+      ],
+    },
+  ]);
 };
