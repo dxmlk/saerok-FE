@@ -8,6 +8,7 @@ import CollectionDetailPage from "pages/CollectionDetailPage";
 import AddCollectionPage from "pages/AddCollectionPage";
 import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
+import SearchLocationPage from "pages/SearchLocationPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -46,6 +47,10 @@ export const createRouter = () => {
         {
           path: "/map",
           element: <MapPage />,
+        },
+        {
+          path: "/search-location",
+          element: <SearchLocationPage />,
         },
       ],
     },

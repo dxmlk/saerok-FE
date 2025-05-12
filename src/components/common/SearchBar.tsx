@@ -39,7 +39,7 @@ const SearchBar = ({
 
   return (
     <div
-      className="relative h-[44px] w-full flex flex-row border rounded-[10px] border-[2px] items-center bg-white justify-between"
+      className="relative h-[44px] w-full flex flex-row rounded-[10px] border-[2px] items-center bg-white justify-between"
       style={{ borderColor }}
     >
       {showBackButton && isInputFocused && (

@@ -1,15 +1,28 @@
 import SearchBar from "components/common/SearchBar";
 import AddImage from "features/collection/components/add-collection/AddImage";
 import EditHeader from "features/collection/components/add-collection/EditHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BackButton from "components/common/BackButton";
 import EditFooter from "features/collection/components/add-collection/EditFooter";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AddCollectionPage = () => {
   const [searchName, setSearchName] = useState("");
+
   const [searchLocation, setSearchLocation] = useState("");
+  const location = useLocation();
+  const selectedPlace = location.state?.selectedPlace;
+
   const [review, setReview] = useState("");
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (selectedPlace) {
+      const name = selectedPlace.road_address_name || selectedPlace.address_name;
+      setSearchLocation(name);
+    }
+  }, [selectedPlace]);
 
   const handleSearchName = (keyword: string) => {};
   const handleSearchLocation = (keyword: string) => {};
@@ -66,16 +79,23 @@ const AddCollectionPage = () => {
         </div>
         <div className="mt-[20px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">발견 장소</div>
-          <SearchBar
-            showBackButton={false}
-            searchTerm={searchLocation}
-            setSearchTerm={setSearchLocation}
-            onSearch={handleSearchLocation}
-            placeholder="발견 장소를 입력해주세요"
-            borderColor={`${getBorderColor("location")}`}
-            onFocus={() => setFocusedField("location")}
-            onBlur={() => setFocusedField(null)}
-          />
+          <div onClick={() => navigate("/search-location")} className="relative">
+            <SearchBar
+              showBackButton={false}
+              searchTerm={searchLocation}
+              setSearchTerm={setSearchLocation}
+              onSearch={handleSearchLocation}
+              placeholder="발견 장소를 입력해주세요"
+              borderColor={`${getBorderColor("location")}`}
+              onFocus={() => setFocusedField("location")}
+              onBlur={() => setFocusedField(null)}
+            />
+          </div>
+          {/* {selectedPlace && (
+            <div className="mt-2 text-sm text-gray-500">
+              {selectedPlace.road_address_name || selectedPlace.address_name}
+            </div>
+          )} */}
         </div>
         <div className="mt-[20px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">한 줄 평</div>
@@ -103,5 +123,4 @@ const AddCollectionPage = () => {
     </>
   );
 };
-
 export default AddCollectionPage;
