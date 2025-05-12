@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import BackButton from "components/common/BackButton";
 import EditFooter from "features/collection/components/add-collection/EditFooter";
 import { useNavigate, useLocation } from "react-router-dom";
+import DatePicker from "components/common/DatePicker";
+import { DateValueType } from "react-tailwindcss-datepicker";
 
 const AddCollectionPage = () => {
   const [searchName, setSearchName] = useState("");
@@ -24,9 +26,6 @@ const AddCollectionPage = () => {
     }
   }, [selectedPlace]);
 
-  const handleSearchName = (keyword: string) => {};
-  const handleSearchLocation = (keyword: string) => {};
-
   function handleDatePicker(): void {
     throw new Error("Function not implemented.");
   }
@@ -34,6 +33,11 @@ const AddCollectionPage = () => {
   const getBorderColor = (field: string) => {
     return focusedField === field ? "#51BEA6" : "#d9d9d9";
   };
+
+  const [dateValue, setDateValue] = useState<DateValueType>({
+    startDate: null,
+    endDate: null,
+  });
 
   return (
     <>
@@ -56,7 +60,6 @@ const AddCollectionPage = () => {
             showBackButton={false}
             searchTerm={searchName}
             setSearchTerm={setSearchName}
-            onSearch={handleSearchName}
             placeholder="새 이름을 입력해주세요"
             borderColor={`${getBorderColor("name")}`}
             onFocus={() => setFocusedField("name")}
@@ -65,17 +68,7 @@ const AddCollectionPage = () => {
         </div>
         <div className="mt-[20px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">발견 일시</div>
-          <button
-            className="  border-[#d9d9d9] h-[44px] w-full flex border rounded-[10px] border-[2px] items-center"
-            onClick={() => handleDatePicker()}
-            onFocus={() => setFocusedField("date")}
-            onBlur={() => setFocusedField(null)}
-            style={{ borderColor: `${getBorderColor("date")}` }}
-          >
-            <span className="items-center justify-start flex text-[#979797] w-full h-full text-[15px] font-400 ml-[20px] mr-[26px] ">
-              발견 일시를 입력해주세요
-            </span>
-          </button>
+          <DatePicker value={dateValue} onChange={setDateValue} />
         </div>
         <div className="mt-[20px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">발견 장소</div>
@@ -84,7 +77,6 @@ const AddCollectionPage = () => {
               showBackButton={false}
               searchTerm={searchLocation}
               setSearchTerm={setSearchLocation}
-              onSearch={handleSearchLocation}
               placeholder="발견 장소를 입력해주세요"
               borderColor={`${getBorderColor("location")}`}
               onFocus={() => setFocusedField("location")}
@@ -100,7 +92,7 @@ const AddCollectionPage = () => {
         <div className="mt-[20px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">한 줄 평</div>
           <div
-            className=" h-[44px] w-full flex border rounded-[10px] border-[2px] items-center"
+            className=" h-[44px] w-full flex rounded-[10px] border-[2px] items-center"
             style={{ borderColor: `${getBorderColor("review")}` }}
           >
             <input

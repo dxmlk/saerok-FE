@@ -12,7 +12,7 @@ const createPxEntries = (size: number) => {
 const PX_ENTRIES = createPxEntries(500);
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./node_modules/react-tailwindcss-datepicker/dist/**/*.js"],
   theme: {
     extend: {
       spacing: PX_ENTRIES,

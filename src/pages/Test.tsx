@@ -1,9 +1,11 @@
-import CustomCalendar from "components/common/CustomCalendar";
+import DatePicker from "components/common/DatePicker";
 
 const Test = () => {
   return (
     <>
-      <CustomCalendar />
+      <div className="h-full w-full">
+        <DatePicker />
+      </div>
     </>
   );
 };

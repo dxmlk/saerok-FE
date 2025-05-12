@@ -7,7 +7,7 @@ import { useState } from "react";
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  onSearch: (keyword: string) => void;
+  onSearch?: (keyword: string) => void;
   showBackButton?: boolean;
   placeholder?: string;
   borderColor?: string;
@@ -30,9 +30,8 @@ const SearchBar = ({
   const handleBackClick = () => {
     navigate(-1);
   };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && typeof onSearch === "function") {
       onSearch(searchTerm);
     }
   };
@@ -62,7 +61,15 @@ const SearchBar = ({
         placeholder={placeholder}
         className="outline-none flex w-full items-center font-pretendard font-400 text-[15px] mx-[20px] text-[#6d6d6d]"
       />
-      <button onClick={() => setSearchTerm("")}>
+      <button
+        onClick={() => {
+          if (searchTerm && typeof onSearch === "function") {
+            onSearch(searchTerm);
+          } else {
+            setSearchTerm("");
+          }
+        }}
+      >
         {searchTerm ? (
           <DeleteIcon className="w-[32px] h-[32px] mr-[6px]" />
         ) : (
