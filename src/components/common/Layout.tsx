@@ -1,11 +1,11 @@
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { ReactComponent as DexIcon } from "assets/icons/nav/dex.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as SaerokIcon } from "assets/icons/nav/saerok.svg";
 import { ReactComponent as MyIcon } from "assets/icons/nav/my.svg";
+import NavButton from "./button/NavButton";
 
 const Layout = () => {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const hideNavBar = ["/add-collection"].some((path) => location.pathname.startsWith(path));
@@ -14,7 +14,7 @@ const Layout = () => {
 
   return (
     <div className="relative min-h-[100dvh] w-[100dvw] font-pretendard ">
-      <div className="relative mx-auto flex min-h-[100dvh] max-w-[500px] flex-col bg-white shadow-xl justify-center">
+      <div className="relative mx-auto flex min-h-[100dvh] max-w-500 flex-col bg-white shadow-xl justify-center">
         <div className="flex-grow">
           <Outlet />
         </div>
@@ -22,41 +22,17 @@ const Layout = () => {
         {!hideNavBar && (
           <nav
             className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)]
- bg-background-white h-76 absolute bottom-20 rounded-full flex items-center px-44 py-16 justify-between "
+             bg-background-white h-76 absolute bottom-20 rounded-full flex items-center px-44 py-16 justify-between "
             style={{
               width: "calc(100% - 4rem)",
               left: "50%",
               transform: "translateX(-50%)",
             }}
           >
-            <button
-              onClick={() => navigate("/dex")}
-              className={`flex flex-col gap-4 items-center ${isActive("/dex") ? "text-saerokGreen" : "text-font-darkgray"}`}
-            >
-              <DexIcon className="w-24 h-24" />
-              <div className="text-caption-3">도감</div>
-            </button>
-            <button
-              onClick={() => navigate("/map")}
-              className={`flex flex-col gap-4 items-center ${isActive("/map") ? "text-saerokGreen" : "text-font-darkgray"}`}
-            >
-              <MapIcon className="w-24 h-24" />
-              <div className="text-caption-3">지도</div>
-            </button>
-            <button
-              onClick={() => navigate("/collection")}
-              className={`flex flex-col gap-4 items-center ${isActive("/collection") ? "text-saerokGreen" : "text-font-darkgray"}`}
-            >
-              <SaerokIcon className="w-24 h-24" />
-              <div className="text-caption-3">새록</div>
-            </button>
-            <button
-              onClick={() => navigate("/my-page")}
-              className={`flex flex-col gap-4 items-center ${isActive("/my-page") ? "text-saerokGreen" : "text-font-darkgray"}`}
-            >
-              <MyIcon className="w-24 h-24" />
-              <div className="text-caption-3">MY</div>
-            </button>
+            <NavButton to="/dex" label="도감" Icon={DexIcon} isActive={isActive("/dex")} />
+            <NavButton to="/map" label="지도" Icon={MapIcon} isActive={isActive("/map")} />
+            <NavButton to="/collection" label="새록" Icon={SaerokIcon} isActive={isActive("/collection")} />
+            <NavButton to="/my-page" label="MY" Icon={MyIcon} isActive={isActive("/my-page")} />
           </nav>
         )}
       </div>

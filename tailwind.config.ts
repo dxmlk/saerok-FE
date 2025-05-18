@@ -16,6 +16,8 @@ export default {
   theme: {
     extend: {
       spacing: PX_ENTRIES,
+      maxWidth: PX_ENTRIES,
+      maxHeight: PX_ENTRIES,
       fontWeight: {
         400: "400",
         500: "500",
