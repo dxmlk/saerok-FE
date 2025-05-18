@@ -26,10 +26,6 @@ const AddCollectionPage = () => {
     }
   }, [selectedPlace]);
 
-  function handleDatePicker(): void {
-    throw new Error("Function not implemented.");
-  }
-
   const getBorderColor = (field: string) => {
     return focusedField === field ? "#51BEA6" : "#d9d9d9";
   };
