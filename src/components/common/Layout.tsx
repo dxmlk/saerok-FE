@@ -1,10 +1,8 @@
-import { ReactNode } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { ReactComponent as CommunityIcon } from "assets/icons/nav-community.svg";
-import { ReactComponent as DexIcon } from "assets/icons/nav-dex.svg";
-import { ReactComponent as MapIcon } from "assets/icons/nav-map.svg";
-import { ReactComponent as SaerokIcon } from "assets/icons/nav-saerok.svg";
-import { ReactComponent as MyIcon } from "assets/icons/nav-my.svg";
+import { ReactComponent as DexIcon } from "assets/icons/nav/dex.svg";
+import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
+import { ReactComponent as SaerokIcon } from "assets/icons/nav/saerok.svg";
+import { ReactComponent as MyIcon } from "assets/icons/nav/my.svg";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -15,47 +13,49 @@ const Layout = () => {
   const isActive = (path: string) => location.pathname.startsWith(path);
 
   return (
-    <div className="relative min-h-[100dvh] w-[100dvw]">
-      <div className="relative mx-auto flex min-h-[100dvh] max-w-[500px] flex-col bg-white shadow-xl">
+    <div className="relative min-h-[100dvh] w-[100dvw] font-pretendard ">
+      <div className="relative mx-auto flex min-h-[100dvh] max-w-[500px] flex-col bg-white shadow-xl justify-center">
         <div className="flex-grow">
           <Outlet />
         </div>
+
         {!hideNavBar && (
           <nav
-            className="h-[96px] rounded-t-[20px] border-none fixed bottom-0 left-0 right-0 mx-auto flex h-60 max-w-[500px] items-center bg-white"
-            style={{ boxShadow: "0 -4px 12px rgba(0, 0, 0, 0.1)" }}
+            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)]
+ bg-background-white h-76 absolute bottom-20 rounded-full flex items-center px-44 py-16 justify-between "
+            style={{
+              width: "calc(100% - 4rem)",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
           >
-            <button className="flex-1 flex flex-col items-center text-[#6D6D6D]">
-              <CommunityIcon className="w-[19px] h-[19px]" />
-              <div className="text-[13px] mt-[7px]">커뮤니티</div>
-            </button>
             <button
               onClick={() => navigate("/dex")}
-              className={`flex-1 flex flex-col items-center ${isActive("/dex") ? "text-green" : "text-[#6d6d6d]"}`}
+              className={`flex flex-col gap-4 items-center ${isActive("/dex") ? "text-saerokGreen" : "text-font-darkgray"}`}
             >
-              <DexIcon className="w-[22px] h-[19px]" />
-              <div className="text-[13px] mt-[7px]">도감</div>
+              <DexIcon className="w-24 h-24" />
+              <div className="text-caption-3">도감</div>
             </button>
             <button
               onClick={() => navigate("/map")}
-              className={`flex-1 flex flex-col items-center ${isActive("/map") ? "text-green" : "text-[#6d6d6d]"}`}
+              className={`flex flex-col gap-4 items-center ${isActive("/map") ? "text-saerokGreen" : "text-font-darkgray"}`}
             >
-              <MapIcon className="w-[20px] h-[20px]" />
-              <div className="text-[13px] mt-[7px]">지도</div>
+              <MapIcon className="w-24 h-24" />
+              <div className="text-caption-3">지도</div>
             </button>
             <button
               onClick={() => navigate("/collection")}
-              className={`flex-1 flex flex-col items-center ${isActive("/collection") ? "text-green" : "text-[#6d6d6d]"}`}
+              className={`flex flex-col gap-4 items-center ${isActive("/collection") ? "text-saerokGreen" : "text-font-darkgray"}`}
             >
-              <SaerokIcon className="w-[22px] h-[20px]" />
-              <div className="text-[13px] mt-[7px]">새록</div>
+              <SaerokIcon className="w-24 h-24" />
+              <div className="text-caption-3">새록</div>
             </button>
             <button
               onClick={() => navigate("/my-page")}
-              className={`flex-1 flex flex-col items-center ${isActive("/my-page") ? "text-green" : "text-[#6d6d6d]"}`}
+              className={`flex flex-col gap-4 items-center ${isActive("/my-page") ? "text-saerokGreen" : "text-font-darkgray"}`}
             >
-              <MyIcon className="w-[17px] h-[20px]" />
-              <div className="text-[13px] mt-[7px]">MY</div>
+              <MyIcon className="w-24 h-24" />
+              <div className="text-caption-3">MY</div>
             </button>
           </nav>
         )}

@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./assets/fonts/pretendard/font.css";
+import "./assets/fonts/font.css";
 import "./index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import App from "./App";

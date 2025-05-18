@@ -2,9 +2,9 @@
 
 const createPxEntries = (size: number) => {
   return {
-    0: "0",
+    0: "0px",
     ...Array.from(Array(size + 1)).reduce((accumulator, _, i) => {
-      return { ...accumulator, [`${i * 4}`]: `${(i * 4) / 10}rem` };
+      return { ...accumulator, [`${i * 4}`]: `${i * 4}px` };
     }),
   };
 };
@@ -28,30 +28,24 @@ export default {
         moneygraphy: ["'Moneygraphy'", "sans-serif"],
       },
       fontSize: {
-        "subtitle-3": ["1.8rem", { lineHeight: "2.2rem", letterSpacing: "0", fontWeight: "400" }],
-        "body-0": ["1.6rem", { lineHeight: "1.9rem", letterSpacing: "0", fontWeight: "700" }],
-        "body-1": ["1.5rem", { lineHeight: "1.8rem", letterSpacing: "0", fontWeight: "600" }],
-        "body-2": ["1.5rem", { lineHeight: "1.8rem", letterSpacing: "0", fontWeight: "400" }],
-        "body-4": ["1.5rem", { lineHeight: "2.5rem", letterSpacing: "0", fontWeight: "400" }],
-        "cation-1": ["1.3rem", { lineHeight: "1.6rem", letterSpacing: "0", fontWeight: "400" }],
-        "caption-3": ["1.2rem", { lineHeight: "1.4rem", letterSpacing: "0", fontWeight: "400" }],
-        "button-1": ["1.8rem", { lineHeight: "2.1rem", letterSpacing: "0", fontWeight: "700" }],
-        "button-2": ["1.5rem", { lineHeight: "1.8rem", letterSpacing: "0", fontWeight: "400" }],
-        "headline-1": ["3.0rem", { lineHeight: "3.3rem", letterSpacing: "0" }],
-        "headline-2": ["2.2rem", { lineHeight: "3.3rem", letterSpacing: "0" }],
-        "subtitle-1": ["2.0rem", { lineHeight: "2.2rem", letterSpacing: "0" }],
-        "subtitle-2": ["1.8rem", { lineHeight: "2.0rem", letterSpacing: "0" }],
-        "body-3": ["1.5rem", { lineHeight: "1.8rem", letterSpacing: "0" }],
-        "caption-2": ["1.3rem", { lineHeight: "1.6rem", letterSpacing: "0" }],
+        "subtitle-3": ["18px", { lineHeight: "22px", letterSpacing: "0", fontWeight: "400" }],
+        "body-0": ["16px", { lineHeight: "19px", letterSpacing: "0", fontWeight: "700" }],
+        "body-1": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "600" }],
+        "body-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "400" }],
+        "body-4": ["15px", { lineHeight: "25px", letterSpacing: "0", fontWeight: "400" }],
+        "cation-1": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" }],
+        "caption-3": ["12px", { lineHeight: "14px", letterSpacing: "0", fontWeight: "400" }],
+        "button-1": ["18px", { lineHeight: "21px", letterSpacing: "0", fontWeight: "700" }],
+        "button-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "400" }],
+        "headline-1": ["30px", { lineHeight: "33px", letterSpacing: "0" }],
+        "headline-2": ["22px", { lineHeight: "33px", letterSpacing: "0" }],
+        "subtitle-1": ["20px", { lineHeight: "22px", letterSpacing: "0" }],
+        "subtitle-2": ["18px", { lineHeight: "20px", letterSpacing: "0" }],
+        "body-3": ["15px", { lineHeight: "18px", letterSpacing: "0" }],
+        "caption-2": ["13px", { lineHeight: "16px", letterSpacing: "0" }],
       },
       borderRadius: {
         none: "0px",
-        4: "0.4rem",
-        8: "0.8rem",
-        10: "1rem",
-        12: "1.2rem",
-        16: "1.6rem",
-        24: "2.4rem",
         full: "9999px",
       },
       zIndex: {
