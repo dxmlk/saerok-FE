@@ -11,10 +11,13 @@ const createPxEntries = (size: number) => {
 
 const PX_ENTRIES = {
   ...createPxEntries(500),
+  5: "5px",
   10: "10px",
   14: "14px",
+  15: "15px",
   17: "17px",
   50: "50px",
+  54: "54px",
 };
 
 export default {

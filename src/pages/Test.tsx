@@ -1,4 +1,4 @@
-import SplashScreen from "pages/SplashScreen";
+import SplashScreen from "pages/OnboardingPage";
 
 const Test = () => {
   return (

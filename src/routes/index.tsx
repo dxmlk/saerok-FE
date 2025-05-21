@@ -9,7 +9,7 @@ import AddSaerokPage from "pages/AddSaerokPage";
 import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
 import SearchLocationPage from "pages/SearchLocationPage";
-import SplashScreen from "pages/SplashScreen";
+import SplashScreen from "pages/OnboardingPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
