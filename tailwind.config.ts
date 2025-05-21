@@ -9,13 +9,21 @@ const createPxEntries = (size: number) => {
   };
 };
 
-const PX_ENTRIES = createPxEntries(500);
+const PX_ENTRIES = {
+  ...createPxEntries(500),
+  10: "10px",
+  14: "14px",
+  17: "17px",
+  50: "50px",
+};
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./node_modules/react-tailwindcss-datepicker/dist/**/*.js"],
   theme: {
     extend: {
       spacing: PX_ENTRIES,
+      width: PX_ENTRIES,
+      height: PX_ENTRIES,
       maxWidth: PX_ENTRIES,
       maxHeight: PX_ENTRIES,
       fontWeight: {
@@ -30,9 +38,10 @@ export default {
         moneygraphy: ["'Moneygraphy'", "sans-serif"],
       },
       fontSize: {
+        ...PX_ENTRIES,
         "subtitle-3": ["18px", { lineHeight: "22px", letterSpacing: "0", fontWeight: "400" }],
         "body-0": ["16px", { lineHeight: "19px", letterSpacing: "0", fontWeight: "700" }],
-        "body-1": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "600" }],
+        "body-1": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "500" }],
         "body-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "400" }],
         "body-4": ["15px", { lineHeight: "25px", letterSpacing: "0", fontWeight: "400" }],
         "cation-1": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" }],
@@ -46,8 +55,12 @@ export default {
         "body-3": ["15px", { lineHeight: "18px", letterSpacing: "0" }],
         "caption-2": ["13px", { lineHeight: "16px", letterSpacing: "0" }],
       },
+      borderWidth: {
+        2: "2px",
+      },
       borderRadius: {
         none: "0px",
+        10: "10px",
         full: "9999px",
       },
       zIndex: {

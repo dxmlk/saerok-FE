@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { KakaoPlace } from "types/kakao";
-import SearchBar from "components/common/SearchBar";
+import SearchBar from "components/common/textfield/SearchBar";
 
 const SearchLocationPage = () => {
   const [keyword, setKeyword] = useState("");
@@ -82,20 +82,14 @@ const SearchLocationPage = () => {
     });
   };
 
-  const getBorderColor = (field: string) => {
-    return focusedField === field ? "#51BEA6" : "#d9d9d9";
-  };
-
   return (
     <div className="flex flex-col h-screen bg-[#d9d9d9]">
       <div className="px-[24px] py-[12px] bg-white">
         <SearchBar
-          showBackButton={false}
           searchTerm={keyword}
           setSearchTerm={setKeyword}
           onSearch={searchPlaces}
           placeholder="장소를 검색하세요"
-          borderColor={getBorderColor("search")}
           onFocus={() => setFocusedField("search")}
           onBlur={() => setFocusedField(null)}
         />

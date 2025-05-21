@@ -8,7 +8,11 @@ import NavButton from "./button/NavButton";
 const Layout = () => {
   const location = useLocation();
 
-  const hideNavBar = ["/add-collection"].some((path) => location.pathname.startsWith(path));
+  // const hideNavBar = false;
+  const hideNavBar = location.pathname === "/";
+  // const hideNavBar = ["/"].includes(location.pathname);
+
+  // const hideNavBar = ["/add-saerok"].some((path) => location.pathname.startsWith(path));
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
@@ -21,17 +25,15 @@ const Layout = () => {
 
         {!hideNavBar && (
           <nav
-            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)]
-             bg-background-white h-76 absolute bottom-20 rounded-full flex items-center px-44 py-16 justify-between "
+            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] fixed bottom-20 left-1/2 translate-x-[-50%]
+             bg-background-white h-76 rounded-full flex items-center px-44 py-16 justify-between "
             style={{
               width: "calc(100% - 4rem)",
-              left: "50%",
-              transform: "translateX(-50%)",
             }}
           >
             <NavButton to="/dex" label="도감" Icon={DexIcon} isActive={isActive("/dex")} />
             <NavButton to="/map" label="지도" Icon={MapIcon} isActive={isActive("/map")} />
-            <NavButton to="/collection" label="새록" Icon={SaerokIcon} isActive={isActive("/collection")} />
+            <NavButton to="/saerok" label="새록" Icon={SaerokIcon} isActive={isActive("/saerok")} />
             <NavButton to="/my-page" label="MY" Icon={MyIcon} isActive={isActive("/my-page")} />
           </nav>
         )}

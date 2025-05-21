@@ -1,14 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Test from "pages/Test";
 import DexPage from "pages/DexPage";
 import DexDetailPage from "pages/DexDetailPage";
 import SearchPage from "pages/SearchPage";
-import CollectionPage from "pages/CollectionPage";
-import CollectionDetailPage from "pages/CollectionDetailPage";
-import AddCollectionPage from "pages/AddCollectionPage";
+import SaerokPage from "pages/SaerokPage";
+import SaerokDetailPage from "pages/SaerokDetailPage";
+import AddSaerokPage from "pages/AddSaerokPage";
 import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
 import SearchLocationPage from "pages/SearchLocationPage";
+import SplashScreen from "pages/SplashScreen";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -16,6 +17,14 @@ export const createRouter = () => {
       path: "/",
       element: <Layout />,
       children: [
+        {
+          path: "",
+          element: <SplashScreen />,
+        },
+        // {
+        //   index: true,
+        //   element: <Navigate to="/map" replace />,
+        // },
         {
           path: "/test",
           element: <Test />,
@@ -33,16 +42,16 @@ export const createRouter = () => {
           element: <SearchPage />,
         },
         {
-          path: "/collection",
-          element: <CollectionPage />,
+          path: "/saerok",
+          element: <SaerokPage />,
         },
         {
-          path: "/collection-detail/:id",
-          element: <CollectionDetailPage />,
+          path: "/saerok-detail/:id",
+          element: <SaerokDetailPage />,
         },
         {
-          path: "/add-collection",
-          element: <AddCollectionPage />,
+          path: "/add-saerok",
+          element: <AddSaerokPage />,
         },
         {
           path: "/map",

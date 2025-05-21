@@ -1,14 +1,14 @@
-import SearchBar from "components/common/SearchBar";
-import AddImage from "features/collection/components/add-collection/AddImage";
-import EditHeader from "features/collection/components/add-collection/EditHeader";
+import SearchBar from "components/common/textfield/SearchBar";
+import AddImage from "features/saerok/components/add-saerok/AddImage";
+import EditHeader from "features/saerok/components/add-saerok/EditHeader";
 import { useState, useEffect } from "react";
 import BackButton from "components/common/BackButton";
-import EditFooter from "features/collection/components/add-collection/EditFooter";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter";
 import { useNavigate, useLocation } from "react-router-dom";
 import DatePicker from "components/common/DatePicker";
 import { DateValueType } from "react-tailwindcss-datepicker";
 
-const AddCollectionPage = () => {
+const AddSaerokPage = () => {
   const [searchName, setSearchName] = useState("");
 
   const [searchLocation, setSearchLocation] = useState("");
@@ -53,11 +53,9 @@ const AddCollectionPage = () => {
         <div className="mt-[29px]">
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">새 이름</div>
           <SearchBar
-            showBackButton={false}
             searchTerm={searchName}
             setSearchTerm={setSearchName}
             placeholder="새 이름을 입력해주세요"
-            borderColor={`${getBorderColor("name")}`}
             onFocus={() => setFocusedField("name")}
             onBlur={() => setFocusedField(null)}
           />
@@ -70,11 +68,9 @@ const AddCollectionPage = () => {
           <div className="ml-[13px] mb-[7px] text-[13px] font-400 text-black">발견 장소</div>
           <div onClick={() => navigate("/search-location")} className="relative">
             <SearchBar
-              showBackButton={false}
               searchTerm={searchLocation}
               setSearchTerm={setSearchLocation}
               placeholder="발견 장소를 입력해주세요"
-              borderColor={`${getBorderColor("location")}`}
               onFocus={() => setFocusedField("location")}
               onBlur={() => setFocusedField(null)}
             />
@@ -111,4 +107,4 @@ const AddCollectionPage = () => {
     </>
   );
 };
-export default AddCollectionPage;
+export default AddSaerokPage;

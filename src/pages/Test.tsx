@@ -1,11 +1,9 @@
-import DatePicker from "components/common/DatePicker";
+import SplashScreen from "pages/SplashScreen";
 
 const Test = () => {
   return (
     <>
-      <div className="h-full w-full">
-        <DatePicker />
-      </div>
+      <SplashScreen />
     </>
   );
 };
