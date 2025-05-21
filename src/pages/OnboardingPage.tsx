@@ -46,7 +46,7 @@ const SplashScreen = () => {
             isFinal ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex flex-row text-body-1">
+          <div className="flex flex-row text-body-1 gap-1">
             <span className="text-font-whitegrayDark">이미 계정이 있다면, </span>
             <button className="text-saerokGreen" onClick={() => setAuthType("login")}>
               로그인

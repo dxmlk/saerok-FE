@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Test from "pages/Test";
 import DexPage from "pages/DexPage";
 import DexDetailPage from "pages/DexDetailPage";
@@ -10,6 +10,7 @@ import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
 import SearchLocationPage from "pages/SearchLocationPage";
 import SplashScreen from "pages/OnboardingPage";
+import KakaoCallback from "servies/api/auth/KakaoCallback";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -60,6 +61,10 @@ export const createRouter = () => {
         {
           path: "/search-location",
           element: <SearchLocationPage />,
+        },
+        {
+          path: "/oauth/kakao/callback",
+          element: <KakaoCallback />,
         },
       ],
     },

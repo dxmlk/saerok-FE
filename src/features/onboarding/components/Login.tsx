@@ -1,6 +1,7 @@
 import { ReactComponent as GoogleIcon } from "assets/icons/logo/google.svg";
 import { ReactComponent as AppleIcon } from "assets/icons/logo/apple.svg";
 import { ReactComponent as KakaoIcon } from "assets/icons/logo/kakao.svg";
+import { KAKAO_AUTH_URL } from "servies/api/auth/kakaoLogin";
 
 type LoginType = "login" | "signup";
 
@@ -22,7 +23,10 @@ const Login = ({ type }: LoginProps) => {
           <AppleIcon />
           <div>{buttonText("애플")}</div>
         </div>
-        <div className="flex flex-row h-54 w-full bg-[#FEE500] text-black gap-5 items-center justify-center rounded-10 ">
+        <div
+          onClick={() => (window.location.href = KAKAO_AUTH_URL)}
+          className="flex flex-row h-54 w-full bg-[#FEE500] text-black gap-5 items-center justify-center rounded-10 "
+        >
           <KakaoIcon />
           <div>{buttonText("카카오")}</div>
         </div>
