@@ -1,5 +1,5 @@
-import { ReactComponent as SearchIcon } from "assets/icons/search.svg";
-import { ReactComponent as SortIcon } from "assets/icons/sort.svg";
+import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
+import { ReactComponent as SortIcon } from "assets/icons/button/sort.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SortBottomSheet from "./SortBottomSheet";

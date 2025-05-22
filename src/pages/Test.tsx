@@ -1,9 +1,10 @@
+import SaerokMain from "features/saerok/components/saerok/SaerokMain";
 import SplashScreen from "pages/OnboardingPage";
 
 const Test = () => {
   return (
     <>
-      <SplashScreen />
+      <SaerokMain birdCount={31} />
     </>
   );
 };

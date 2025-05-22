@@ -35,6 +35,11 @@ const AddSaerokPage = () => {
     endDate: null,
   });
 
+  const onSearch = (keyword: string) => {
+    // Perform search logic here
+    console.log("Searching for:", keyword);
+  };
+
   return (
     <>
       <EditHeader
@@ -56,6 +61,7 @@ const AddSaerokPage = () => {
             searchTerm={searchName}
             setSearchTerm={setSearchName}
             placeholder="새 이름을 입력해주세요"
+            onSearch={onSearch}
             onFocus={() => setFocusedField("name")}
             onBlur={() => setFocusedField(null)}
           />
@@ -71,6 +77,7 @@ const AddSaerokPage = () => {
               searchTerm={searchLocation}
               setSearchTerm={setSearchLocation}
               placeholder="발견 장소를 입력해주세요"
+              onSearch={onSearch}
               onFocus={() => setFocusedField("location")}
               onBlur={() => setFocusedField(null)}
             />

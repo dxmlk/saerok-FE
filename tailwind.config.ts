@@ -16,6 +16,7 @@ const PX_ENTRIES = {
   14: "14px",
   15: "15px",
   17: "17px",
+  22: "22px",
   50: "50px",
   54: "54px",
 };
@@ -47,7 +48,7 @@ export default {
         "body-1": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "500" }],
         "body-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "400" }],
         "body-4": ["15px", { lineHeight: "25px", letterSpacing: "0", fontWeight: "400" }],
-        "cation-1": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" }],
+        "caption-1": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" }],
         "caption-3": ["12px", { lineHeight: "14px", letterSpacing: "0", fontWeight: "400" }],
         "button-1": ["18px", { lineHeight: "21px", letterSpacing: "0", fontWeight: "700" }],
         "button-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "400" }],
@@ -80,6 +81,7 @@ export default {
         deletedRed: "#D90000",
         completeGreen: "#008589",
         beolsaeBrown: "#EC7B32",
+        glassmorphism: "rgba(254, 254, 254, 0.6)",
         background: {
           white: "#FEFEFE",
           whitegray: "#F2F2F2",

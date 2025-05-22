@@ -29,7 +29,12 @@ const DexPage = () => {
     fetchDexItems();
   }, []);
 
-  if (loading) return <div className="text-center mt-10">로딩 중...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center absolute top-1/2 w-full h-full text-subtitle-1">
+        도감 데이터 불러오는 중...
+      </div>
+    );
   if (error) return <div className="text-center mt-10 text-red-600">{error}</div>;
 
   return (

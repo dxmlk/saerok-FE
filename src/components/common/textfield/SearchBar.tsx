@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as DeleteIcon } from "assets/icons/delete.svg";
 import { ReactComponent as BackIcon } from "assets/icons/back.svg";
-import { ReactComponent as SearchIcon } from "assets/icons/search.svg";
+import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 
 interface SearchBarProps {
   searchTerm: string;
