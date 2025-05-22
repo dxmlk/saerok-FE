@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SortBottomSheet from "./SortBottomSheet";
 
-const CollectionHeader = () => {
+const SaerokHeader = () => {
   const navigate = useNavigate();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
@@ -20,18 +20,18 @@ const CollectionHeader = () => {
   };
 
   return (
-    <div className="h-[66px] px-[24px] items-center flex flex-row justify-between bg-white font-pretendard">
-      <span className="text-black font-700 text-[22px]">컬렉션</span>
-      <div className="text-[#0d0d0d] font--400 text-[18px] flex flex-row gap-[18px]">
+    <div className="fixed top-0 h-72 px-24 w-full items-center flex flex-row justify-between bg-white font-moneygraphy z-20">
+      <span className="text-[#0d0d0d] text-headline-1">나의 새록</span>
+      <div className=" flex flex-row gap-24">
         <button onClick={() => handleSortClick()}>
-          <SortIcon className="w-[4px]" />
+          <SortIcon className="w-24 h-24" />
         </button>
         <button onClick={handleSearchClick}>
-          <SearchIcon className="h-[18.28px] text-[#0d0d0d]" />
+          <SearchIcon className="w-24 h-24" />
         </button>
       </div>
-      <SortBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} />
+      {/* <SortBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} /> */}
     </div>
   );
 };
-export default CollectionHeader;
+export default SaerokHeader;
