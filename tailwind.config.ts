@@ -12,6 +12,8 @@ const createPxEntries = (size: number) => {
 const PX_ENTRIES = {
   ...createPxEntries(500),
   5: "5px",
+  7: "7px",
+  9: "9px",
   10: "10px",
   14: "14px",
   15: "15px",
@@ -58,6 +60,7 @@ export default {
         "subtitle-2": ["18px", { lineHeight: "20px", letterSpacing: "0" }],
         "body-3": ["15px", { lineHeight: "18px", letterSpacing: "0" }],
         "caption-2": ["13px", { lineHeight: "16px", letterSpacing: "0" }],
+        "caption-0": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "700" }],
       },
       borderWidth: {
         2: "2px",

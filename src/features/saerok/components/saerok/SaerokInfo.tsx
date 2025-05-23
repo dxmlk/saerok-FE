@@ -2,50 +2,62 @@ import { ReactComponent as InstagramIcon } from "assets/icons/instagram.svg";
 import { dexItems } from "features/dex/mock/dexItems";
 import { useNavigate } from "react-router-dom";
 
-interface CollectionInfoProps {
-    date: string;
-    location: string;
-    comment: string;
+interface SaerokInfoProps {
+  date: string;
+  lat: number;
+  long: number;
+  locationAlias: string;
+  note: string;
+  birdInfo: {
+    birdId: number;
+    koreanName: string;
+  };
 }
 
-const CollectionInfo = ({date, location, comment}: CollectionInfoProps ) => {
-    
-    // const matchedDex = dexItems.find(dex => dex.korean_name === item.name);
-    // 이거 navigate랑 같이 경로 수정해야 할 것 같음. 
-    const navigate = useNavigate();
-    
-    function handleShareClick(): void {
-        throw new Error("Function not implemented.");
-    }
+const SaerokInfo = ({ date, lat, long, locationAlias, note, birdInfo }: SaerokInfoProps) => {
+  // const matchedDex = dexItems.find(dex => dex.korean_name === item.name);
+  // 이거 navigate랑 같이 경로 수정해야 할 것 같음.
+  const navigate = useNavigate();
 
-    function handleToDexClick(): void {
-        navigate(`/dex-detail`)
-    }
+  function handleShareClick(): void {
+    throw new Error("Function not implemented.");
+  }
 
-    return (
-        <div className='font-pretendard px-[24px] pt-[25px]'>
-            <div className='flex flex-row justify-between items-center '>
-                <span className='text-black font-600 text-[20px]'>관찰정보</span>
-                <div className='flex flex-row gap-[10px]'>
-                    <button onClick={() => handleToDexClick()} className='rounded-[8px] w-[88px] h-[33px] bg-green font-600 text-[15px] text-white '>도감 보기</button>
-                    <button onClick={() => handleShareClick()} className='w-[33px] h-[33px] '><InstagramIcon/></button>
-                </div>
-            </div>
-            <div className='mt-[8px] flex flex-col gap-[7px] text-[15px]'>
-                <div className='gap-[14px] flex'>
-                    <span className='font-400 text-[#979797] '>발견 일시</span>
-                    <span className='font-600 text-[#0d0d0d] '>{date}</span>
-                </div>
-                <div className='gap-[14px] flex'>
-                    <span className='font-400 text-[#979797]'>발견 장소</span>
-                    <span className='font-600 text-[#0d0d0d]'>{location}</span>
-                </div>
-            </div>
-            <div className='mt-[21px] rounded-[8px] w-full bg-[#f0f0f0] py-[14px] px-[18px] items-center font-400 text-[13px] text-[#0d0d0d] '>{comment}</div>
+  function handleToDexClick(): void {
+    navigate(`/dex-detail`);
+  }
+
+  return (
+    <div className="font-pretendard px-[24px] pt-[25px]">
+      <div className="flex flex-row justify-between items-center ">
+        <span className="text-black font-600 text-[20px]">관찰정보</span>
+        <div className="flex flex-row gap-[10px]">
+          <button
+            onClick={() => handleToDexClick()}
+            className="rounded-[8px] w-[88px] h-[33px] bg-green font-600 text-[15px] text-white "
+          >
+            도감 보기
+          </button>
+          <button onClick={() => handleShareClick()} className="w-[33px] h-[33px] ">
+            <InstagramIcon />
+          </button>
         </div>
+      </div>
+      <div className="mt-[8px] flex flex-col gap-[7px] text-[15px]">
+        <div className="gap-[14px] flex">
+          <span className="font-400 text-[#979797] ">발견 일시</span>
+          <span className="font-600 text-[#0d0d0d] ">{date}</span>
+        </div>
+        <div className="gap-[14px] flex">
+          <span className="font-400 text-[#979797]">발견 장소</span>
+          <span className="font-600 text-[#0d0d0d]">{locationAlias}</span>
+        </div>
+      </div>
+      <div className="mt-[21px] rounded-[8px] w-full bg-[#f0f0f0] py-[14px] px-[18px] items-center font-400 text-[13px] text-[#0d0d0d] ">
+        {note}
+      </div>
+    </div>
+  );
+};
 
-    )
-
-}
-
-export default CollectionInfo;
+export default SaerokInfo;

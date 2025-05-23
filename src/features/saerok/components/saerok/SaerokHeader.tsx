@@ -20,7 +20,7 @@ const SaerokHeader = () => {
   };
 
   return (
-    <div className="fixed top-0 h-72 px-24 w-full items-center flex flex-row justify-between bg-white font-moneygraphy z-20">
+    <div className="fixed top-0 h-76 px-24 w-full items-center flex flex-row justify-between bg-white font-moneygraphy z-20">
       <span className="text-[#0d0d0d] text-headline-1">나의 새록</span>
       <div className=" flex flex-row gap-24">
         <button onClick={() => handleSortClick()}>

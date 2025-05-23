@@ -5,14 +5,14 @@ const SaerokList = () => {
   const navigate = useNavigate();
 
   const handleItemClick = (id: number) => {
-    navigate(`/collection-detail/${id}`);
+    navigate(`/saerok-detail/${id}`);
   };
 
   const leftItems = saerokItems.filter((_, idx) => idx % 2 === 0);
   const rightItems = saerokItems.filter((_, idx) => idx % 2 === 1);
 
   return (
-    <div className="mt-16 flex gap-5">
+    <div className="mt-16 flex gap-9 justify-center">
       {/* 왼쪽 컬럼 */}
       <div className="flex flex-col gap-12 w-180">
         {leftItems.map((item) => (

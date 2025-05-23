@@ -9,10 +9,8 @@ const Layout = () => {
   const location = useLocation();
 
   // const hideNavBar = false;
-  const hideNavBar = location.pathname === "/";
-  // const hideNavBar = ["/"].includes(location.pathname);
-
-  // const hideNavBar = ["/add-saerok"].some((path) => location.pathname.startsWith(path));
+  const hidePaths = ["/", "/register"];
+  const hideNavBar = hidePaths.includes(location.pathname);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 

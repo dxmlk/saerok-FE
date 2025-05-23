@@ -5,7 +5,7 @@ import Login from "features/onboarding/components/Login";
 type SplashStep = "start" | "transition" | "final";
 type AuthType = null | "login" | "signup";
 
-const SplashScreen = () => {
+const OnboardingPage = () => {
   const [step, setStep] = useState<SplashStep>("start");
   const [authType, setAuthType] = useState<AuthType>(null);
 
@@ -70,4 +70,4 @@ const SplashScreen = () => {
   );
 };
 
-export default SplashScreen;
+export default OnboardingPage;

@@ -9,8 +9,9 @@ import AddSaerokPage from "pages/AddSaerokPage";
 import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
 import SearchLocationPage from "pages/SearchLocationPage";
-import SplashScreen from "pages/OnboardingPage";
+import OnboardingPage from "pages/OnboardingPage";
 import KakaoCallback from "servies/api/auth/KakaoCallback";
+import RegisterPage from "pages/RegisterPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -20,12 +21,16 @@ export const createRouter = () => {
       children: [
         {
           path: "",
-          element: <SplashScreen />,
+          element: <OnboardingPage />,
         },
         // {
         //   index: true,
         //   element: <Navigate to="/map" replace />,
         // },
+        {
+          path: "/register",
+          element: <RegisterPage />,
+        },
         {
           path: "/test",
           element: <Test />,

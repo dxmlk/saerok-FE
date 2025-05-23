@@ -31,13 +31,13 @@ const SaerokPage = () => {
   return (
     <>
       {showMain && (
-        <div className={clsx("transition-all duration-300 ease-in-out")} style={{ opacity }}>
+        <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
           <SaerokMain birdCount={31} />
         </div>
       )}
 
       {showHeader && (
-        <div className={clsx("transition-all duration-500 ease-in-out opacity-100 translate-y-0")}>
+        <div className={clsx("transition-all ease-in-out opacity-100 translate-y-0")}>
           <SaerokHeader />
           <div className="h-72" />
         </div>
