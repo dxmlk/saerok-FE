@@ -11,16 +11,23 @@ const createPxEntries = (size: number) => {
 
 const PX_ENTRIES = {
   ...createPxEntries(500),
+  1: "1px",
   5: "5px",
   7: "7px",
   9: "9px",
   10: "10px",
+  11: "11px",
+  13: "13px",
   14: "14px",
   15: "15px",
   17: "17px",
+  18: "18px",
+  21: "21px",
   22: "22px",
   50: "50px",
   54: "54px",
+  142: "142px",
+  198: "198px",
 };
 
 export default {
@@ -63,10 +70,12 @@ export default {
         "caption-0": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "700" }],
       },
       borderWidth: {
+        1.5: "1.5px",
         2: "2px",
       },
       borderRadius: {
         none: "0px",
+        4: "4px",
         10: "10px",
         full: "9999px",
       },
@@ -90,6 +99,7 @@ export default {
           whitegray: "#F2F2F2",
         },
         font: {
+          whitegray: "#DAE0DE",
           whitegrayLight: "#D9D9D9",
           whitegrayDark: "#979797",
           darkgray: "#6D6D6D",

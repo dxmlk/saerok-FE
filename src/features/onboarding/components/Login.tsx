@@ -1,5 +1,6 @@
 import { ReactComponent as AppleIcon } from "assets/icons/logo/apple.svg";
 import { ReactComponent as KakaoIcon } from "assets/icons/logo/kakao.svg";
+import { useNavigate } from "react-router-dom";
 import { KAKAO_AUTH_URL } from "servies/api/auth/kakaoLogin";
 
 type LoginType = "login" | "signup";
@@ -9,6 +10,8 @@ interface LoginProps {
 }
 
 const Login = ({ type }: LoginProps) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="px-24 flex flex-col justify-center gap-10 font-pretendard font-600 text-20">
@@ -24,7 +27,9 @@ const Login = ({ type }: LoginProps) => {
           <div>카카오로 시작하기</div>
         </div>
       </div>
-      <div className="mt-28 text-subtitle-3 flex justify-center">로그인 없이 이용하기</div>
+      <div onClick={() => navigate("/map")} className="mt-28 text-subtitle-3 flex justify-center">
+        로그인 없이 이용하기
+      </div>
     </>
   );
 };

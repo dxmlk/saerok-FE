@@ -1,5 +1,5 @@
 import SearchBar from "components/common/textfield/SearchBar";
-import { ReactComponent as XIcon } from "assets/icons/x.svg";
+import { ReactComponent as XIcon } from "assets/icons/button/x.svg";
 import { useState } from "react";
 
 interface SearchRecord {

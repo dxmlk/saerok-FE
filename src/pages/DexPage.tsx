@@ -10,37 +10,63 @@ interface DexItem {
   thumbImageUrl: string;
 }
 
+const PAGE_SIZE = 10;
+
 const DexPage = () => {
   const [dexItems, setDexItems] = useState<DexItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchDexItems = async (page: number) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await axios.get("/api/v1/birds/", {
+        params: {
+          page,
+          size: PAGE_SIZE,
+        },
+      });
+
+      const newItems: DexItem[] = res.data.birds;
+
+      setDexItems((prev) => {
+        const filteredItems = newItems.filter((newItem) => !prev.some((item) => item.id === newItem.id));
+        return [...prev, ...filteredItems];
+      });
+
+      setHasMore(newItems.length === PAGE_SIZE);
+    } catch (err) {
+      setError("도감 데이터를 불러오는 데 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchDexItems = async () => {
-      try {
-        const res = await axios.get("/api/v1/birds/");
-        setDexItems(res.data.birds);
-      } catch (err) {
-        setError("도감 데이터를 불러오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
+    console.log("현재 페이지:", page, "hasMore:", hasMore, "loading:", loading);
+    fetchDexItems(page);
+  }, [page]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300 && !loading && hasMore) {
+        setPage((prev) => prev + 1);
       }
     };
-    fetchDexItems();
-  }, []);
 
-  if (loading)
-    return (
-      <div className="flex justify-center absolute top-1/2 w-full h-full text-subtitle-1">
-        도감 데이터 불러오는 중...
-      </div>
-    );
-  if (error) return <div className="text-center mt-10 text-red-600">{error}</div>;
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [loading, hasMore]);
 
   return (
     <>
       <DexHeader />
-      <div className="p-[24px]">
+      <div className="p-24">
         <DexList dexItems={dexItems} />
       </div>
     </>

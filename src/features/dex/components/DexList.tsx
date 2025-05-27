@@ -32,7 +32,7 @@ const DexList = ({ dexItems }: DexListProps) => {
           <div
             key={item.id}
             onClick={() => handleItemClick(item.id)}
-            className="relative rounded-[10px] border border-[1px] border-[#D9D9D9] bg-[#FEFEFE] flex flex-col w-full h-[198px] overflow-hidden transform transition-transform duration-300 hover:hover:scale-105"
+            className="relative rounded-10 border-1 border-font-whitegrayLight bg-background-white flex flex-col w-full h-198 overflow-hidden transform transition-transform duration-300 hover:hover:scale-105"
           >
             <button
               type="button"
@@ -40,19 +40,15 @@ const DexList = ({ dexItems }: DexListProps) => {
                 e.stopPropagation(); // 카드 전체 클릭 막기
                 handleScrapClick(item.id);
               }}
-              className="absolute top-[15px] right-[14px] z-10"
+              className="absolute top-15 right-14 z-10"
             >
-              {scrappedItems.includes(item.id) ? (
-                <ScrapFilledIcon className="h-[21px] " />
-              ) : (
-                <ScrapIcon className="h-[21px] " />
-              )}
+              {scrappedItems.includes(item.id) ? <ScrapFilledIcon className="h-21 " /> : <ScrapIcon className="h-21" />}
             </button>
-            <img src={item.thumbImageUrl} alt={item.koreanName} className="w-full h-[142px] object-cover" />
-            <span className="mx-[11px] mt-[10px] font-pretendard flex flex-col text-[#000000] text-[15px] font-600">
+            <img src={item.thumbImageUrl} alt={item.koreanName} loading="lazy" className="w-full h-142 object-cover" />
+            <span className="mx-11 mt-10 font-pretendard flex flex-col text-black text-15 font-600">
               {item.koreanName}
             </span>
-            <span className="mx-[11px] font-pretendard flex flex-col text-[#979797] text-[13px] font-400">
+            <span className="mx-11 font-pretendard flex flex-col text-font-whitegrayDark text-13 font-400">
               {item.scientificName}
             </span>
           </div>
