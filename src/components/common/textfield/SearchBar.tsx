@@ -18,7 +18,8 @@ const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, 
   const navigate = useNavigate();
   const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const handleBackClick = () => {
+  const handleBackClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     navigate(-1);
   };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -28,35 +29,40 @@ const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, 
   };
 
   return (
-    <div className="font-pretendard relative h-44 w-full flex flex-row rounded-10 border-2 items-center bg-white border-saerokGreen justify-between">
-      {isInputFocused ? (
-        <button onClick={() => handleBackClick()} className="w-17 h-17 ml-14 text-saerokGreen">
-          <BackIcon />
+    <>
+      <div className="font-pretendard relative h-44 w-full flex flex-row rounded-10 border-2 items-center bg-white border-saerokGreen justify-between">
+        {isInputFocused && (
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={handleBackClick}
+            className="w-17 h-17 ml-14 text-saerokGreen"
+          >
+            <BackIcon />
+          </button>
+        )}
+        {!isInputFocused && <SearchIcon className="w-17 h-17 ml-14 text-font-whitegrayLight" />}
+
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onFocus={() => {
+            setIsInputFocused(true);
+            if (onFocus) onFocus();
+          }}
+          onBlur={() => {
+            setIsInputFocused(false);
+            if (onBlur) onBlur();
+          }}
+          placeholder={placeholder}
+          className="outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 "
+        />
+
+        <button onClick={() => setSearchTerm("")}>
+          <DeleteIcon className="w-15 h-15 mr-16" />
         </button>
-      ) : (
-        <SearchIcon className="w-17 h-17 ml-14 text-font-whitegrayLight" />
-      )}
-
-      <input
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onFocus={() => {
-          setIsInputFocused(true);
-          if (onFocus) onFocus();
-        }}
-        onBlur={() => {
-          setIsInputFocused(false);
-          if (onBlur) onBlur();
-        }}
-        placeholder={placeholder}
-        className="outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 "
-      />
-
-      <button onClick={() => setSearchTerm("")}>
-        <DeleteIcon className="w-15 h-15 mr-16" />
-      </button>
-    </div>
+      </div>
+    </>
   );
 };
 

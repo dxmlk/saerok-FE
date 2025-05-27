@@ -4,6 +4,7 @@ import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterHeader from "./FilterHeader";
+import qs from "qs";
 
 interface SelectedFilters {
   habitats: string[];
@@ -13,9 +14,11 @@ interface SelectedFilters {
 interface DexHeaderProps {
   selectedFilters: SelectedFilters;
   onFilterChange: (filterGroup: keyof SelectedFilters, values: string[]) => void;
+  searchTerm: string;
+  onSearchTermChange: (term: string) => void;
 }
 
-const DexHeader = ({ selectedFilters, onFilterChange }: DexHeaderProps) => {
+const DexHeader = ({ selectedFilters, onFilterChange, searchTerm, onSearchTermChange }: DexHeaderProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   // 나중에 유저 id도 받아야 돼 유저마다 스크랩 다르니까...
@@ -29,8 +32,14 @@ const DexHeader = ({ selectedFilters, onFilterChange }: DexHeaderProps) => {
     );
   };
 
-  const handleSearchClick = () => {
-    navigate(`/search`);
+  const goToSearchPage = () => {
+    const params = {
+      ...selectedFilters,
+      searchTerm,
+    };
+
+    const queryString = qs.stringify(params, { arrayFormat: "repeat" });
+    navigate(`/search?${queryString}`);
   };
 
   return (
@@ -45,7 +54,7 @@ const DexHeader = ({ selectedFilters, onFilterChange }: DexHeaderProps) => {
               <ScrapBlackIcon className="h-[21px] stroke-black " />
             )}
           </button>
-          <button onClick={handleSearchClick}>
+          <button onClick={goToSearchPage}>
             <SearchIcon className="h-[18.28px] text-[#0d0d0d]" />
           </button>
         </div>
