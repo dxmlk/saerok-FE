@@ -1,4 +1,3 @@
-import { ReactComponent as LoadingBird } from "assets/background/loading.svg";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -19,12 +18,7 @@ const KakaoCallback = () => {
     }
   }, [code]);
 
-  return (
-    <div className="flex absolute top-1/2  justify-center w-full h-full">
-      카카오 로그인 중
-      <LoadingBird />
-    </div>
-  );
+  return <div className="flex absolute top-1/2  justify-center w-full h-full">카카오 로그인 중</div>;
 };
 
 export default KakaoCallback;

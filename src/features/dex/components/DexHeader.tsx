@@ -5,7 +5,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterHeader from "./FilterHeader";
 
-const DexHeader = () => {
+interface SelectedFilters {
+  habitats: string[];
+  seasons: string[];
+  sizeCategories: string[];
+}
+interface DexHeaderProps {
+  selectedFilters: SelectedFilters;
+  onFilterChange: (filterGroup: keyof SelectedFilters, values: string[]) => void;
+}
+
+const DexHeader = ({ selectedFilters, onFilterChange }: DexHeaderProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   // 나중에 유저 id도 받아야 돼 유저마다 스크랩 다르니까...
@@ -40,7 +50,7 @@ const DexHeader = () => {
           </button>
         </div>
       </div>
-      <FilterHeader activeFilters={activeFilters} handleFilterClick={handleFilterClick} />
+      <FilterHeader selectedFilters={selectedFilters} onFilterChange={onFilterChange} />
     </div>
   );
 };
