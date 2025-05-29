@@ -12,17 +12,21 @@ interface DexItem {
 
 interface DexListProps {
   dexItems: DexItem[];
+  bookmarkedBirdIds?: number[];
+  onToggleBookmark?: (id: number) => void;
 }
 
-const DexList = ({ dexItems }: DexListProps) => {
+const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark }: DexListProps) => {
   const navigate = useNavigate();
-  const [scrappedItems, setScrappedItems] = useState<number[]>([]);
 
   const handleItemClick = (id: number) => {
     navigate(`/dex-detail/${id}`);
   };
-  const handleScrapClick = (id: number) => {
-    setScrappedItems((prev) => (prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]));
+  const handleScrapClick = (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+    if (onToggleBookmark) {
+      onToggleBookmark(id);
+    }
   };
 
   return (
@@ -37,12 +41,15 @@ const DexList = ({ dexItems }: DexListProps) => {
             <button
               type="button"
               onClick={(e) => {
-                e.stopPropagation(); // 카드 전체 클릭 막기
-                handleScrapClick(item.id);
+                handleScrapClick(e, item.id);
               }}
               className="absolute top-15 right-14 z-10"
             >
-              {scrappedItems.includes(item.id) ? <ScrapFilledIcon className="h-21 " /> : <ScrapIcon className="h-21" />}
+              {bookmarkedBirdIds.includes(item.id) ? (
+                <ScrapFilledIcon className="h-21 " />
+              ) : (
+                <ScrapIcon className="h-21" />
+              )}
             </button>
             <img src={item.thumbImageUrl} alt={item.koreanName} loading="lazy" className="w-full h-142 object-cover" />
             <span className="mx-11 mt-10 font-pretendard flex flex-col text-black text-15 font-600">

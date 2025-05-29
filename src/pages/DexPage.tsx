@@ -60,6 +60,9 @@ const DexPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [bookmarkedBirdIds, setBookmarkedBirdIds] = useState<number[]>([]);
+  const [showBookmarkOnly, setShowBookmarkOnly] = useState(false);
+
   // 안전한 string[] 반환 헬퍼 함수
   const safeStringArray = (val: unknown): string[] => {
     if (!val) return [];
@@ -73,7 +76,6 @@ const DexPage = () => {
   // 쿼리 파라미터 파싱 및 필터/검색어 초기화
   const parseQueryParams = () => {
     const params = qs.parse(location.search, { ignoreQueryPrefix: true });
-    console.log("[parseQueryParams] raw params:", params);
     return {
       seasons: safeStringArray(params.seasons),
       habitats: safeStringArray(params.habitats),
@@ -191,14 +193,39 @@ const DexPage = () => {
   }, [loading, hasMore]);
 
   useEffect(() => {
-    const params = {
+    const params: Record<string, any> = {
       ...selectedFilters,
-      searchTerm,
     };
 
+    if (searchTerm.trim() !== "") {
+      params.searchTerm = searchTerm;
+    }
     const queryString = qs.stringify(params, { arrayFormat: "repeat" });
-    navigate(`/dex?${queryString}`, { replace: true });
-  }, [selectedFilters]);
+
+    if (queryString === "") {
+      navigate(`/dex`, { replace: true });
+    } else {
+      navigate(`/dex?${queryString}`, { replace: true });
+    }
+  }, [selectedFilters, searchTerm]);
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      try {
+        const res = await axios.get("/api/v1/birds/bookmarks/");
+        const ids = res.data.map((b: { birdId: number }) => b.birdId);
+        setBookmarkedBirdIds(ids);
+      } catch (e) {
+        console.error("북마크를 불러오는 데 실패했습니다.", e);
+      }
+    };
+
+    fetchBookmarks();
+  });
+  const toggleBookmark = async (birdId: number) => {
+    await axios.post(`/api/v1/birds/bookmarks/${birdId}/toggle`);
+    setBookmarkedBirdIds((prev) => (prev.includes(birdId) ? prev.filter((id) => id !== birdId) : [...prev, birdId]));
+  };
 
   return (
     <>
@@ -207,9 +234,16 @@ const DexPage = () => {
         onFilterChange={handleFilterChange}
         searchTerm={searchTerm}
         onSearchTermChange={handleSearchTermChange}
+        showBookmarkOnly={showBookmarkOnly}
+        onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)}
+        bookmarkedBirdIds={bookmarkedBirdIds}
       />
       <div className="p-24">
-        <DexList dexItems={dexItems} />
+        <DexList
+          dexItems={showBookmarkOnly ? dexItems.filter((item) => bookmarkedBirdIds.includes(item.id)) : dexItems}
+          bookmarkedBirdIds={bookmarkedBirdIds}
+          onToggleBookmark={toggleBookmark}
+        />
       </div>
     </>
   );

@@ -86,6 +86,7 @@ export default {
         floating: "1000",
       },
       colors: {
+        mainBlue: "#91BFFF",
         transparent: "transparent",
         white: "#FFF",
         black: "#000",

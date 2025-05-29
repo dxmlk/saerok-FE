@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterHeader from "./FilterHeader";
 import qs from "qs";
+import axios from "axios";
 
 interface SelectedFilters {
   habitats: string[];
@@ -16,9 +17,20 @@ interface DexHeaderProps {
   onFilterChange: (filterGroup: keyof SelectedFilters, values: string[]) => void;
   searchTerm: string;
   onSearchTermChange: (term: string) => void;
+  showBookmarkOnly?: boolean;
+  onToggleBookmarkView?: () => void;
+  bookmarkedBirdIds?: number[];
 }
 
-const DexHeader = ({ selectedFilters, onFilterChange, searchTerm, onSearchTermChange }: DexHeaderProps) => {
+const DexHeader = ({
+  selectedFilters,
+  onFilterChange,
+  searchTerm,
+  onSearchTermChange,
+  showBookmarkOnly,
+  onToggleBookmarkView,
+  bookmarkedBirdIds,
+}: DexHeaderProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   // 나중에 유저 id도 받아야 돼 유저마다 스크랩 다르니까...
@@ -47,7 +59,12 @@ const DexHeader = ({ selectedFilters, onFilterChange, searchTerm, onSearchTermCh
       <div className="mt-[17px] flex flex-row justify-between">
         <span className="text-black font-700 text-[22px]">도감</span>
         <div className="flex flex-row gap-[31px]">
-          <button onClick={() => handleFilterClick("스크랩")}>
+          <button
+            onClick={() => {
+              handleFilterClick("스크랩");
+              onToggleBookmarkView?.();
+            }}
+          >
             {activeFilters.includes("스크랩") ? (
               <ScrapFilledIcon className="h-[21px] " />
             ) : (
