@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs, { ParsedQs } from "qs";
 import FilterHeader from "features/dex/components/FilterHeader";
+import { set } from "date-fns";
 
 interface SelectedFilters {
   habitats: string[];
@@ -16,7 +17,7 @@ interface SearchRecord {
   date: string;
 }
 
-const SearchPage = () => {
+const SearchBirdPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -33,7 +34,6 @@ const SearchPage = () => {
       ignoreQueryPrefix: true,
       parseArrays: true,
     });
-    console.log("[parseQueryParams] raw params:", params);
     return {
       seasons: safeStringArray(params.seasons),
       habitats: safeStringArray(params.habitats),
@@ -54,6 +54,18 @@ const SearchPage = () => {
 
   const [searchHistory, setSearchHistory] = useState<SearchRecord[]>([]);
 
+  // 컴포넌트 마운트 시 localstorage에서 검색 기록 불러오기
+  useEffect(() => {
+    const storedHistory = localStorage.getItem("searchHistory");
+    if (storedHistory) {
+      try {
+        setSearchHistory(JSON.parse(storedHistory));
+      } catch {
+        setSearchHistory([]);
+      }
+    }
+  }, []);
+
   // URL 쿼리 변경 시 필터 상태 초기화
   useEffect(() => {
     const parsed = parseQueryParams();
@@ -73,6 +85,15 @@ const SearchPage = () => {
       ...prev,
       [filterGroup]: values,
     }));
+  };
+
+  // 검색 기록 추가 함수
+  const addSearchRecord = (newRocord: SearchRecord) => {
+    setSearchHistory((prev) => {
+      const updatedHistory = [...prev, newRocord];
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+      return updatedHistory;
+    });
   };
 
   // 검색 실행 함수 (명시적 이벤트에서만 URL 변경)
@@ -97,7 +118,7 @@ const SearchPage = () => {
       keyword: trimmedTerm,
       date: formattedDate,
     };
-    setSearchHistory((prev) => [...prev, newRecord]);
+    addSearchRecord(newRecord);
 
     const params = {
       ...selectedFilters,
@@ -113,7 +134,11 @@ const SearchPage = () => {
 
   const handleDeleteHistory = (index: number) => {
     console.log("[handleDeleteHistory] index:", index);
-    setSearchHistory((prev) => prev.filter((_, idx) => idx !== index));
+    setSearchHistory((prev) => {
+      const updated = prev.filter((_, idx) => idx !== index);
+      localStorage.setItem("searchHistory", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   return (
@@ -149,4 +174,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default SearchBirdPage;

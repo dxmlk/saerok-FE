@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Test from "pages/Test";
 import DexPage from "pages/DexPage";
 import DexDetailPage from "pages/DexDetailPage";
-import SearchPage from "pages/SearchPage";
+import SearchBirdPage from "pages/SearchBirdPage";
 import SaerokPage from "pages/SaerokPage";
 import SaerokDetailPage from "pages/SaerokDetailPage";
 import AddSaerokPage from "pages/AddSaerokPage";
@@ -44,8 +44,8 @@ export const createRouter = () => {
           element: <DexDetailPage />,
         },
         {
-          path: "/search",
-          element: <SearchPage />,
+          path: "/search-bird",
+          element: <SearchBirdPage />,
         },
         {
           path: "/saerok",

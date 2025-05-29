@@ -51,7 +51,7 @@ const DexHeader = ({
     };
 
     const queryString = qs.stringify(params, { arrayFormat: "repeat" });
-    navigate(`/search?${queryString}`);
+    navigate(`/search-bird?${queryString}`);
   };
 
   return (
