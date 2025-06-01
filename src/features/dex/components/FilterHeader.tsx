@@ -1,7 +1,7 @@
-import { ReactComponent as CalendarIcon } from "assets/icons/calendar.svg";
-import { ReactComponent as CalendarFilledIcon } from "assets/icons/calendarfilled.svg";
-import { ReactComponent as HabitatIcon } from "assets/icons/button/habitat.svg";
-import { ReactComponent as SizeIcon } from "assets/icons/button/size.svg";
+import { ReactComponent as ResetIcon } from "assets/icons/icon/reset.svg";
+import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
+import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
+import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as RadioButton } from "assets/icons/button/radio-button.svg";
 import BottomSheet from "components/common/BottomSheet";
@@ -22,6 +22,12 @@ interface FilterHeaderProps {
 const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) => {
   const { bottomSheetRef, contentRef, openBottomSheet, closeBottomSheet } = useBottomSheet();
   const [currentFilter, setCurrentFilter] = useState<string | null>(null);
+
+  const handleResetFilters = () => {
+    onFilterChange("seasons", []);
+    onFilterChange("habitats", []);
+    onFilterChange("sizeCategories", []);
+  };
 
   // 바텀시트 내 임시 선택 상태
   const [tempSelected, setTempSelected] = useState<string[]>([]);
@@ -208,47 +214,62 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
 
   return (
     <>
-      <div className="mb-[12px] flex gap-[12px]">
+      <div className="flex gap-7 font-pretendard bg-transparent">
         <button
-          className={`gap-[5px] flex flex-row text-[15px] w-[70px] h-[33px] rounded-[100px] justify-center items-center ${
+          className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.seasons.length > 0
-              ? "bg-saerokGreen text-[#fefefe] font-700"
-              : "text-[#0d0d0d] font-400 bg-[#f2f2f2]"
+              ? "bg-mainBlue text-background-white border-font-mainBlue "
+              : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
           onClick={() => handleButtonClick("계절")}
         >
-          {selectedFilters.seasons.length > 0 ? (
+          <SeasonIcon
+            className={`w-17 h-17 ${selectedFilters.seasons.length > 0 ? " stroke-white" : " stroke-black"}`}
+          />
+
+          {/* {selectedFilters.seasons.length > 0 ? (
             <CalendarFilledIcon className="w-[13px] h-[13px]" />
           ) : (
             <CalendarIcon className="w-[13px] h-[13px]" />
-          )}
+          )} */}
           <span>계절</span>
         </button>
 
         <button
-          className={`gap-[5px] flex flex-row text-[15px] w-[83px] h-[33px] rounded-[100px] justify-center items-center ${
+          className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-84 h-33 rounded-100 justify-center items-center ${
             selectedFilters.habitats.length > 0
-              ? "bg-saerokGreen text-[#fefefe] font-700"
-              : "text-[#0d0d0d] font-400 bg-[#f2f2f2]"
+              ? "bg-mainBlue text-background-white border-font-mainBlue "
+              : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
           onClick={() => handleButtonClick("서식지")}
         >
-          <HabitatIcon className={`w-13 h-11 ${selectedFilters.habitats.length > 0 ? "text-white" : "text-black"}`} />
+          <HabitatIcon
+            className={`w-17 h-17 ${selectedFilters.habitats.length > 0 ? "stroke-white" : "stroke-black"}`}
+          />
           <span>서식지</span>
         </button>
 
         <button
-          className={`gap-[5px] flex flex-row text-[15px] w-[72px] h-[33px] rounded-[100px] justify-center items-center ${
+          className={`gap-7 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.sizeCategories.length > 0
-              ? "bg-saerokGreen text-[#fefefe] font-700"
-              : "text-[#0d0d0d] font-400 bg-[#f2f2f2]"
+              ? "bg-mainBlue text-background-white border-font-mainBlue "
+              : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
           onClick={() => handleButtonClick("크기")}
         >
           <SizeIcon
-            className={`w-13 h-11 ${selectedFilters.sizeCategories.length > 0 ? "text-white" : "text-black"}`}
+            className={`w-17 h-17 ${selectedFilters.sizeCategories.length > 0 ? "fill-white" : "fill-black"}`}
           />
           <span>크기</span>
+        </button>
+
+        <button
+          className={
+            "w-33 h-33 flex justify-center items-center rounded-full bg-background-white border-[0.35px] border-font-whitegrayDark"
+          }
+          onClick={handleResetFilters}
+        >
+          <ResetIcon className="w-17 h-17 stroke-black" />
         </button>
       </div>
 

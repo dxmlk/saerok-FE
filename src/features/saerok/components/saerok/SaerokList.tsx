@@ -12,7 +12,7 @@ const SaerokList = () => {
   const rightItems = saerokItems.filter((_, idx) => idx % 2 === 1);
 
   return (
-    <div className="mt-16 flex gap-9 justify-center">
+    <div className="mt-12 flex gap-9 justify-center">
       {/* 왼쪽 컬럼 */}
       <div className="flex flex-col gap-12 w-180">
         {leftItems.map((item) => (

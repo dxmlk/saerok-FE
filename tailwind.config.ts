@@ -13,6 +13,7 @@ const PX_ENTRIES = {
   ...createPxEntries(500),
   1: "1px",
   5: "5px",
+  6: "6px",
   7: "7px",
   9: "9px",
   10: "10px",
@@ -24,9 +25,13 @@ const PX_ENTRIES = {
   18: "18px",
   21: "21px",
   22: "22px",
+  26: "26px",
+  30: "30px",
+  33: "33px",
   50: "50px",
   54: "54px",
   142: "142px",
+  170: "170px",
   198: "198px",
 };
 
@@ -77,6 +82,7 @@ export default {
         none: "0px",
         4: "4px",
         10: "10px",
+        100: "100px",
         full: "9999px",
       },
       zIndex: {
@@ -85,8 +91,12 @@ export default {
         popup: "999",
         floating: "1000",
       },
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(to bottom, #F9E2BE 5%, #FFFFFF 49%, #CDDDF3 91%)",
+      },
       colors: {
         mainBlue: "#91BFFF",
+        pointYellow: "#F9E2BE",
         transparent: "transparent",
         white: "#FFF",
         black: "#000",
@@ -100,6 +110,7 @@ export default {
           whitegray: "#F2F2F2",
         },
         font: {
+          mainBlue: "#4190FF",
           whitegray: "#DAE0DE",
           whitegrayLight: "#D9D9D9",
           whitegrayDark: "#979797",

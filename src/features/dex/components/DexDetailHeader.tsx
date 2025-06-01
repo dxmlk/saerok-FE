@@ -1,7 +1,7 @@
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as AddCollectionIcon } from "assets/icons/button/add-saerok.svg";
-import { ReactComponent as ScrapBlackIcon } from "assets/icons/scrapblack.svg";
+import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 
 interface DexDetailHeaderProps {
   item: {
@@ -47,7 +47,7 @@ const DexDetailHeader = ({ item }: DexDetailHeaderProps) => {
           <AddCollectionIcon className="h-[24.87px]" />
         </button>
         <button onClick={() => handleScrapClick()}>
-          <ScrapBlackIcon className="w-[13px] h-[21px]" />
+          <ScrapIcon className="w-[13px] h-[21px] text-font-black" />
         </button>
       </div>
     </div>

@@ -13,9 +13,9 @@ const NavButton = ({ to, label, Icon, isActive }: NavButtonProps) => {
   return (
     <button onClick={() => navigate(to)} className="flex flex-col gap-4 items-center">
       <Icon
-        className={`w-24 h-24 ${isActive ? "text-saerokGreen" : "text-font-darkgray fill-background-white stroke-font-darkgray"}`}
+        className={`w-24 h-24 ${isActive ? "text-mainBlue" : "text-font-darkgray fill-background-white stroke-font-darkgray"}`}
       />
-      <div className={`text-caption-3 ${isActive ? "text-saerokGreen" : "text-font-darkgray"}`}>{label}</div>
+      <div className={`text-caption-3 ${isActive ? "text-mainBlue" : "text-font-darkgray"}`}>{label}</div>
     </button>
   );
 };

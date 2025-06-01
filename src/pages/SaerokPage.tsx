@@ -43,7 +43,7 @@ const SaerokPage = () => {
         </div>
       )}
 
-      <div className="px-14">
+      <div className="px-12">
         <SaerokList />
       </div>
     </>

@@ -1,11 +1,9 @@
-import { ReactComponent as ScrapBlackIcon } from "assets/icons/scrapblack.svg";
-import { ReactComponent as ScrapFilledIcon } from "assets/icons/scrapfilled.svg";
+import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterHeader from "./FilterHeader";
 import qs from "qs";
-import axios from "axios";
 
 interface SelectedFilters {
   habitats: string[];
@@ -29,7 +27,6 @@ const DexHeader = ({
   onSearchTermChange,
   showBookmarkOnly,
   onToggleBookmarkView,
-  bookmarkedBirdIds,
 }: DexHeaderProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
@@ -65,18 +62,16 @@ const DexHeader = ({
               onToggleBookmarkView?.();
             }}
           >
-            {activeFilters.includes("스크랩") ? (
-              <ScrapFilledIcon className="h-[21px] " />
-            ) : (
-              <ScrapBlackIcon className="h-[21px] stroke-black " />
-            )}
+            <ScrapIcon
+              className={`w-24 h-24 text-font-black stroke-[2px]  ${activeFilters.includes("스크랩") ? `stroke-none fill-font-mainBlue ` : "fill-transparent "} `}
+            />
           </button>
           <button onClick={goToSearchPage}>
             <SearchIcon className="h-[18.28px] text-[#0d0d0d]" />
           </button>
         </div>
       </div>
-      <FilterHeader selectedFilters={selectedFilters} onFilterChange={onFilterChange} />
+      {/* <FilterHeader selectedFilters={selectedFilters} onFilterChange={onFilterChange} /> */}
     </div>
   );
 };

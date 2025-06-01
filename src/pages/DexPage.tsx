@@ -4,6 +4,9 @@ import DexList from "features/dex/components/DexList";
 import { useEffect, useState } from "react";
 import qs from "qs";
 import { useLocation, useNavigate } from "react-router-dom";
+import clsx from "clsx";
+import DexMain from "features/dex/components/DexMain";
+import FilterHeader from "features/dex/components/FilterHeader";
 
 const seasonMap: Record<string, string> = {
   봄: "spring",
@@ -227,25 +230,65 @@ const DexPage = () => {
     setBookmarkedBirdIds((prev) => (prev.includes(birdId) ? prev.filter((id) => id !== birdId) : [...prev, birdId]));
   };
 
+  // Main 에서 Header 전환
+  const [opacity, setOpacity] = useState(1);
+  const [showMain, setShowMain] = useState(true);
+  const [showHeader, setShowHeader] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (showMain) {
+        const newOpacity = Math.max(0, 1 - scrollY / 190);
+        setOpacity(newOpacity);
+
+        if (scrollY > 190) {
+          setShowMain(false);
+          setShowHeader(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showMain]);
+
   return (
-    <>
-      <DexHeader
-        selectedFilters={selectedFilters}
-        onFilterChange={handleFilterChange}
-        searchTerm={searchTerm}
-        onSearchTermChange={handleSearchTermChange}
-        showBookmarkOnly={showBookmarkOnly}
-        onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)}
-        bookmarkedBirdIds={bookmarkedBirdIds}
-      />
-      <div className="p-24">
+    <div className="bg-background-whitegray">
+      {showMain && (
+        <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
+          <DexMain birdCount={504} onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)} />
+        </div>
+      )}
+
+      {showHeader && (
+        <div className={clsx("transition-all ease-in-out opacity-100 translate-y-0")}>
+          <DexHeader
+            selectedFilters={selectedFilters}
+            onFilterChange={handleFilterChange}
+            searchTerm={searchTerm}
+            onSearchTermChange={handleSearchTermChange}
+            showBookmarkOnly={showBookmarkOnly}
+            onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)}
+            bookmarkedBirdIds={bookmarkedBirdIds}
+          />
+          <div className="h-72" />
+        </div>
+      )}
+
+      <div className="px-28 py-22">
+        <FilterHeader selectedFilters={selectedFilters} onFilterChange={handleFilterChange} />
+      </div>
+
+      <div className="px-24">
         <DexList
           dexItems={showBookmarkOnly ? dexItems.filter((item) => bookmarkedBirdIds.includes(item.id)) : dexItems}
           bookmarkedBirdIds={bookmarkedBirdIds}
           onToggleBookmark={toggleBookmark}
         />
       </div>
-    </>
+    </div>
   );
 };
 
