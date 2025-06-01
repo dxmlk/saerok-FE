@@ -63,8 +63,12 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark }: DexList
             />
 
             <div className="absolute bottom-0 w-full h-52 flex flex-col gap-0 bg-transparent px-14 py-10 z-30 ">
-              <span className="font-moneygraphy text-body-3 text-black ">{item.koreanName}</span>
-              <span className="font-pretendard text-caption-1 text-font-whitegrayDark">{item.scientificName}</span>
+              <span className="truncate overflow-hidden whitespace-nowrap font-moneygraphy text-body-3 text-black ">
+                {item.koreanName}
+              </span>
+              <span className="truncate overflow-hidden whitespace-nowrap font-pretendard text-caption-1 text-font-whitegrayDark">
+                {item.scientificName}
+              </span>
             </div>
           </div>
         ))}

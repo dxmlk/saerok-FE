@@ -9,6 +9,7 @@ import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.
 import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -189,6 +190,7 @@ const DexDetailPage = () => {
         <span className="font-moneygraphy text-subtitle-2 text-font-black">상세 설명</span>
         <span className="font-pretendard text-body-4 text-font-black">{bird.description} </span>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

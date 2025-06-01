@@ -16,7 +16,7 @@ const SaerokHeader = () => {
   };
 
   const handleSearchClick = () => {
-    navigate(`/search`);
+    navigate(`/search-bird`);
   };
 
   return (
@@ -24,10 +24,10 @@ const SaerokHeader = () => {
       <span className="text-[#0d0d0d] text-headline-1">나의 새록</span>
       <div className=" flex flex-row gap-24">
         <button onClick={() => handleSortClick()}>
-          <SortIcon className="w-24 h-24" />
+          <SortIcon className="w-24 h-24 cursor-pointer " />
         </button>
         <button onClick={handleSearchClick}>
-          <SearchIcon className="w-24 h-24" />
+          <SearchIcon className="w-24 h-24 stroke-[1.5px] stroke-black cursor-pointer " />
         </button>
       </div>
       {/* <SortBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} /> */}

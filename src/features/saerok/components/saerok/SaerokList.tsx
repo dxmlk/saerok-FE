@@ -18,7 +18,9 @@ const SaerokList = () => {
         {leftItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
             <img src={item.imageUrl} alt={item.birdName} className="rounded-10 w-full h-auto object-cover" />
-            <div className="mt-8 font-moneygraphy text-caption-2">{item.birdName}</div>
+            <div className="mt-8 font-moneygraphy text-caption-2 truncate overflow-hidden whitespace-nowrap">
+              {item.birdName}
+            </div>
           </div>
         ))}
       </div>
@@ -28,7 +30,9 @@ const SaerokList = () => {
         {rightItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
             <img src={item.imageUrl} alt={item.birdName} className="rounded-10 w-full h-auto object-cover" />
-            <div className="mt-8 font-moneygraphy text-caption-2">{item.birdName}</div>
+            <div className="mt-8 font-moneygraphy text-caption-2 truncate overflow-hidden whitespace-nowrap">
+              {item.birdName}
+            </div>
           </div>
         ))}
       </div>

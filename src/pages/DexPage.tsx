@@ -131,14 +131,6 @@ const DexPage = () => {
     setHasMore(true);
   };
 
-  const handleSearchTermChange = (term: string) => {
-    console.log("[handleSearchTermChange]", term);
-    setSearchTerm(term);
-    setPage(1);
-    setDexItems([]);
-    setHasMore(true);
-  };
-
   const fetchDexItems = async (pageNum: number, filters: SelectedFilters, search: string) => {
     try {
       setLoading(true);

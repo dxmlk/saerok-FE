@@ -3,6 +3,7 @@ import SaerokList from "features/saerok/components/saerok/SaerokList";
 import SaerokMain from "features/saerok/components/saerok/SaerokMain";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 
 const SaerokPage = () => {
   const [opacity, setOpacity] = useState(1);
@@ -46,6 +47,7 @@ const SaerokPage = () => {
       <div className="px-12">
         <SaerokList />
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };
