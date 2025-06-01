@@ -82,6 +82,7 @@ export default {
         none: "0px",
         4: "4px",
         10: "10px",
+        20: "20px",
         100: "100px",
         full: "9999px",
       },
