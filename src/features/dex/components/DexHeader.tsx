@@ -2,7 +2,6 @@ import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FilterHeader from "./FilterHeader";
 import qs from "qs";
 
 interface SelectedFilters {
@@ -12,22 +11,12 @@ interface SelectedFilters {
 }
 interface DexHeaderProps {
   selectedFilters: SelectedFilters;
-  onFilterChange: (filterGroup: keyof SelectedFilters, values: string[]) => void;
   searchTerm: string;
-  onSearchTermChange: (term: string) => void;
-  showBookmarkOnly?: boolean;
   onToggleBookmarkView?: () => void;
   bookmarkedBirdIds?: number[];
 }
 
-const DexHeader = ({
-  selectedFilters,
-  onFilterChange,
-  searchTerm,
-  onSearchTermChange,
-  showBookmarkOnly,
-  onToggleBookmarkView,
-}: DexHeaderProps) => {
+const DexHeader = ({ selectedFilters, searchTerm, onToggleBookmarkView }: DexHeaderProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   // 나중에 유저 id도 받아야 돼 유저마다 스크랩 다르니까...
@@ -52,26 +41,23 @@ const DexHeader = ({
   };
 
   return (
-    <div className="bg-white font-pretendard flex flex-col justify-between h-[114px] px-[24px]">
-      <div className="mt-[17px] flex flex-row justify-between">
-        <span className="text-black font-700 text-[22px]">도감</span>
-        <div className="flex flex-row gap-[31px]">
-          <button
-            onClick={() => {
-              handleFilterClick("스크랩");
-              onToggleBookmarkView?.();
-            }}
-          >
-            <ScrapIcon
-              className={`w-24 h-24 text-font-black stroke-[2px]  ${activeFilters.includes("스크랩") ? `stroke-none fill-font-mainBlue ` : "fill-transparent "} `}
-            />
-          </button>
-          <button onClick={goToSearchPage}>
-            <SearchIcon className="h-[18.28px] text-[#0d0d0d]" />
-          </button>
-        </div>
+    <div className="bg-white font-pretendard flex flex-row pt-40 justify-between h-76 pl-28 pr-24">
+      <span className="font-moneygraphy text-font-black text-headline-1 ">도감</span>
+      <div className="flex flex-row items-center gap-22">
+        <button
+          onClick={() => {
+            handleFilterClick("스크랩");
+            onToggleBookmarkView?.();
+          }}
+        >
+          <ScrapIcon
+            className={`w-24 h-24 stroke-[2px] cursor-pointer  ${activeFilters.includes("스크랩") ? `stroke-none fill-font-mainBlue ` : "fill-transparent stroke-black"} `}
+          />
+        </button>
+        <button onClick={goToSearchPage}>
+          <SearchIcon className="w-24 h-24 stroke-[1.5px] stroke-black cursor-pointer  " />
+        </button>
       </div>
-      {/* <FilterHeader selectedFilters={selectedFilters} onFilterChange={onFilterChange} /> */}
     </div>
   );
 };

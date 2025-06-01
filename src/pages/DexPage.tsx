@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import DexMain from "features/dex/components/DexMain";
 import FilterHeader from "features/dex/components/FilterHeader";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 
 const seasonMap: Record<string, string> = {
   봄: "spring",
@@ -255,7 +256,7 @@ const DexPage = () => {
   }, [showMain]);
 
   return (
-    <div className="bg-background-whitegray">
+    <div className="bg-background-whitegray min-h-[100dvh]">
       {showMain && (
         <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
           <DexMain birdCount={504} onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)} />
@@ -266,18 +267,14 @@ const DexPage = () => {
         <div className={clsx("transition-all ease-in-out opacity-100 translate-y-0")}>
           <DexHeader
             selectedFilters={selectedFilters}
-            onFilterChange={handleFilterChange}
             searchTerm={searchTerm}
-            onSearchTermChange={handleSearchTermChange}
-            showBookmarkOnly={showBookmarkOnly}
             onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)}
             bookmarkedBirdIds={bookmarkedBirdIds}
           />
-          <div className="h-72" />
         </div>
       )}
 
-      <div className="px-28 py-22">
+      <div className={`px-28 ${showHeader ? "bg-white py-18 mb-20" : "py-22"} `}>
         <FilterHeader selectedFilters={selectedFilters} onFilterChange={handleFilterChange} />
       </div>
 
@@ -288,6 +285,7 @@ const DexPage = () => {
           onToggleBookmark={toggleBookmark}
         />
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

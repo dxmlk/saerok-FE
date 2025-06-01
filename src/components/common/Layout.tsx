@@ -26,7 +26,7 @@ const Layout = () => {
             className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] fixed bottom-20 left-1/2 translate-x-[-50%]
              bg-background-white h-76 rounded-full flex items-center px-44 py-16 justify-between z-50 "
             style={{
-              width: "calc(100% - 4rem)",
+              width: "calc(100% - 2rem)",
             }}
           >
             <NavButton to="/dex" label="도감" Icon={DexIcon} isActive={isActive("/dex")} />

@@ -29,7 +29,7 @@ const SaerokPage = () => {
   }, [showMain]);
 
   return (
-    <>
+    <div className="min-h-[100dvh]">
       {showMain && (
         <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
           <SaerokMain birdCount={31} />
@@ -46,7 +46,7 @@ const SaerokPage = () => {
       <div className="px-12">
         <SaerokList />
       </div>
-    </>
+    </div>
   );
 };
 
