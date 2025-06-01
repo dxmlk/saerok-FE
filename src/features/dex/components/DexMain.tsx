@@ -1,6 +1,7 @@
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface DexMainProps {
   birdCount: number;
@@ -9,10 +10,11 @@ interface DexMainProps {
 
 const DexMain = ({ birdCount, onToggleBookmarkView }: DexMainProps) => {
   const [isBookmarkActive, setIsBookmarkActive] = useState(false);
+  const navigate = useNavigate();
 
-  function handleSearchClick(): void {
-    throw new Error("Function not implemented.");
-  }
+  const handleSearchClick = () => {
+    navigate(`/search-bird`);
+  };
 
   return (
     <>

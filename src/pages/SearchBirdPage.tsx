@@ -97,8 +97,8 @@ const SearchBirdPage = () => {
   };
 
   // 검색 실행 함수 (명시적 이벤트에서만 URL 변경)
-  const handleSearch = () => {
-    const trimmedTerm = searchTerm.trim();
+  const handleSearch = (term: string) => {
+    const trimmedTerm = term.trim();
     console.log("[handleSearch] trimmedTerm:", trimmedTerm);
     console.log("[handleSearch] selectedFilters:", selectedFilters);
 
@@ -129,7 +129,7 @@ const SearchBirdPage = () => {
 
     navigate(`/dex?${queryString}`);
 
-    setSearchTerm("");
+    setSearchTerm(""); // 검색 후 비우기
   };
 
   const handleDeleteHistory = (index: number) => {
@@ -155,7 +155,9 @@ const SearchBirdPage = () => {
 
       <div className="flex flex-col">
         {searchHistory.length === 0 ? (
-          <span className="items-center justify-center flex text-[14px] text-[#979797]">검색 기록이 없습니다.</span>
+          <span className="h-500 items-center justify-center flex text-caption-4 text-[#979797]">
+            아직 검색 기록이 없어요
+          </span>
         ) : (
           searchHistory.map((history, index) => (
             <div key={index} className="border-t border-[#d9d9d9] flex h-[55px] justify-between items-center">
@@ -163,7 +165,7 @@ const SearchBirdPage = () => {
               <div className="flex gap-[7px]">
                 <span className="text-[13px] font-400 text-[#979797]">{history.date}</span>
                 <button onClick={() => handleDeleteHistory(index)} className="mr-[25px]">
-                  <XIcon className="w-[10px] h-[10px]" />
+                  <XIcon className="w-[10px] h-[10px] ml-15 fill-[#979797]" />
                 </button>
               </div>
             </div>
