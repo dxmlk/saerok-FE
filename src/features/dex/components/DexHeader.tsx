@@ -37,7 +37,7 @@ const DexHeader = ({ selectedFilters, searchTerm, onToggleBookmarkView }: DexHea
     };
 
     const queryString = qs.stringify(params, { arrayFormat: "repeat" });
-    navigate(`/search-bird?${queryString}`);
+    navigate(`/search/dex?${queryString}`);
   };
 
   return (

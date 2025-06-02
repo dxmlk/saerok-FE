@@ -2,7 +2,7 @@ import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 
 const DatePicker = ({ value, onChange }: { value: DateValueType; onChange: (value: DateValueType) => void }) => {
   return (
-    <div className="h-[44px] w-full border rounded-[10px] border-[2px] border-[#d9d9d9] flex items-center px-[20px] text-[15px] text-[#6d6d6d] font-pretendard">
+    <div className="h-[44px] w-full  rounded-[10px] border-[2px] border-[#d9d9d9] flex items-center px-[20px] text-[15px] font-whitegrayDark font-pretendard">
       <Datepicker
         value={value}
         onChange={onChange}

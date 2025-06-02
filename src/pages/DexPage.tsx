@@ -251,7 +251,13 @@ const DexPage = () => {
     <div className="bg-background-whitegray min-h-[100dvh]">
       {showMain && (
         <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
-          <DexMain birdCount={504} onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)} />
+          <DexMain
+            birdCount={504}
+            selectedFilters={selectedFilters}
+            searchTerm={searchTerm}
+            onToggleBookmarkView={() => setShowBookmarkOnly((prev) => !prev)}
+            bookmarkedBirdIds={bookmarkedBirdIds}
+          />
         </div>
       )}
 

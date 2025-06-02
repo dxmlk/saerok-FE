@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { KakaoPlace } from "types/kakao";
 import SearchBar from "components/common/textfield/SearchBar";
 
-const SearchLocationPage = () => {
+const SearchPlacePage = () => {
   const [keyword, setKeyword] = useState("");
   const [places, setPlaces] = useState<KakaoPlace[]>([]);
   const mapRef = useRef<HTMLDivElement>(null);
@@ -74,7 +74,7 @@ const SearchLocationPage = () => {
 
   // 장소 선택 → 이전 페이지로 이동하며 값 전달
   const handleSelect = (place: KakaoPlace) => {
-    navigate("/add-collection", {
+    navigate("/add-saerok", {
       state: {
         selectedPlace: place,
         selectedPlaceKey: fromKey,
@@ -116,4 +116,4 @@ const SearchLocationPage = () => {
   );
 };
 
-export default SearchLocationPage;
+export default SearchPlacePage;

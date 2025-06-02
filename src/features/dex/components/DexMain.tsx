@@ -1,19 +1,42 @@
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
+import qs from "qs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface DexMainProps {
-  birdCount: number;
-  onToggleBookmarkView?: () => void;
+interface SelectedFilters {
+  habitats: string[];
+  seasons: string[];
+  sizeCategories: string[];
 }
 
-const DexMain = ({ birdCount, onToggleBookmarkView }: DexMainProps) => {
-  const [isBookmarkActive, setIsBookmarkActive] = useState(false);
+interface DexMainProps {
+  birdCount: number;
+  selectedFilters: SelectedFilters;
+  searchTerm: string;
+  onToggleBookmarkView?: () => void;
+  bookmarkedBirdIds?: number[];
+}
+
+const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView }: DexMainProps) => {
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
   const navigate = useNavigate();
 
-  const handleSearchClick = () => {
-    navigate(`/search-bird`);
+  const handleFilterClick = (filterName: string) => {
+    setActiveFilters((prev) =>
+      prev.includes(filterName) ? prev.filter((name) => name !== filterName) : [...prev, filterName]
+    );
+  };
+
+  const goToSearchPage = () => {
+    const params = {
+      ...selectedFilters,
+      searchTerm,
+    };
+
+    const queryString = qs.stringify(params, { arrayFormat: "repeat" });
+    navigate(`/search/dex?${queryString}`);
   };
 
   return (
@@ -33,19 +56,19 @@ const DexMain = ({ birdCount, onToggleBookmarkView }: DexMainProps) => {
         </div>
 
         {/* 우측 상단 스크랩/검색 버튼*/}
-        <div
+        <button
           onClick={() => {
-            setIsBookmarkActive(!isBookmarkActive);
+            handleFilterClick("스크랩");
             onToggleBookmarkView?.();
           }}
           className="absolute right-72 bottom-164 w-40 h-40 rounded-full bg-glassmorphism z-10 flex items-center justify-center"
         >
           <ScrapIcon
-            className={`h-24 w-24 ${isBookmarkActive ? "stroke-none fill-font-mainBlue" : "stroke-[2px] stroke-black fill-transparent"}`}
+            className={`h-24 w-24 ${activeFilters.includes("스크랩") ? "stroke-none fill-font-mainBlue" : "stroke-[2px] stroke-black fill-transparent"}`}
           />
-        </div>
+        </button>
         <div
-          onClick={() => handleSearchClick()}
+          onClick={goToSearchPage}
           className="absolute right-24 bottom-164 w-40 h-40 rounded-full bg-glassmorphism z-10 flex items-center justify-center"
         >
           <SearchIcon className="h-24 w-24 stroke-[1.6px] stroke-black " />
