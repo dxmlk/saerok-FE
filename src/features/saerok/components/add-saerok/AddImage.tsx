@@ -1,77 +1,68 @@
 import { useRef, useState } from "react";
-import { ReactComponent as AddIcon } from "assets/icons/add.svg";
-import { ReactComponent as CloseIcon } from "assets/icons/close.svg";
+import { ReactComponent as AddIcon } from "assets/icons/button/add.svg";
+import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 
 const AddImage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [previewImages, setPreviewImages] = useState<string[]>([]); // 여러 장 저장
+  // const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      const newImages: string[] = [];
-
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          if (typeof reader.result === "string") {
-            newImages.push(reader.result);
-
-            // 모든 파일 읽었으면 state 업데이트
-            if (newImages.length === files.length) {
-              setPreviewImages((prev) => [...prev, ...newImages]);
-            }
-          }
-        };
-        reader.readAsDataURL(file);
-      });
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          setPreviewImage(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleImageRemove = (index: number) => {
-    setPreviewImages((prev) => prev.filter((_, i) => i !== index));
+  const handleImageRemove = () => {
+    setPreviewImage(null);
   };
 
   return (
-    <div className="pt-[76px]">
-      <input
-        type="file"
-        accept="image/*"
-        multiple // 여러 장 선택 가능하게
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        className="hidden"
-      />
-
-      <div className="flex  gap-[9px] items-center h-[98px]">
-        <button
-          type="button"
-          onClick={handleButtonClick}
-          className="w-[78px] h-[78px] rounded-[10px] bg-[#d9d9d9] shrink-0"
-        >
-          <AddIcon className="mx-[18px] my-[18px]" />
-        </button>
-
-        <div className="overflow-visible flex overflow-x-auto gap-[9px] h-[98px] items-center">
-          {previewImages.map((image, idx) => (
-            <div key={idx} className="relative w-[78px] h-[78px] rounded-[10px] shrink-0">
-              <img key={idx} src={image} alt={`preview-${idx}`} className="w-full h-full  object-cover rounded-lg" />
-              <button
-                onClick={() => handleImageRemove(idx)}
-                className="absolute -top-[15px] -right-[15px]"
-                aria-label="이미지 삭제"
-              >
-                <CloseIcon className="w-[39px] h-[39px]" />
+    <>
+      {/* <div className="mt-76"> */}
+      <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
+      <div className="flex flex-row gap-0 items-end">
+        <div className="relative w-83 h-83 rounded-10 bg-transparent shrink-0 ">
+          {previewImage ? (
+            <>
+              <img
+                src={previewImage}
+                alt="preview"
+                className="absolute bottom-0 left-0 w-78 h-78 object-cover rounded-10"
+              />
+              <button onClick={handleImageRemove} className="absolute top-0 -right-0" aria-label="이미지 삭제">
+                <DeleteIcon className="w-17 h-17" />
               </button>
-            </div>
-          ))}
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={handleButtonClick}
+              className="absolute bottom-0 left-0 w-78 h-78 flex justify-center items-center border border-dashed border-font-whitegrayDark rounded-10"
+            >
+              <AddIcon className="w-20 h-20 fill-font-whitegrayDark" />
+            </button>
+          )}
+        </div>
+        <div className="text-caption-1 text-font-whitegrayDark font-pretendard">
+          <span>(</span>
+          <span>{previewImage ? "1" : "0"}</span>
+          <span>/1)</span>
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as DeleteIcon } from "assets/icons/delete.svg";
+import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import axios from "axios";
