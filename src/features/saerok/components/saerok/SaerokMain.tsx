@@ -3,17 +3,20 @@ import { ReactComponent as PinkCircle } from "assets/background/pink-circle.svg"
 import { ReactComponent as BlueCircle } from "assets/background/blue-circle.svg";
 import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
 import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.svg";
+import { useNavigate } from "react-router-dom";
 
 interface SaerokMainProps {
   birdCount: number;
 }
 
 const SaerokMain = ({ birdCount }: SaerokMainProps) => {
+  const navigate = useNavigate();
+
   const handleSortClick = () => {
     console.log("Sort button clicked");
   };
   const handleAddSaerokClick = () => {
-    console.log("Add Saerok button clicked");
+    navigate(`/add-saerok`);
   };
 
   return (

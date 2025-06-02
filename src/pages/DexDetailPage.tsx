@@ -181,8 +181,9 @@ const DexDetailPage = () => {
       <div className="flex flex-col mt-40 px-24 gap-14">
         <span className="font-moneygraphy text-subtitle-2 text-font-black">분류</span>
         <span className="font-pretendard text-caption-1 text-font-darkgray items-center">
-          {bird.taxonomy.orderKor} <BracketIcon className="inline-block" /> {bird.taxonomy.familyKor}{" "}
-          <BracketIcon className="inline-block" /> {bird.taxonomy.genusKor}{" "}
+          {bird.taxonomy.orderKor} <BracketIcon className="inline-block fill-font-whitegrayLight" />{" "}
+          {bird.taxonomy.familyKor} <BracketIcon className="inline-block fill-font-whitegrayLight" />{" "}
+          {bird.taxonomy.genusKor}{" "}
         </span>
       </div>
 

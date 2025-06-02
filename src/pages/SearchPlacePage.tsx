@@ -13,7 +13,6 @@ const SearchPlacePage = () => {
   const location = useLocation();
   const fromKey = location.state?.from ?? "unknown";
   const [isKakaoReady, setIsKakaoReady] = useState(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   // Kakao 지도 스크립트 로드
   useEffect(() => {
@@ -90,8 +89,6 @@ const SearchPlacePage = () => {
           setSearchTerm={setKeyword}
           onSearch={searchPlaces}
           placeholder="장소를 검색하세요"
-          onFocus={() => setFocusedField("search")}
-          onBlur={() => setFocusedField(null)}
         />
       </div>
 

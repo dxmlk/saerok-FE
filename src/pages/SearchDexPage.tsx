@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs, { ParsedQs } from "qs";
 import FilterHeader from "features/dex/components/FilterHeader";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions";
+
 interface SelectedFilters {
   habitats: string[];
   seasons: string[];
@@ -18,6 +20,7 @@ interface SearchRecord {
 const SearchBirdPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const safeStringArray = (val: string | ParsedQs | (string | ParsedQs)[] | undefined): string[] => {
     if (!val) return [];
@@ -144,8 +147,19 @@ const SearchBirdPage = () => {
       <div className="mx-[24px] my-[12px] flex flex-col gap-12">
         <SearchBar
           searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
+          setSearchTerm={(v) => {
+            setSearchTerm(v);
+            setShowSuggestions(true);
+          }}
+          onFocus={() => setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           placeholder="궁금한 새를 검색해보세요"
+          onSearch={handleSearch}
+        />
+        <SearchSuggestions
+          visible={showSuggestions}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
           onSearch={handleSearch}
         />
         <FilterHeader selectedFilters={selectedFilters} onFilterChange={handleFilterChange} />
