@@ -22,19 +22,8 @@ interface FilterHeaderProps {
 const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) => {
   const { bottomSheetRef, contentRef, openBottomSheet, closeBottomSheet } = useBottomSheet();
   const [currentFilter, setCurrentFilter] = useState<string | null>(null);
-
-  const handleResetFilters = () => {
-    onFilterChange("seasons", []);
-    onFilterChange("habitats", []);
-    onFilterChange("sizeCategories", []);
-  };
-
-  // 바텀시트 내 임시 선택 상태
-  const [tempSelected, setTempSelected] = useState<string[]>([]);
-
   const prevFilterRef = useRef<string | null>(null);
 
-  // 필터 그룹 키 매핑
   const filterGroupKey = (filterGroup: string) => {
     switch (filterGroup) {
       case "계절":
@@ -48,7 +37,6 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
     }
   };
 
-  // 필터 상세 옵션 목록
   const seasons = ["봄", "여름", "가을", "겨울"];
   const habitats = [
     "갯벌",
@@ -65,77 +53,47 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
   ];
   const sizeCategories = ["참새", "비둘기", "오리", "기러기"];
 
-  // 바텀시트 열릴 때 해당 필터 그룹 상세 선택값 복사 (초기화)
-  useEffect(() => {
-    if (currentFilter && prevFilterRef.current !== currentFilter) {
-      const key = filterGroupKey(currentFilter);
-      setTempSelected(selectedFilters[key] || []);
-      prevFilterRef.current = currentFilter;
-    }
-  }, [currentFilter, selectedFilters]);
-
-  // 임시 선택 토글 (체크박스)
-  const toggleTempSelected = (item: string) => {
-    setTempSelected((prev) => (prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]));
+  const handleResetFilters = () => {
+    onFilterChange("seasons", []);
+    onFilterChange("habitats", []);
+    onFilterChange("sizeCategories", []);
   };
 
-  // 임시 전체선택/해제
-  const setAllTempSelected = (selectAll: boolean, items: string[]) => {
-    setTempSelected(selectAll ? [...items] : []);
+  const toggleItem = (group: keyof SelectedFilters, item: string) => {
+    const current = selectedFilters[group];
+    const next = current.includes(item) ? current.filter((i) => i !== item) : [...current, item];
+    onFilterChange(group, next);
   };
 
-  // 완료 눌렀을 때 부모 상태 업데이트
-  const handleApplyFilters = () => {
-    if (!currentFilter) return;
-    const key = filterGroupKey(currentFilter);
-    onFilterChange(key, tempSelected);
-    closeBottomSheet();
+  const setAllItems = (group: keyof SelectedFilters, items: string[], selected: boolean) => {
+    onFilterChange(group, selected ? items : []);
   };
 
-  // 닫기(x버튼, 배경 클릭 시)
-  const handleCloseWithoutApply = () => {
-    closeBottomSheet();
-  };
-
-  // 바텀시트 열기
-  const handleButtonClick = (filter: string) => {
-    setCurrentFilter(filter);
-    openBottomSheet();
-  };
-
-  // CheckBox 컴포넌트
-  interface CheckBoxProps {
-    title: string;
-    checked?: boolean;
-    onChange: (title: string) => void;
-  }
-
-  const CheckBox = ({ title, checked = false, onChange }: CheckBoxProps) => {
-    const handleClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      onChange(title);
-    };
-    return (
+  const CheckBox = ({ title, checked, onChange }: { title: string; checked: boolean; onChange: () => void }) => (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        onChange();
+      }}
+      className={`h-44 w-auto font-pretendard text-body-1 px-15 rounded-10 flex justify-between items-center ${
+        checked ? "bg-mainBlue text-white" : "text-black bg-background-whitegray"
+      }`}
+    >
+      <span className="text-body-1">{title}</span>
       <div
-        onClick={handleClick}
-        className={`h-44 w-auto font-pretendard text-body-1 px-15 rounded-10 flex justify-between items-center ${
-          checked ? "bg-saerokGreen text-white" : "text-black bg-background-whitegray"
+        className={`ml-10 w-18 h-18 rounded-4 flex items-center justify-center ${
+          checked ? "bg-background-white border-none" : "bg-background-whitegray border-1.5 border-font-whitegray"
         }`}
       >
-        <span className="text-body-1">{title}</span>
-        <div
-          className={`ml-10 w-18 h-18 rounded-4 flex items-center justify-center ${
-            checked ? "bg-background-white border-none" : "bg-background-whitegray border-1.5 border-font-whitegray"
-          }`}
-        >
-          {checked && <CheckIcon className="h-12 w-12 text-saerokGreen" />}
-        </div>
+        {checked && <CheckIcon className="h-12 w-12 text-mainBlue" />}
       </div>
-    );
-  };
+    </div>
+  );
 
-  // 바텀시트 내용 렌더링
   const getBottomSheetContent = () => {
+    const key = currentFilter ? filterGroupKey(currentFilter) : "seasons";
+    const selected = selectedFilters[key];
+
     if (currentFilter === "계절") {
       return (
         <div className="grid grid-cols-2 gap-x-13 gap-y-10">
@@ -143,13 +101,14 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
             <CheckBox
               key={season}
               title={season}
-              checked={tempSelected.includes(season)}
-              onChange={toggleTempSelected}
+              checked={selected.includes(season)}
+              onChange={() => toggleItem("seasons", season)}
             />
           ))}
         </div>
       );
     }
+
     if (currentFilter === "서식지") {
       return (
         <>
@@ -158,12 +117,12 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               className="flex flex-row gap-10 cursor-pointer items-center"
               onClick={(e) => {
                 e.stopPropagation();
-                setAllTempSelected(true, habitats);
+                setAllItems("habitats", habitats, true);
               }}
             >
               <div className="relative w-18 h-18">
                 <RadioButton className="w-18 h-18" />
-                {tempSelected.length === habitats.length && (
+                {selected.length === habitats.length && (
                   <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-font-whitegrayDark" />
                 )}
               </div>
@@ -173,12 +132,12 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               className="flex flex-row gap-10 cursor-pointer items-center"
               onClick={(e) => {
                 e.stopPropagation();
-                setAllTempSelected(false, habitats);
+                setAllItems("habitats", habitats, false);
               }}
             >
               <div className="relative w-18 h-18">
                 <RadioButton className="w-18 h-18" />
-                {tempSelected.length === 0 && (
+                {selected.length === 0 && (
                   <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-font-whitegrayDark" />
                 )}
               </div>
@@ -190,25 +149,30 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               <CheckBox
                 key={habitat}
                 title={habitat}
-                checked={tempSelected.includes(habitat)}
-                onChange={toggleTempSelected}
+                checked={selected.includes(habitat)}
+                onChange={() => toggleItem("habitats", habitat)}
               />
             ))}
           </div>
         </>
       );
     }
+
     if (currentFilter === "크기") {
       return (
-        <>
-          <div className="flex flex-wrap gap-10">
-            {sizeCategories.map((size) => (
-              <CheckBox key={size} title={size} checked={tempSelected.includes(size)} onChange={toggleTempSelected} />
-            ))}
-          </div>
-        </>
+        <div className="flex flex-wrap gap-10">
+          {sizeCategories.map((size) => (
+            <CheckBox
+              key={size}
+              title={size}
+              checked={selected.includes(size)}
+              onChange={() => toggleItem("sizeCategories", size)}
+            />
+          ))}
+        </div>
       );
     }
+
     return <p>선택이 없습니다.</p>;
   };
 
@@ -221,17 +185,14 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               ? "bg-mainBlue text-background-white border-font-mainBlue "
               : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
-          onClick={() => handleButtonClick("계절")}
+          onClick={() => {
+            setCurrentFilter("계절");
+            openBottomSheet();
+          }}
         >
           <SeasonIcon
             className={`w-17 h-17 ${selectedFilters.seasons.length > 0 ? " stroke-white" : " stroke-black"}`}
           />
-
-          {/* {selectedFilters.seasons.length > 0 ? (
-            <CalendarFilledIcon className="w-[13px] h-[13px]" />
-          ) : (
-            <CalendarIcon className="w-[13px] h-[13px]" />
-          )} */}
           <span>계절</span>
         </button>
 
@@ -241,7 +202,10 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               ? "bg-mainBlue text-background-white border-font-mainBlue "
               : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
-          onClick={() => handleButtonClick("서식지")}
+          onClick={() => {
+            setCurrentFilter("서식지");
+            openBottomSheet();
+          }}
         >
           <HabitatIcon
             className={`w-17 h-17 ${selectedFilters.habitats.length > 0 ? "stroke-white" : "stroke-black"}`}
@@ -255,7 +219,10 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               ? "bg-mainBlue text-background-white border-font-mainBlue "
               : "bg-background-whitegray text-font-black border-font-darkgray"
           }`}
-          onClick={() => handleButtonClick("크기")}
+          onClick={() => {
+            setCurrentFilter("크기");
+            openBottomSheet();
+          }}
         >
           <SizeIcon
             className={`w-17 h-17 ${selectedFilters.sizeCategories.length > 0 ? "fill-white" : "fill-black"}`}
@@ -276,8 +243,8 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
       <BottomSheet
         ref={bottomSheetRef}
         title={`${currentFilter} 선택` || "선택"}
-        close={handleCloseWithoutApply}
-        apply={handleApplyFilters}
+        close={closeBottomSheet}
+        apply={closeBottomSheet} // 완료 버튼 유지
       >
         <div ref={contentRef} className="p-4">
           {getBottomSheetContent()}

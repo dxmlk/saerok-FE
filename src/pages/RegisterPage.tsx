@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { z } from "zod";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as ExclamationIcon } from "assets/icons/button/exclamation.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { sub } from "date-fns";
 import axios from "axios";
 
 const RegisterPage = () => {

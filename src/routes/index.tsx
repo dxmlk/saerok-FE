@@ -13,6 +13,7 @@ import SearchPlacePage from "pages/SearchPlacePage";
 import OnboardingPage from "pages/OnboardingPage";
 import KakaoCallback from "servies/api/auth/KakaoCallback";
 import RegisterPage from "pages/RegisterPage";
+import MyPage from "pages/MyPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -63,6 +64,10 @@ export const createRouter = () => {
         {
           path: "/map",
           element: <MapPage />,
+        },
+        {
+          path: "/mypage",
+          element: <MyPage />,
         },
         {
           path: "/search/bird",

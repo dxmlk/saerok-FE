@@ -29,10 +29,10 @@ const Layout = () => {
               width: "calc(100% - 2rem)",
             }}
           >
+            <NavButton to="/saerok" label="새록" Icon={SaerokIcon} isActive={isActive("/saerok")} />
             <NavButton to="/dex" label="도감" Icon={DexIcon} isActive={isActive("/dex")} />
             <NavButton to="/map" label="지도" Icon={MapIcon} isActive={isActive("/map")} />
-            <NavButton to="/saerok" label="새록" Icon={SaerokIcon} isActive={isActive("/saerok")} />
-            <NavButton to="/my-page" label="MY" Icon={MyIcon} isActive={isActive("/my-page")} />
+            <NavButton to="/mypage" label="마이" Icon={MyIcon} isActive={isActive("/mypage")} />
           </nav>
         )}
       </div>
