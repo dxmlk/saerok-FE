@@ -31,6 +31,7 @@ const PX_ENTRIES = {
   47: "47px",
   50: "50px",
   54: "54px",
+  61: "61px",
   78: "78px",
   83: "83px",
   89: "89px",
@@ -87,6 +88,7 @@ export default {
         4: "4px",
         10: "10px",
         20: "20px",
+        30.5: "30.5px",
         100: "100px",
         full: "9999px",
       },
@@ -118,6 +120,7 @@ export default {
         },
         font: {
           mainBlue: "#4190FF",
+          pointYellow: "#F7BE65",
           whitegray: "#DAE0DE",
           whitegrayLight: "#D9D9D9",
           whitegrayDark: "#979797",
