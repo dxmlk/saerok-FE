@@ -1,19 +1,30 @@
 import NaverMap from "components/common/NaverMap";
 import SearchBar from "components/common/textfield/SearchBar";
-import { useState } from "react";
+import CurrentLocationButton from "features/map/components/CurrentLocationButton";
+import useGeolocation from "hooks/useGeolocation";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MapPage = () => {
+  const { currentMyLocation, getCurPosition } = useGeolocation();
+  const mapRef = useRef<naver.maps.Map | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const handleSearch = () => {};
 
+  const moveToCurrentLocation = () => {
+    getCurPosition();
+    if (mapRef.current) {
+      mapRef.current.setCenter(new window.naver.maps.LatLng(currentMyLocation.lat, currentMyLocation.lng));
+    }
+  };
+
   return (
     <div className="relative w-screen h-screen z-0">
-      <NaverMap />
+      <NaverMap mapRef={mapRef} />
 
       <div className="absolute top-20 w-[89%] left-1/2 -translate-x-1/2 z-10  ">
-        <div onClick={() => navigate("/search-location")}>
+        <div onClick={() => navigate("/search/place")}>
           <SearchBar
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
@@ -22,6 +33,8 @@ const MapPage = () => {
           />
         </div>
       </div>
+
+      <CurrentLocationButton onClick={moveToCurrentLocation} />
     </div>
   );
 };
