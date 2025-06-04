@@ -124,7 +124,7 @@ const DexDetailPage = () => {
   if (error || !bird) return <div className="text-center mt-10">{error}</div>;
 
   return (
-    <div className="min-h-[100vh] bg-white">
+    <div className="min-h-[100vh] bg-white pb-120">
       {/* <DexDetailHeader item={bird} /> */}
       <div className="flex flex-col mt-36 px-16">
         <div className="relative">

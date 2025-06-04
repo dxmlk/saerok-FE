@@ -42,7 +42,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
 
           <button
             onClick={handleApply}
-            className="mt-20 border-t border-1 border-background-whitegray h-96 text-completeGreen text-button-1"
+            className="mt-20 border-t border-1 border-background-whitegray h-96 text-font-mainBlue text-button-1"
           >
             완료
           </button>

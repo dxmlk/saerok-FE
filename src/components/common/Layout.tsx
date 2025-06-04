@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useSearchParams } from "react-router-dom";
 import { ReactComponent as DexIcon } from "assets/icons/nav/dex.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as SaerokIcon } from "assets/icons/nav/saerok.svg";
@@ -7,10 +7,13 @@ import NavButton from "./button/NavButton";
 
 const Layout = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
 
-  // const hideNavBar = false;
-  const hidePaths = ["/", "/register"];
-  const hideNavBar = hidePaths.includes(location.pathname);
+  const path = location.pathname;
+  const pageParam = searchParams.get("page");
+
+  const hideNavBar =
+    path === "/" || path === "/register" || path === "/add-saerok" || (path === "/mypage" && pageParam !== null);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
@@ -23,11 +26,9 @@ const Layout = () => {
 
         {!hideNavBar && (
           <nav
-            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] fixed bottom-20 left-1/2 translate-x-[-50%]
+            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] left-1/2 translate-x-[-50%] w-full fixed bottom-20 max-w-468 
              bg-background-white h-76 rounded-full flex items-center px-44 py-16 justify-between z-50 "
-            style={{
-              width: "calc(100% - 2rem)",
-            }}
+            style={{ width: "calc(100% - 2rem)" }}
           >
             <NavButton to="/saerok" label="새록" Icon={SaerokIcon} isActive={isActive("/saerok")} />
             <NavButton to="/dex" label="도감" Icon={DexIcon} isActive={isActive("/dex")} />

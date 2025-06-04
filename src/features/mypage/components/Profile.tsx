@@ -5,9 +5,10 @@ import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
 
 interface ProfileProps {
   isUser: boolean;
+  onClick: () => void;
 }
 
-const Profile = ({ isUser }: ProfileProps) => {
+const Profile = ({ isUser, onClick }: ProfileProps) => {
   return (
     <>
       {!isUser && (
@@ -22,7 +23,7 @@ const Profile = ({ isUser }: ProfileProps) => {
             </div>
           </div>
           <button className="rounded-30.5 bg-font-mainBlue w-168 h-44 flex items-center justify-center gap-3 cursor-pointer">
-            <LoginIcon className=" w-24 h-24" />
+            <LoginIcon className="stroke-white w-24 h-24" />
             <div className="text-body-2 text-background-white">로그인 / 회원가입</div>
           </button>
         </div>
@@ -34,7 +35,7 @@ const Profile = ({ isUser }: ProfileProps) => {
           <div>
             <div className="flex flex-row gap-4">
               <div className="font-bold text-30">안암동새록마스터</div>
-              <button className="cursor-pointer">
+              <button onClick={onClick} className="cursor-pointer">
                 <EditIcon className="w-24 h-24 stroke-font-mainBlue" />
               </button>
             </div>

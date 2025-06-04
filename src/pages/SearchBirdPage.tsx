@@ -1,5 +1,5 @@
-import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 import axios from "axios";
+import SimpleHeader from "components/common/SimpleHeader";
 import SearchBar from "components/common/textfield/SearchBar";
 import { useEffect, useState } from "react";
 
@@ -31,12 +31,7 @@ const SearchBirdPage = () => {
   return (
     <>
       <div className="min-h-[100dvh] bg-background-whitegray">
-        <div className="relative px-24 w-full h-68 bg-white flex flex-row items-center justify-center">
-          <div>
-            <BracketIcon className="absolute left-24 bottom-26 w-17 h-17 scale-x-[-1] fill-black" />
-          </div>
-          <div className="font-moneygraphy text-subtitle-2 text-font-black">이름 찾기</div>
-        </div>
+        <SimpleHeader title={"이름 찾기"} />
         <div className="px-24 bg-white pt-10 pb-20 ">
           <SearchBar
             searchTerm={searchTerm}
