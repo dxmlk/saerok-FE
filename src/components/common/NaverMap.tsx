@@ -14,10 +14,10 @@ const NaverMap = ({ mapRef }: NaverMapProps) => {
     script.onload = () => {
       if (!window.naver || !containerRef.current) return;
       mapRef.current = new window.naver.maps.Map(containerRef.current, {
-        center: new window.naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 17,
+        center: new window.naver.maps.LatLng(37.58939182281775, 127.02990237554194),
+        zoom: 16,
       });
-    };
+    }; // 고려대가 기본 위치
     document.head.appendChild(script);
   }, [mapRef]);
 

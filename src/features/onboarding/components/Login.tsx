@@ -4,6 +4,7 @@ import Modal from "components/common/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { KAKAO_AUTH_URL } from "servies/api/auth/kakaoLogin";
+import { AnimatePresence } from "framer-motion";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,19 +32,22 @@ const Login = () => {
         로그인 없이 이용하기
       </div>
 
-      {isModalOpen && (
-        <Modal
-          maintext={"로그인 없이 이용하시겠어요?"}
-          subtext={"도감과 지도만 열람할 수 있어요!"}
-          lefttext={"취소"}
-          handleLeftClick={() => setIsModalOpen(false)}
-          righttext={"계속하기"}
-          handleRightClick={() => {
-            setIsModalOpen(false);
-            navigate("/map");
-          }}
-        />
-      )}
+      <AnimatePresence>
+        {isModalOpen && (
+          <Modal
+            key="modal"
+            maintext={"로그인 없이 이용하시겠어요?"}
+            subtext={"도감과 지도만 열람할 수 있어요!"}
+            lefttext={"취소"}
+            handleLeftClick={() => setIsModalOpen(false)}
+            righttext={"계속하기"}
+            handleRightClick={() => {
+              setIsModalOpen(false);
+              navigate("/map");
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

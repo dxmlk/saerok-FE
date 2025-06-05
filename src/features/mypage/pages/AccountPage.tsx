@@ -3,6 +3,7 @@ import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
 import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
 import { useState } from "react";
 import Modal from "components/common/Modal";
+import { AnimatePresence } from "framer-motion";
 
 const AccountPage = () => {
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
@@ -38,32 +39,39 @@ const AccountPage = () => {
         </button>
       </div>
 
-      {isLogoutClicked && (
-        <Modal
-          maintext={"정말 로그아웃 하시겠어요?"}
-          lefttext={"취소"}
-          handleLeftClick={() => setIsLogoutClicked(false)}
-          righttext={"로그아웃"}
-          handleRightClick={() => {
-            setIsLogoutClicked(false);
-            // 로그아웃 로직
-          }}
-        />
-      )}
-      {isDeleteClicked && (
-        <Modal
-          maintext={"정말 탈퇴하시겠어요?"}
-          subtext={"탈퇴 시 탐조 기록이 모두 삭제돼요."}
-          lefttext={"탈퇴하기"}
-          handleLeftClick={() => {
-            setIsDeleteClicked(false);
-            // 탈퇴 로직
-          }}
-          righttext={"돌아가기"}
-          handleRightClick={() => setIsDeleteClicked(false)}
-          isDeleted={true}
-        />
-      )}
+      <AnimatePresence>
+        {isLogoutClicked && (
+          <Modal
+            key="modal"
+            maintext={"정말 로그아웃 하시겠어요?"}
+            lefttext={"취소"}
+            handleLeftClick={() => setIsLogoutClicked(false)}
+            righttext={"로그아웃"}
+            handleRightClick={() => {
+              setIsLogoutClicked(false);
+              // 로그아웃 로직
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isDeleteClicked && (
+          <Modal
+            key="modal"
+            maintext={"정말 탈퇴하시겠어요?"}
+            subtext={"탈퇴 시 탐조 기록이 모두 삭제돼요."}
+            lefttext={"탈퇴하기"}
+            handleLeftClick={() => {
+              setIsDeleteClicked(false);
+              // 탈퇴 로직
+            }}
+            righttext={"돌아가기"}
+            handleRightClick={() => setIsDeleteClicked(false)}
+            isDeleted={true}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
