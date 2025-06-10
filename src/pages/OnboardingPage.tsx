@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as SplashLogo } from "assets/icons/logo/splash.svg";
 import Login from "features/onboarding/components/Login";
+import { useNavigate } from "react-router-dom";
+import useRefreshToken from "hooks/useRefreshToken";
 
 type SplashStep = "start" | "transition" | "final";
 
 const OnboardingPage = () => {
   const [step, setStep] = useState<SplashStep>("start");
+  const navigate = useNavigate();
+
+  const { refreshTokenProcessed }: any = useRefreshToken();
 
   useEffect(() => {
     const timer1 = setTimeout(() => setStep("transition"), 1500);
@@ -16,6 +21,16 @@ const OnboardingPage = () => {
       clearTimeout(timer2);
     };
   }, []);
+
+  useEffect(() => {
+    if (step === "final" && refreshTokenProcessed) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        navigate(`/saerok`);
+      }
+    }
+  }, [step, refreshTokenProcessed, navigate]);
 
   const isStart = step === "start";
   const isTransition = step === "transition";

@@ -78,7 +78,7 @@ export const createRouter = () => {
           element: <SearchPlacePage />,
         },
         {
-          path: "/oauth/kakao/callback",
+          path: "/auth/kakao/login",
           element: <KakaoCallback />,
         },
       ],

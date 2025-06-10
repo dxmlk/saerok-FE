@@ -13,10 +13,10 @@ const Login = () => {
   return (
     <>
       <div className="px-24 flex flex-col justify-center gap-10 font-pretendard font-600 text-20">
-        <div className="flex flex-row h-54 w-full bg-black text-white gap-15 items-center justify-center rounded-10 ">
+        {/* <div className="flex flex-row h-54 w-full bg-black text-white gap-15 items-center justify-center rounded-10 ">
           <AppleIcon />
           <div>Apple로 계속하기</div>
-        </div>
+        </div> */}
         <div
           onClick={() => (window.location.href = KAKAO_AUTH_URL)}
           className="flex flex-row h-54 w-full bg-[#FEE500] text-black gap-5 items-center justify-center rounded-10 "
