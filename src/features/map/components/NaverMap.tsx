@@ -91,19 +91,33 @@ const NaverMap = ({ mapRef, markers }: NaverMapProps) => {
       const position = new window.naver.maps.LatLng(latitude, longitude);
 
       const content = `
-        <div class="flex flex-col items-center justify-center gap-2 text-xs">
-          <div class="relative w-[180px] h-[96px]">
-            <img src="/src/assets/icons/button/speech-bubble.svg" class="w-full h-full" />
-            <div class="absolute top-3 left-1/2 -translate-x-1/2 text-center">
-              <div class="font-bold">${birdName}</div>
-              <div>${note}</div>
+      <div class="flex flex-col items-center justify-center gap-2 text-xs">
+        <div class="relative w-[180px] h-[97px]">
+          <img src="/src/assets/icons/button/speech-bubble.svg" class="w-full h-full" />
+          <div class="w-full absolute top-0 left-1/2 -translate-x-1/2 pt-[12px] pl-[18px] pr-[24px] text-center text-font-black">
+            <div class="font-moneygraphy text-body-3 ">${birdName}</div>
+            <div style="min-height: 36px; display: flex; align-items: center; justify-content: center;">
+              <div
+                class="mt-[7px] font-pretendard text-caption-1 text-center text-font-black"
+                style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 100%;
+                "
+              >
+                ${note}
+              </div>
             </div>
           </div>
-          <button class="w-[60px] h-[60px] rounded-full border-[3px] bg-white overflow-hidden">
-            <img src="${imageUrl}" class="w-full h-full object-cover" />
-          </button>
         </div>
-      `;
+        <button class="w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border">
+          <img src="${imageUrl}" class="w-full h-full object-cover" />
+        </button>
+      </div>
+    `;
 
       const overlay = new CustomOverlay(position, content);
       overlayInstancesRef.current.push(overlay);

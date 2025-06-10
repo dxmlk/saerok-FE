@@ -14,7 +14,7 @@ export const mapItems: MapItemsType[] = [
     birdName: "까치",
     latitude: 37.58939182281775,
     longitude: 127.02990237554194,
-    note: "드디어 까치! 서울 한복판에서 보다니",
+    note: "드디어 까치! 서울 한복판에서 보다니 두 줄이 넘어가면 잘 처리되나 테스트하기 위해 글자를 늘리는 중 이 정도면 넘어갔겠지",
   },
   {
     collectionId: 2,

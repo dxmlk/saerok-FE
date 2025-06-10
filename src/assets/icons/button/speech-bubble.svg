@@ -1,17 +1,17 @@
-<svg width="187" height="103" viewBox="0 0 187 103" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_2761_6340)">
-<path d="M174 2C179.523 2 184 6.47715 184 12V76C184 81.5229 179.523 86 174 86H101.66L94.7324 98C93.9626 99.3333 92.0374 99.3333 91.2676 98L84.3398 86H13C7.47715 86 3 81.5229 3 76V12C3 6.47715 7.47715 2 13 2H174Z" fill="#FEFEFE"/>
+<svg width="192" height="108" viewBox="0 0 192 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_3914_6963)">
+<path d="M162.41 1.31836C173.456 1.31836 182.41 10.2727 182.41 21.3184V65.7812C182.41 76.8269 173.456 85.7812 162.41 85.7812H100.622L93.8418 97.6602C93.0742 99.0048 91.1348 99.0048 90.3672 97.6602L83.5869 85.7812H21.7949C10.7492 85.7812 1.79492 76.8269 1.79492 65.7812V21.3184C1.79492 10.2727 10.7492 1.31836 21.7949 1.31836H162.41Z" fill="#FEFEFE"/>
 </g>
 <defs>
-<filter id="filter0_d_2761_6340" x="0" y="0" width="187" height="103" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_3914_6963" x="0.794922" y="0.318359" width="190.615" height="107.351" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="1"/>
-<feGaussianBlur stdDeviation="1.5"/>
+<feOffset dx="4" dy="4"/>
+<feGaussianBlur stdDeviation="2.5"/>
 <feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2761_6340"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2761_6340" result="shape"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3914_6963"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3914_6963" result="shape"/>
 </filter>
 </defs>
 </svg>
