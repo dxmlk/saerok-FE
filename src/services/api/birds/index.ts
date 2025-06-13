@@ -13,6 +13,10 @@ export const fetchBookmarksApi = () => {
   return axiosPrivate.get("/birds/bookmarks/");
 };
 
+export const fetchBookmarkStatusApi = (birdId: number) => {
+  return axiosPrivate.get(`/birds/bookmarks/${birdId}/status`);
+};
+
 export const toggleBookmarkApi = (birdId: number) => {
   return axiosPrivate.post(`/birds/bookmarks/${birdId}/toggle`);
 };

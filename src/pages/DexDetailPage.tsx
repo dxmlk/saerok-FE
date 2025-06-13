@@ -10,6 +10,7 @@ import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import { fetchBookmarkStatusApi } from "services/api/birds";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -85,17 +86,18 @@ const DexDetailPage = () => {
     fetchBird();
   }, [id]);
 
-  // 북마크 상태 조회
   useEffect(() => {
-    const fetchBookmarkStatus = async () => {
+    const fetchStatus = async () => {
+      if (!id) return;
+      const numericId = parseInt(id, 10);
       try {
-        const res = await axios.get(`/api/v1/birds/bookmarks/${id}/status`);
+        const res = await fetchBookmarkStatusApi(numericId);
         setBookmarked(res.data.bookmarked);
       } catch (err) {
         console.error("북마크 상태 조회 실패:", err);
       }
     };
-    fetchBookmarkStatus();
+    fetchStatus();
   }, [id]);
 
   const habitatText = bird ? joinWithSeparator(bird.habitats, habitatMap, "•") : "";
