@@ -11,9 +11,10 @@ import MapPage from "pages/MapPage";
 import Layout from "components/common/Layout";
 import SearchPlacePage from "pages/SearchPlacePage";
 import OnboardingPage from "pages/OnboardingPage";
-import KakaoCallback from "servies/api/auth/KakaoCallback";
+import KakaoCallback from "services/api/auth/KakaoCallback";
 import RegisterPage from "pages/RegisterPage";
 import MyPage from "pages/MyPage";
+import ProtectedRoute from "components/common/ProtectedRoute";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -51,11 +52,19 @@ export const createRouter = () => {
         },
         {
           path: "/saerok",
-          element: <SaerokPage />,
+          element: (
+            <ProtectedRoute>
+              <SaerokPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/saerok-detail/:id",
-          element: <SaerokDetailPage />,
+          element: (
+            <ProtectedRoute>
+              <SaerokDetailPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/add-saerok",

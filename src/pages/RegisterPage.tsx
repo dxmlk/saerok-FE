@@ -70,7 +70,10 @@ const RegisterPage = () => {
       )}
 
       {submitted && (
-        <div className="fixed bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white">
+        <div
+          onClick={() => navigate(`/saerok`)}
+          className="fixed bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+        >
           새록 시작하기
         </div>
       )}

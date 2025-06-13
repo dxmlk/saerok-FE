@@ -3,7 +3,7 @@ import { ReactComponent as KakaoIcon } from "assets/icons/logo/kakao.svg";
 import Modal from "components/common/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { KAKAO_AUTH_URL } from "servies/api/auth/kakaoLogin";
+import { KAKAO_AUTH_URL } from "services/api/auth/kakaoLogin";
 import { AnimatePresence } from "framer-motion";
 
 const Login = () => {

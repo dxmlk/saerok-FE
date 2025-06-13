@@ -1,4 +1,3 @@
-import axios from "axios";
 import DexHeader from "features/dex/components/DexHeader";
 import DexList from "features/dex/components/DexList";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import clsx from "clsx";
 import DexMain from "features/dex/components/DexMain";
 import FilterHeader from "features/dex/components/FilterHeader";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import { fetchBookmarksApi, fetchDexItemsApi, toggleBookmarkApi } from "services/api/birds";
 
 const seasonMap: Record<string, string> = {
   봄: "spring",
@@ -137,8 +137,6 @@ const DexPage = () => {
       setError(null);
 
       const apiParams = convertFiltersToApiParams(filters);
-      console.log("[fetchDexItems] apiParams:", apiParams);
-
       const params = {
         page: pageNum,
         size: PAGE_SIZE,
@@ -148,13 +146,7 @@ const DexPage = () => {
         ...(search && { q: search }),
       };
 
-      console.log("[fetchDexItems] request params:", params);
-
-      const res = await axios.get("/api/v1/birds/", {
-        params,
-        paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
-      });
-
+      const res = await fetchDexItemsApi(params);
       const newItems = res.data.birds || [];
 
       setDexItems((prev) => {
@@ -206,23 +198,18 @@ const DexPage = () => {
   }, [selectedFilters, searchTerm]);
 
   useEffect(() => {
-    const fetchBookmarks = async () => {
-      try {
-        const res = await axios.get("/api/v1/birds/bookmarks/");
-        const ids = res.data.map((b: { birdId: number }) => b.birdId);
+    fetchBookmarksApi()
+      .then((res) => {
+        const ids = res.data.items.map((b: { birdId: number }) => b.birdId);
         setBookmarkedBirdIds(ids);
-      } catch (e) {
-        console.error("북마크를 불러오는 데 실패했습니다.", e);
-      }
-    };
+      })
+      .catch((err) => console.error("북마크 에러", err));
+  }, []);
 
-    fetchBookmarks();
-  });
   const toggleBookmark = async (birdId: number) => {
-    await axios.post(`/api/v1/birds/bookmarks/${birdId}/toggle`);
+    await toggleBookmarkApi(birdId);
     setBookmarkedBirdIds((prev) => (prev.includes(birdId) ? prev.filter((id) => id !== birdId) : [...prev, birdId]));
   };
-
   // Main 에서 Header 전환
   const [opacity, setOpacity] = useState(1);
   const [showMain, setShowMain] = useState(true);
