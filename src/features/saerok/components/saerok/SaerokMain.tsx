@@ -21,7 +21,7 @@ const SaerokMain = ({ birdCount }: SaerokMainProps) => {
 
   return (
     <>
-      <div className="relative overflow-hidden h-428 font-pretendard ">
+      <div className="relative overflow-hidden h-384 font-pretendard ">
         {/* 배경 */}
         <YellowCircle className="absolute bottom-32 right-56" />
         <PinkCircle className="absolute bottom-200 left-288" />

@@ -41,7 +41,7 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
 
   return (
     <>
-      <div className="relative overflow-hidden h-276 font-pretendard ">
+      <div className="relative overflow-hidden h-232 font-pretendard ">
         {/* 배경 */}
         <div
           className="absolute inset-0 bg-[#F2F2F2]/60 backdrop-blur-[80px] z-0"
