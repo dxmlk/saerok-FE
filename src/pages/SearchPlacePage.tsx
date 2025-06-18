@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { KakaoPlace } from "types/kakao";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "components/common/textfield/SearchBar";
+import { useSaerokForm } from "states/useSaerokForm";
+import { KakaoPlace } from "types/kakao";
 
 const SearchPlacePage = () => {
   const [keyword, setKeyword] = useState("");
@@ -9,12 +10,10 @@ const SearchPlacePage = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const fromKey = location.state?.from ?? "unknown";
   const [isKakaoReady, setIsKakaoReady] = useState(false);
+  const navigate = useNavigate();
+  const { setPlaceNameDetails } = useSaerokForm();
 
-  // Kakao 지도 스크립트 로드
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -34,7 +33,6 @@ const SearchPlacePage = () => {
     document.head.appendChild(script);
   }, []);
 
-  // 검색 실행
   const searchPlaces = () => {
     const kakao = (window as any).kakao;
     if (!isKakaoReady || !kakao?.maps?.services) return;
@@ -50,13 +48,11 @@ const SearchPlacePage = () => {
     });
   };
 
-  // 마커 표시
   const showMarkers = (results: KakaoPlace[]) => {
     const kakao = (window as any).kakao;
     const map = mapInstance.current;
     const bounds = new kakao.maps.LatLngBounds();
 
-    // 기존 마커 제거
     markersRef.current.forEach((m) => m.setMap(null));
     markersRef.current = [];
 
@@ -71,14 +67,15 @@ const SearchPlacePage = () => {
     if (results.length > 0) map.setBounds(bounds);
   };
 
-  // 장소 선택 → 이전 페이지로 이동하며 값 전달
   const handleSelect = (place: KakaoPlace) => {
-    navigate("/add-saerok", {
-      state: {
-        selectedPlace: place,
-        selectedPlaceKey: fromKey,
-      },
+    setPlaceNameDetails({
+      placeName: place.place_name,
+      address: place.road_address_name || place.address_name,
+      locationAlias: place.place_name,
+      latitude: parseFloat(place.y),
+      longitude: parseFloat(place.x),
     });
+    navigate("/add-saerok");
   };
 
   return (
@@ -92,10 +89,8 @@ const SearchPlacePage = () => {
         />
       </div>
 
-      {/* 지도 */}
       <div ref={mapRef} className="w-full h-[300px]" />
 
-      {/* 결과 리스트 */}
       <ul className="overflow-y-auto p-4 flex-grow space-y-2 bg-white">
         {places.map((place) => (
           <li

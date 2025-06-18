@@ -1,19 +1,19 @@
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+import React from "react";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/locale";
 
-const DatePicker = ({ value, onChange }: { value: DateValueType; onChange: (value: DateValueType) => void }) => {
+const DatePicker = ({ selected, onChange }: { selected: Date | null; onChange: (date: Date | null) => void }) => {
   return (
-    <div className="h-[44px] w-full  rounded-[10px] border-[2px] border-[#d9d9d9] flex items-center px-[20px] text-[15px] font-whitegrayDark font-pretendard">
-      <Datepicker
-        value={value}
+    <div className="h-[44px] w-full rounded-[10px] border-[2px] border-[#d9d9d9] flex items-center px-[20px] text-[15px] text-font-black font-pretendard">
+      <ReactDatePicker
+        selected={selected}
         onChange={onChange}
-        useRange={false}
-        asSingle={true}
-        placeholder={"발견 일시를 입력해주세요"}
-        inputClassName="w-full h-full outline-none bg-transparent"
-        toggleClassName="hidden"
-        displayFormat="YYYY.MM.DD"
-        containerClassName="w-full"
-        popoverDirection="down"
+        dateFormat="yyyy.MM.dd"
+        placeholderText="발견 일시를 입력해주세요"
+        locale={ko}
+        className="w-full h-full bg-transparent outline-none"
+        popperPlacement="bottom"
       />
     </div>
   );

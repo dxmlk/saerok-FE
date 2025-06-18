@@ -2,39 +2,70 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+export const isAccessTokenValid = (accessToken: string | null): boolean => {
+  if (!accessToken) return false;
+
+  try {
+    const payload = JSON.parse(atob(accessToken.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+    const isValid = payload.exp > now;
+    console.log("[useRefreshToken] 🔐 accessToken payload: ", payload);
+    return isValid;
+  } catch (e) {
+    console.error("[useRefreshToken] ❌ accessToken 파싱 실패", e);
+    return false;
+  }
+};
+
 const useRefreshToken = () => {
   const navigate = useNavigate();
   const [refreshTokenProcessed, setRefreshTokenProcessed] = useState(false);
 
-  // 리프레시 토큰을 사용하여 액세스 토큰을 갱신하는 함수
-  const refreshAccessToken = async () => {
-    try {
-      const response = await axios.post("/api/v1/auth/refresh");
-
-      const { accessToken, signupStatus } = response.data;
-
-      // 새 액세스 토큰 저장
-      localStorage.setItem("accessToken", accessToken);
-
-      // 회원가입 상태에 따라 처리
-      if (signupStatus === "PROFILE_REQUIRED") {
-        // 닉네임 입력 화면으로 이동
-        navigate("/register");
-      } else if (signupStatus === "COMPLETED") {
-        // 자동 로그인 처리
-        navigate("/saerok"); // 홈 페이지로 이동 처리
-      }
-
-      // 리프레시 토큰 처리 완료 상태로 업데이트
-      setRefreshTokenProcessed(true);
-    } catch (error) {
-      console.error("리프레시 토큰 갱신 실패", error);
-      // 로그인 실패
-    }
-  };
-
   useEffect(() => {
-    refreshAccessToken(); // 앱 실행 시 리프레시 토큰을 갱신
+    const refresh = async () => {
+      console.log("[useRefreshToken] 🔄 리프레시 요청 시작");
+
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        if (!refreshToken) {
+          console.warn("[useRefreshToken] ❌ 리프레시 토큰 없음");
+          setRefreshTokenProcessed(true);
+          return;
+        }
+
+        const response = await axios.post(
+          "/api/v1/auth/refresh",
+          { refreshToken },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const { accessToken, signupStatus } = response.data;
+        console.log("[useRefreshToken] ✅ 리프레시 성공 \n", response.data);
+
+        localStorage.setItem("accessToken", accessToken);
+
+        if (signupStatus === "COMPLETED") {
+          console.log("[useRefreshToken] ✅ 로그인 완료 → /saerok 이동");
+          navigate("/saerok");
+        } else {
+          console.warn("[useRefreshToken] ⚠️ 미완료 회원 → /signup 이동");
+          navigate("/signup");
+        }
+      } catch (error) {
+        console.error("[useRefreshToken] ❌ 리프레시 실패 \n", error);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        // navigate("/login"); // 필요하면 해제
+      } finally {
+        setRefreshTokenProcessed(true);
+      }
+    };
+
+    refresh();
   }, [navigate]);
 
   return { refreshTokenProcessed };

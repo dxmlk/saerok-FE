@@ -2,33 +2,32 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 
-interface SearchBarSaerokProps {
+interface SearchBarBirdProps {
   searchTerm: string;
-  setSearchTerm: (value: string) => void;
-  placeholder: string;
-  searchType: "bird" | "place";
+  setBirdName: (value: string) => void;
+  setBirdId: (id: number | null) => void;
   disabled?: boolean;
 }
 
-const SearchBarSaerok = ({ searchTerm, setSearchTerm, placeholder, searchType, disabled }: SearchBarSaerokProps) => {
+const SearchBarBird = ({ searchTerm, setBirdName, setBirdId, disabled }: SearchBarBirdProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [inputValue, setInputValue] = useState(searchTerm);
 
-  //  상태로 관리
-  const [inputValue, setInputValue] = useState("");
-
-  //  props로 받은 searchTerm이 변경되면 inputValue도 업데이트
   useEffect(() => {
-    console.log("SearchBarSaerok 렌더링됨, term:", searchTerm);
     setInputValue(searchTerm);
+    console.log("🐦 SearchBarBird term:", searchTerm);
   }, [searchTerm]);
 
   const handleClick = () => {
     if (disabled) return;
 
-    const targetPage = searchType === "bird" ? "/search/bird" : "/search/place";
-    navigate(targetPage, {
-      state: { from: location.pathname, ...location.state },
+    navigate("/search/bird", {
+      state: {
+        ...location.state,
+        from: location.pathname,
+        target: "bird",
+      },
     });
   };
 
@@ -44,9 +43,9 @@ const SearchBarSaerok = ({ searchTerm, setSearchTerm, placeholder, searchType, d
           value={inputValue}
           readOnly
           disabled={disabled}
-          placeholder={placeholder}
+          placeholder="새 이름을 입력하세요"
           className={`outline-none flex w-full items-center text-body-2 ml-20 mr-30
-          ${disabled ? "placeholder-font-whitegrayLight" : "placeholder-font-whitegrayDark"} 
+          ${disabled ? "placeholder-font-whitegrayLight " : "placeholder-font-whitegrayDark"} 
           cursor-pointer bg-transparent`}
         />
         <SearchIcon className="w-24 h-24 mr-15 stroke-[2px] stroke-font-whitegrayLight" />
@@ -55,4 +54,4 @@ const SearchBarSaerok = ({ searchTerm, setSearchTerm, placeholder, searchType, d
   );
 };
 
-export default SearchBarSaerok;
+export default SearchBarBird;

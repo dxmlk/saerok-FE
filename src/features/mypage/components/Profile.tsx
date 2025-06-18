@@ -5,10 +5,17 @@ import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
 
 interface ProfileProps {
   isUser: boolean;
+  nickname?: string;
+  joinedDate?: string;
   onClick: () => void;
 }
 
-const Profile = ({ isUser, onClick }: ProfileProps) => {
+const Profile = ({ isUser, nickname, joinedDate, onClick }: ProfileProps) => {
+  const getDaysSinceJoin = (dateStr: string) => {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    return Math.floor(diff / (1000 * 60 * 60 * 24));
+  };
+
   return (
     <>
       {!isUser && (
@@ -34,12 +41,12 @@ const Profile = ({ isUser, onClick }: ProfileProps) => {
           <ProfileIcon className="w-61 h-61" />
           <div>
             <div className="flex flex-row gap-4">
-              <div className="font-bold text-30">안암동새록마스터</div>
+              <div className="font-bold text-30">{nickname}</div>
               <button onClick={onClick} className="cursor-pointer">
                 <EditIcon className="w-24 h-24 stroke-font-mainBlue" />
               </button>
             </div>
-            <div className="text-caption-1 text-font-darkgray">새록과 함께한지 +145일</div>
+            <div className="text-caption-1 text-font-darkgray">새록과 함께한지 +{getDaysSinceJoin(joinedDate!)}일</div>
           </div>
         </div>
       )}

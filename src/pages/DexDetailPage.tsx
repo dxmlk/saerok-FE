@@ -10,7 +10,7 @@ import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
-import { fetchBookmarkStatusApi } from "services/api/birds";
+import { fetchBookmarkStatusApi, fetchDexDetailApi } from "services/api/birds";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -74,8 +74,10 @@ const DexDetailPage = () => {
   // 상세 정보 조회
   useEffect(() => {
     const fetchBird = async () => {
+      if (!id) return;
+      const numericId = parseInt(id, 10);
       try {
-        const res = await axios.get(`/api/v1/birds/${id}`);
+        const res = await fetchDexDetailApi(numericId);
         setBird(res.data);
       } catch (err) {
         setError("존재하지 않는 새입니다.");

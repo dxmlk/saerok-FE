@@ -1,37 +1,63 @@
-import BottomSheet from "components/common/BottomSheet";
-import useBottomSheet from "hooks/useBottomSheet";
 import React from "react";
+import axiosPrivate from "services/api/axiosPrivate"; // 토큰 붙는 인스턴스
 
 const Test = () => {
+  const collectionId = 318; // 테스트용 컬렉션 ID
+  const imageId = 265; // 테스트용 이미지 ID
+
+  const testPatchCollection = async () => {
+    try {
+      const response = await axiosPrivate.patch(`/collections/${collectionId}/edit`, {
+        isBirdIdUpdated: true,
+        birdId: 161,
+        discoveredDate: "2024-05-15",
+        longitude: 126.484480056159,
+        latitude: 33.5124867330564,
+        locationAlias: "스타벅스 제주용담DT점",
+        address: "제주특별자치도 제주시 서해안로 380",
+        note: "진짜 새처럼 안 생겼네요",
+        accessLevel: "PUBLIC",
+      });
+      console.log("✅ PATCH 성공", response);
+    } catch (error) {
+      console.error("❌ PATCH 실패", error);
+    }
+  };
+
+  const testDeleteCollection = async () => {
+    try {
+      const response = await axiosPrivate.delete(`/collections/${collectionId}`);
+      console.log("✅ DELETE 컬렉션 성공", response);
+    } catch (error) {
+      console.error("❌ DELETE 컬렉션 실패", error);
+    }
+  };
+
+  const testDeleteImage = async () => {
+    try {
+      const response = await axiosPrivate.delete(`/collections/${collectionId}/images/${imageId}`);
+      console.log("✅ DELETE 이미지 성공", response);
+    } catch (error) {
+      console.error("❌ DELETE 이미지 실패", error);
+    }
+  };
+
   return (
-    <>
-      <div className="flex flex-col items-center justify-center gap-2 text-xs">
-        <div className="relative w-[180px] h-[97px]">
-          <img src="/src/assets/icons/button/speech-bubble.svg" className="w-full h-full" />
-          <div className="w-full absolute top-0 left-1/2 -translate-x-1/2 pt-[12px] pl-[18px] pr-[24px] text-center text-font-black">
-            <div className="font-moneygraphy text-body-3 ">까치</div>
-            <div style={{ minHeight: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div
-                className="mt-[7px] font-pretendard text-caption-1 text-center text-font-black"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                드디어 까치를 보다니 드디어 까치를 보다니드디어 까치를 보다니드디어 까치를 보다니드디어 까치를
-                보다니드디어 까치를 보다니드디어 까치를 보다니
-              </div>
-            </div>
-          </div>
-        </div>
-        <button className="w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border">
-          <img src="${imageUrl}" className="w-full h-full object-cover" />
-        </button>
-      </div>
-    </>
+    <div className="p-10 flex flex-col gap-4 font-pretendard">
+      <h1 className="text-xl font-bold mb-4">🧪 Saerok API 테스트</h1>
+
+      <button onClick={testPatchCollection} className="px-4 py-2 bg-blue-600 text-white rounded">
+        PATCH 컬렉션 수정 요청
+      </button>
+
+      <button onClick={testDeleteCollection} className="px-4 py-2 bg-red-600 text-white rounded">
+        DELETE 컬렉션 삭제 요청
+      </button>
+
+      <button onClick={testDeleteImage} className="px-4 py-2 bg-yellow-400 text-black rounded">
+        DELETE 이미지 삭제 요청
+      </button>
+    </div>
   );
 };
 

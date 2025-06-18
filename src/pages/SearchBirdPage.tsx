@@ -1,50 +1,81 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import SimpleHeader from "components/common/SimpleHeader";
 import SearchBar from "components/common/textfield/SearchBar";
-import { useEffect, useState } from "react";
+import { useSaerokForm } from "states/useSaerokForm";
+import { getBirdIdByNameApi } from "services/api/birds";
 
 const SearchBirdPage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [bookmarkedBirdIds, setBookmarkedBirdIds] = useState<number[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const { setBirdName, setBirdId } = useSaerokForm();
 
   const handleSearch = (keyword: string) => {
     console.log("검색 실행:", keyword);
-    // 여기에 API 호출 또는 페이지 이동 등을 구현
   };
 
-  // 이거 api 수정 필요
-  // 북마크한 조류 정보 상세 조회 api로
+  const handleSelectSuggestion = async (koreanName: string) => {
+    const birdId = await getBirdIdByNameApi(koreanName);
+    if (!birdId) {
+      alert("해당 이름의 새를 찾을 수 없습니다.");
+      return;
+    }
+
+    setBirdName(koreanName);
+    setBirdId(birdId);
+    navigate("/add-saerok");
+  };
+
   useEffect(() => {
-    const fetchBookmarks = async () => {
+    const fetchSuggestions = async () => {
+      if (searchTerm.trim() === "") {
+        setSuggestions([]);
+        return;
+      }
+
       try {
-        const res = await axios.get("/api/v1/birds/bookmarks/");
-        const ids = res.data.map((b: { birdId: number }) => b.birdId);
-        setBookmarkedBirdIds(ids);
+        const res = await axios.get("/api/v1/birds/autocomplete", {
+          params: { q: searchTerm },
+        });
+        setSuggestions(res.data.suggestions || []);
       } catch (e) {
-        console.error("북마크를 불러오는 데 실패했습니다.", e);
+        console.error("자동완성 api 호출 실패", e);
       }
     };
 
-    fetchBookmarks();
-  });
+    const delayDebounce = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
 
   return (
-    <>
-      <div className="min-h-[100dvh] bg-background-whitegray">
-        <SimpleHeader title={"이름 찾기"} />
-        <div className="px-24 bg-white pt-10 pb-20 ">
-          <SearchBar
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            onSearch={handleSearch}
-            placeholder="새 이름을 입력해주세요"
-          />
-        </div>
-
-        {/* 북마크한 종들 보이게 */}
-        <div></div>
+    <div className="min-h-[100dvh] bg-background-whitegray">
+      <SimpleHeader title="이름 찾기" />
+      <div className="px-24 bg-white pt-10 pb-20">
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          onSearch={handleSearch}
+          placeholder="새 이름을 입력해주세요"
+        />
       </div>
-    </>
+      <div className="px-24 mt-4">
+        {suggestions.length > 0 && (
+          <ul className="bg-white border rounded-lg shadow-md">
+            {suggestions.map((item) => (
+              <li
+                key={item}
+                onClick={() => handleSelectSuggestion(item)}
+                className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 };
 

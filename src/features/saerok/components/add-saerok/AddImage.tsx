@@ -1,43 +1,45 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ReactComponent as AddIcon } from "assets/icons/button/add.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
+import { useSaerokForm } from "states/useSaerokForm";
 
 const AddImage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const { form, setImageFile, setImagePreviewUrl } = useSaerokForm();
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setImageFile(selectedFile);
+
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
-          setPreviewImage(reader.result);
+          setImagePreviewUrl(reader.result);
         }
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(selectedFile);
     }
   };
 
   const handleImageRemove = () => {
-    setPreviewImage(null);
+    setImageFile(null);
+    setImagePreviewUrl(null);
   };
 
   return (
     <>
-      {/* <div className="mt-76"> */}
       <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
       <div className="flex flex-row gap-0 items-end">
-        <div className="relative w-83 h-83 rounded-10 bg-transparent shrink-0 ">
-          {previewImage ? (
+        <div className="relative w-83 h-83 rounded-10 bg-transparent shrink-0">
+          {form.imagePreviewUrl ? (
             <>
               <img
-                src={previewImage}
+                src={form.imagePreviewUrl}
                 alt="preview"
                 className="absolute bottom-0 left-0 w-78 h-78 object-cover rounded-10"
               />
@@ -57,11 +59,10 @@ const AddImage = () => {
         </div>
         <div className="text-caption-1 text-font-whitegrayDark font-pretendard">
           <span>(</span>
-          <span>{previewImage ? "1" : "0"}</span>
+          <span>{form.imagePreviewUrl ? "1" : "0"}</span>
           <span>/1)</span>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 };
