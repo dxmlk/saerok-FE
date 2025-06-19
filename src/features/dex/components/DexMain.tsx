@@ -64,7 +64,7 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
           className="absolute right-72 bottom-164 w-40 h-40 rounded-full bg-glassmorphism z-10 flex items-center justify-center"
         >
           <ScrapIcon
-            className={`h-24 w-24 ${activeFilters.includes("스크랩") ? "stroke-none fill-font-mainBlue" : "stroke-[2px] stroke-black fill-transparent"}`}
+            className={`h-24 w-24 ${activeFilters.includes("스크랩") ? "stroke-none fill-font-pointYellow" : "stroke-[2px] stroke-black fill-transparent"}`}
           />
         </button>
         <div

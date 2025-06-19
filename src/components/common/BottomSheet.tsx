@@ -33,7 +33,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
           className="fixed -bottom-60 pb-60 left-0 right-0 hidden max-h-[90dvh] min-h-100 w-full max-w-500 -translate-x-1/2 flex-col rounded-t-[20px] bg-white  transition-transform duration-0 ease-out"
         >
           <div className="flex justify-between items-center px-24 rounded-20">
-            <div className="flex-grow text-center font-moneygraphy text-subtitle-2 text-black py-24">{title}</div>
+            <div className="flex-grow text-center font-haru text-subtitle-2 text-black py-24">{title}</div>
             <button onClick={handleClose} className="h-14 w-14 text-font-whitegrayDark">
               <XIcon />
             </button>
@@ -42,7 +42,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
 
           <button
             onClick={handleApply}
-            className="mt-20 border-t border-1 border-background-whitegray h-96 text-font-mainBlue text-button-1"
+            className="font-pretendard mt-20 border-t border-1 border-background-whitegray h-96 text-font-mainBlue text-button-1"
           >
             완료
           </button>

@@ -4,9 +4,14 @@ import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as RadioButton } from "assets/icons/button/radio-button.svg";
+import { ReactComponent as SparrowIcon } from "assets/icons/image/sparrow.svg";
+import { ReactComponent as PigeonIcon } from "assets/icons/image/pigeon.svg";
+import { ReactComponent as DuckIcon } from "assets/icons/image/duck.svg";
+import { ReactComponent as WildGooseIcon } from "assets/icons/image/wild-goose.svg";
+
 import BottomSheet from "components/common/BottomSheet";
 import useBottomSheet from "hooks/useBottomSheet";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ComponentType, SVGProps } from "react";
 
 interface SelectedFilters {
   habitats: string[];
@@ -89,6 +94,44 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
     </div>
   );
 
+  const SizeCheckBox = ({
+    Icon,
+    label,
+    desc,
+    checked,
+    onChange,
+  }: {
+    Icon: ComponentType<SVGProps<SVGSVGElement>>;
+    label: string;
+    desc: string;
+    checked: boolean;
+    onChange: () => void;
+  }) => (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        onChange();
+      }}
+      className="h-208 w-auto font-pretendard flex flex-col justify-center items-center "
+    >
+      <div className="flex-1 w-full flex items-end justify-center">
+        <Icon />
+      </div>
+
+      <div className="mt-28 flex flex-col items-center">
+        <div
+          className={`w-18 h-18 rounded-4 flex items-center justify-center ${
+            checked ? "bg-mainBlue" : "bg-background-white border-1.5 border-font-whitegray"
+          }`}
+        >
+          {checked && <CheckIcon className="h-12 w-12 text-background-white" />}
+        </div>
+        <span className="text-body-1 mt-2">{label}</span>
+        <span className="text-caption-1 text-font-darkgray">{desc}</span>
+      </div>
+    </div>
+  );
+
   const getBottomSheetContent = () => {
     const key = currentFilter ? filterGroupKey(currentFilter) : "seasons";
     const selected = selectedFilters[key];
@@ -158,21 +201,31 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
     }
 
     if (currentFilter === "크기") {
+      const sizeOptions = [
+        { key: "참새", label: "참새", desc: "~15cm", Icon: SparrowIcon },
+        { key: "비둘기", label: "비둘기", desc: "~30cm", Icon: PigeonIcon },
+        { key: "오리", label: "오리", desc: "~54cm", Icon: DuckIcon },
+        { key: "기러기", label: "기러기 이상", desc: "55cm~", Icon: WildGooseIcon },
+      ];
+
+      const margins = ["mr-[27px]", "mr-[20px]", "mr-[-17px]", "mr-0"];
+
       return (
-        <div className="flex flex-wrap gap-10">
-          {sizeCategories.map((size) => (
-            <CheckBox
-              key={size}
-              title={size}
-              checked={selected.includes(size)}
-              onChange={() => toggleItem("sizeCategories", size)}
-            />
+        <div className="flex flex-row w-full justify-center">
+          {sizeOptions.map(({ key, label, desc, Icon }, idx) => (
+            <div key={key} className={margins[idx]}>
+              <SizeCheckBox
+                Icon={Icon}
+                label={label}
+                desc={desc}
+                checked={selected.includes(key)}
+                onChange={() => toggleItem("sizeCategories", key)}
+              />
+            </div>
           ))}
         </div>
       );
     }
-
-    return <p>선택이 없습니다.</p>;
   };
 
   return (

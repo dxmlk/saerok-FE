@@ -51,7 +51,7 @@ const DexHeader = ({ selectedFilters, searchTerm, onToggleBookmarkView }: DexHea
           }}
         >
           <ScrapIcon
-            className={`w-24 h-24 stroke-[2px] cursor-pointer  ${activeFilters.includes("스크랩") ? `stroke-none fill-font-mainBlue ` : "fill-transparent stroke-black"} `}
+            className={`w-24 h-24 stroke-[2px] cursor-pointer  ${activeFilters.includes("스크랩") ? `stroke-none fill-font-pointYellow ` : "fill-transparent stroke-black"} `}
           />
         </button>
         <button onClick={goToSearchPage}>
