@@ -235,7 +235,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           className={`gap-6 flex flex-row text-button-2  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.seasons.length > 0
               ? "bg-mainBlue text-background-white"
-              : "bg-background-white text-font-black border-font-darkgray"
+              : "bg-background-white text-font-black border-font-whitegrayDark"
           }`}
           onClick={() => {
             setCurrentFilter("계절");
@@ -252,7 +252,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           className={`gap-6 flex flex-row text-button-2   border-[0.35px] w-84 h-33 rounded-100 justify-center items-center ${
             selectedFilters.habitats.length > 0
               ? "bg-mainBlue text-background-white "
-              : "bg-background-white text-font-black border-font-darkgray"
+              : "bg-background-white text-font-black border-font-whitegrayDark"
           }`}
           onClick={() => {
             setCurrentFilter("서식지");
@@ -269,7 +269,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           className={`gap-7 flex flex-row text-button-2   border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.sizeCategories.length > 0
               ? "bg-mainBlue text-background-white "
-              : "bg-background-white text-font-black border-font-darkgray"
+              : "bg-background-white text-font-black border-font-whitegrayDark"
           }`}
           onClick={() => {
             setCurrentFilter("크기");

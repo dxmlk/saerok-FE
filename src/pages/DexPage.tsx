@@ -9,12 +9,12 @@ import DexHeader from "features/dex/components/DexHeader";
 import DexList from "features/dex/components/DexList";
 import FilterHeader from "features/dex/components/FilterHeader";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
-import { ReactComponent as SaerokImage } from "assets/icons/image/saerok.svg";
 
 import { fetchBookmarksApi, fetchDexItemsApi, toggleBookmarkApi } from "services/api/birds";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { filtersState, searchTermState } from "states/dexSearchState";
+import EmptyPage from "features/dex/components/EmptyPage";
 
 interface DexItem {
   id: number;
@@ -248,15 +248,11 @@ export default function DexPage() {
 
       <div className="px-24">
         {showBookmarkOnly && dexItems.filter((i) => bookmarkedBirdIds.includes(i.id)).length === 0 ? (
-          <div className="mt-10 flex flex-col gap-5">
-            <div className="font-haru text-subtitle-1-2 text-black">스크랩한 새가 없어요!</div>
-            <div className="font-pretendard text-body-2 text-font-darkgray">
-              새 카드 오른쪽 위 스크랩 버튼을 눌러 스크랩해보세요.
-            </div>
-            <div className="flex justify-center mt-88">
-              <SaerokImage />
-            </div>
-          </div>
+          <EmptyPage
+            upperText="스크랩한 새가 없어요!"
+            lowerText="새 카드 오른쪽 위 스크랩 버튼을 눌러 스크랩해보세요."
+            bgColor="gray"
+          />
         ) : (
           <DexList
             dexItems={showBookmarkOnly ? dexItems.filter((i) => bookmarkedBirdIds.includes(i.id)) : dexItems}
@@ -264,7 +260,6 @@ export default function DexPage() {
             onToggleBookmark={toggleBookmark}
           />
         )}
-        {error && <div className="text-center text-red-500 mt-4">{error}</div>}
       </div>
 
       <ScrollToTopButton />

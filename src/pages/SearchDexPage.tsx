@@ -10,6 +10,7 @@ import qs, { ParsedQs } from "qs";
 
 import { useRecoilState } from "recoil";
 import { filtersState, searchTermState } from "states/dexSearchState";
+import EmptyPage from "features/dex/components/EmptyPage";
 
 interface SearchRecord {
   keyword: string;
@@ -47,7 +48,7 @@ const SearchBirdPage = () => {
       habitats: safeStringArray(params.habitats),
       sizeCategories: safeStringArray(params.sizeCategories),
     });
-    // searchTerm 은 여기서 덮어쓰지 않습니다!
+    // searchTerm 은 여기서 덮어쓰지 않움
   }, [location.search, setSelectedFilters]);
 
   // 로컬스토리지에서 검색 기록 불러오기
@@ -141,17 +142,29 @@ const SearchBirdPage = () => {
 
       <div className="flex flex-col">
         {searchHistory.length === 0 ? (
-          <span className="h-500 flex items-center justify-center text-caption-4 text-[#979797]">
-            아직 검색 기록이 없어요
-          </span>
+          <div className="px-24 pt-12">
+            <EmptyPage upperText="검색 기록이 없어요!" lowerText="궁금한 새를 검색해보세요." bgColor="white" />
+          </div>
         ) : (
           searchHistory.map((rec, idx) => (
-            <div key={idx} className="border-t border-[#d9d9d9] flex h-[55px] justify-between items-center">
-              <span className="ml-[25px] text-[15px] font-400 text-[#455154]">{rec.keyword}</span>
-              <div className="flex gap-[7px] items-center mr-[25px]">
-                <span className="text-[13px] font-400 text-[#979797]">{rec.date}</span>
-                <button onClick={() => handleDeleteHistory(idx)}>
-                  <XIcon className="w-[10px] h-[10px] fill-[#979797]" />
+            <div
+              key={idx}
+              onClick={() => {
+                setSearchTerm(rec.keyword);
+                handleSearch(rec.keyword);
+              }}
+              className="border-t border-background-whitegray flex h-54 justify-between items-center"
+            >
+              <span className="ml-26 text-body-2 text-font-darkgray">{rec.keyword}</span>
+              <div className="flex gap-15 items-center mr-26">
+                <span className="text-caption-1 text-font-whitegrayDark">{rec.date}</span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteHistory(idx);
+                  }}
+                >
+                  <XIcon className="w-10 h-10 fill-font-whitegrayDark" />
                 </button>
               </div>
             </div>
