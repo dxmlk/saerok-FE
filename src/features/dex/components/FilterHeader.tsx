@@ -179,7 +179,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
     <>
       <div className="flex gap-7 font-pretendard bg-transparent">
         <button
-          className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
+          className={`gap-6 flex flex-row text-button-2  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.seasons.length > 0
               ? "bg-mainBlue text-background-white"
               : "bg-background-white text-font-black border-font-darkgray"
@@ -196,7 +196,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         </button>
 
         <button
-          className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-84 h-33 rounded-100 justify-center items-center ${
+          className={`gap-6 flex flex-row text-button-2   border-[0.35px] w-84 h-33 rounded-100 justify-center items-center ${
             selectedFilters.habitats.length > 0
               ? "bg-mainBlue text-background-white "
               : "bg-background-white text-font-black border-font-darkgray"
@@ -213,7 +213,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         </button>
 
         <button
-          className={`gap-7 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
+          className={`gap-7 flex flex-row text-button-2   border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.sizeCategories.length > 0
               ? "bg-mainBlue text-background-white "
               : "bg-background-white text-font-black border-font-darkgray"

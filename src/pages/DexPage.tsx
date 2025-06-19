@@ -8,6 +8,7 @@ import DexMain from "features/dex/components/DexMain";
 import FilterHeader from "features/dex/components/FilterHeader";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 import { fetchBookmarksApi, fetchDexItemsApi, toggleBookmarkApi } from "services/api/birds";
+import { ReactComponent as SaerokImage } from "assets/icons/image/saerok.svg";
 
 const seasonMap: Record<string, string> = {
   봄: "spring",
@@ -264,11 +265,23 @@ const DexPage = () => {
       </div>
 
       <div className="px-24">
-        <DexList
-          dexItems={showBookmarkOnly ? dexItems.filter((item) => bookmarkedBirdIds.includes(item.id)) : dexItems}
-          bookmarkedBirdIds={bookmarkedBirdIds}
-          onToggleBookmark={toggleBookmark}
-        />
+        {showBookmarkOnly && dexItems.filter((item) => bookmarkedBirdIds.includes(item.id)).length === 0 ? (
+          <div className="mt-10 px-1 w-full flex flex-col gap-5">
+            <div className="font-haru text-subtitle-1-2 text-black">스크랩한 새가 없어요!</div>
+            <div className="font-pretendard text-body-2 text-font-darkgray">
+              새 카드 오른쪽 위 스크랩 버튼을 눌러 스크랩해보세요.
+            </div>
+            <div className="flex justify-center mt-88">
+              <SaerokImage />
+            </div>
+          </div>
+        ) : (
+          <DexList
+            dexItems={showBookmarkOnly ? dexItems.filter((item) => bookmarkedBirdIds.includes(item.id)) : dexItems}
+            bookmarkedBirdIds={bookmarkedBirdIds}
+            onToggleBookmark={toggleBookmark}
+          />
+        )}
       </div>
       <ScrollToTopButton />
     </div>
