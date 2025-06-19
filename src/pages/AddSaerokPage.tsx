@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AddImage from "features/saerok/components/add-saerok/AddImage";
 import EditHeader from "features/saerok/components/add-saerok/EditHeader";
 import EditFooter from "features/saerok/components/add-saerok/EditFooter";
@@ -16,8 +16,10 @@ const AddSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { form, setBirdName, setBirdId, setPlaceName, setDate, setMemo, setImageFile } = useSaerokForm();
+  const initializedRef = useRef(false); // 무한 루프 방지
+  const { form, setBirdName, setBirdId, setPlaceName, setDate, setMemo, setImageFile, resetForm } = useSaerokForm();
 
   const getBorderColor = (field: string) => {
     return focusedField === field ? "#4190FF" : "#d9d9d9";
@@ -27,14 +29,16 @@ const AddSaerokPage = () => {
     const newCheck = !isChecked;
     setIsChecked(newCheck);
     if (newCheck) {
-      setBirdName(null);
+      setBirdName("이름 모를 새");
       setBirdId(null);
+    } else {
+      setBirdName("");
     }
   };
 
   const handleSubmit = async () => {
     console.log("form:", form);
-    if (form.birdId == null || !form.date || !form.address || !form.locationAlias || !form.memo || !form.imageFile) {
+    if (!form.date || !form.address || !form.locationAlias || !form.memo || !form.imageFile) {
       alert("모든 항목을 입력하고 이미지를 선택해주세요.");
       return;
     }
@@ -61,12 +65,25 @@ const AddSaerokPage = () => {
       await registerImageMetaApi(collectionId, objectKey, contentType);
 
       alert("등록이 완료되었습니다!");
+      resetForm();
+      setIsChecked(false);
       navigate("/saerok");
     } catch (err) {
       console.error("등록 실패:", err);
       alert("등록 중 오류가 발생했습니다.");
     }
   };
+
+  useEffect(() => {
+    if (initializedRef.current) return;
+
+    const state = location.state as { birdId?: number; birdName?: string } | undefined;
+    if (state?.birdId != null) {
+      setBirdId(state.birdId);
+      setBirdName(state.birdName ?? "");
+    }
+    initializedRef.current = true;
+  }, []);
 
   return (
     <>
@@ -122,23 +139,24 @@ const AddSaerokPage = () => {
         <div className="mt-[20px]">
           <div className="ml-13 mb-7 text-caption-1 text-font-black">한 줄 평</div>
           <div
-            className="h-[44px] w-full flex rounded-[10px] border-[2px] items-center"
+            className="h-88 w-full flex rounded-[10px] border-[2px] items-center overflow-hidden"
             style={{ borderColor: getBorderColor("review") }}
           >
-            <input
-              className="outline-none w-full h-full items-center text-[15px] font-400 ml-[20px] mr-[26px] placeholder-font-whitegrayDark"
+            <textarea
+              rows={3} // 기본 3줄 높이
+              className="outline-none w-full h-full resize-none ml-20 mr-26 py-12 text-body-2  placeholder-font-whitegrayDark"
               placeholder="한 줄 평을 입력해주세요"
               value={form.memo}
               onFocus={() => setFocusedField("review")}
               onBlur={() => setFocusedField(null)}
               onChange={(e) => {
-                if (e.target.value.length <= 100) {
+                if (e.target.value.length <= 50) {
                   setMemo(e.target.value);
                 }
               }}
             />
           </div>
-          <div className="mt-[5px] text-right text-[#979797] font-400 text-[13px]">({form.memo.length}/100)</div>
+          <div className="mt-[5px] text-right text-[#979797] font-400 text-[13px]">({form.memo.length}/50)</div>
         </div>
       </div>
 
@@ -148,3 +166,6 @@ const AddSaerokPage = () => {
 };
 
 export default AddSaerokPage;
+function resetForm() {
+  throw new Error("Function not implemented.");
+}

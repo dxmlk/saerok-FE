@@ -45,7 +45,7 @@ const SearchBarBird = ({ searchTerm, setBirdName, setBirdId, disabled }: SearchB
           disabled={disabled}
           placeholder="새 이름을 입력하세요"
           className={`outline-none flex w-full items-center text-body-2 ml-20 mr-30
-          ${disabled ? "placeholder-font-whitegrayLight " : "placeholder-font-whitegrayDark"} 
+          ${disabled ? "text-font-whitegrayLight " : "placeholder-font-whitegrayDark"} 
           cursor-pointer bg-transparent`}
         />
         <SearchIcon className="w-24 h-24 mr-15 stroke-[2px] stroke-font-whitegrayLight" />

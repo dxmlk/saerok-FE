@@ -119,6 +119,16 @@ const DexDetailPage = () => {
     }
   };
 
+  const handleAddSaerok = () => {
+    if (!bird) return;
+    navigate("/add-saerok", {
+      state: {
+        birdId: bird.id,
+        birdName: bird.koreanName,
+      },
+    });
+  };
+
   if (loading) return <div className="text-center mt-10"> 로딩 중... </div>;
   if (error || !bird) return <div className="text-center mt-10">{error}</div>;
 
@@ -143,7 +153,10 @@ const DexDetailPage = () => {
               className={`flex justify-center items-center w-24 h-24 stroke-[2px]  ${bookmarked ? "fill-font-pointYellow stroke-font-pointYellow" : " stroke-black fill-none"}`}
             />
           </button>
-          <button className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer">
+          <button
+            onClick={() => handleAddSaerok()}
+            className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer"
+          >
             <AddSaerokIcon className="flex justify-center items-center fill-black w-24 h-24 " />
           </button>
         </div>
