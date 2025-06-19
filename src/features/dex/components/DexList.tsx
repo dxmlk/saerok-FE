@@ -45,7 +45,7 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark }: DexList
               className="absolute w-25 h-25 top-9 right-9 z-20"
             >
               <ScrapIcon
-                className={`w-15 h-22  text-font-darkgray [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.5))] ${bookmarkedBirdIds.includes(item.id) ? `stroke-none fill-font-mainBlue ` : "stroke-[1.5px] stroke-font-darkgray fill-[#d9d9d9] opacity-60"} `}
+                className={`w-15 h-22 stroke-[1.5px] text-font-darkgray [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.5))] ${bookmarkedBirdIds.includes(item.id) ? `stroke-background-white fill-font-pointYellow ` : " stroke-font-darkgray fill-[#d9d9d9] opacity-60"} `}
               />
             </button>
             <img

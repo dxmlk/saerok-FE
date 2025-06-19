@@ -51,7 +51,7 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
         />
 
         {/* 메인 문구 */}
-        <div className="absolute left-24 bottom-168 z-10 text-black text-headline-1 font-moneygraphy">
+        <div className="absolute left-24 bottom-168 z-10 text-black text-headline-1 font-haru">
           <div>도감</div>
         </div>
 

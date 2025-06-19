@@ -22,7 +22,6 @@ interface FilterHeaderProps {
 const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) => {
   const { bottomSheetRef, contentRef, openBottomSheet, closeBottomSheet } = useBottomSheet();
   const [currentFilter, setCurrentFilter] = useState<string | null>(null);
-  const prevFilterRef = useRef<string | null>(null);
 
   const filterGroupKey = (filterGroup: string) => {
     switch (filterGroup) {
@@ -182,8 +181,8 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         <button
           className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.seasons.length > 0
-              ? "bg-mainBlue text-background-white border-font-mainBlue "
-              : "bg-background-whitegray text-font-black border-font-darkgray"
+              ? "bg-mainBlue text-background-white"
+              : "bg-background-white text-font-black border-font-darkgray"
           }`}
           onClick={() => {
             setCurrentFilter("계절");
@@ -191,7 +190,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           }}
         >
           <SeasonIcon
-            className={`w-17 h-17 ${selectedFilters.seasons.length > 0 ? " stroke-white" : " stroke-black"}`}
+            className={`w-17 h-17 ${selectedFilters.seasons.length > 0 ? " stroke-white" : " stroke-font-mainBlue"}`}
           />
           <span>계절</span>
         </button>
@@ -199,8 +198,8 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         <button
           className={`gap-6 flex flex-row text-body-1  border-[0.35px] w-84 h-33 rounded-100 justify-center items-center ${
             selectedFilters.habitats.length > 0
-              ? "bg-mainBlue text-background-white border-font-mainBlue "
-              : "bg-background-whitegray text-font-black border-font-darkgray"
+              ? "bg-mainBlue text-background-white "
+              : "bg-background-white text-font-black border-font-darkgray"
           }`}
           onClick={() => {
             setCurrentFilter("서식지");
@@ -208,7 +207,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           }}
         >
           <HabitatIcon
-            className={`w-17 h-17 ${selectedFilters.habitats.length > 0 ? "stroke-white" : "stroke-black"}`}
+            className={`w-17 h-17 ${selectedFilters.habitats.length > 0 ? "stroke-white" : "stroke-font-mainBlue"}`}
           />
           <span>서식지</span>
         </button>
@@ -216,8 +215,8 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         <button
           className={`gap-7 flex flex-row text-body-1  border-[0.35px] w-72 h-33 rounded-100 justify-center items-center ${
             selectedFilters.sizeCategories.length > 0
-              ? "bg-mainBlue text-background-white border-font-mainBlue "
-              : "bg-background-whitegray text-font-black border-font-darkgray"
+              ? "bg-mainBlue text-background-white "
+              : "bg-background-white text-font-black border-font-darkgray"
           }`}
           onClick={() => {
             setCurrentFilter("크기");
@@ -225,7 +224,7 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
           }}
         >
           <SizeIcon
-            className={`w-17 h-17 ${selectedFilters.sizeCategories.length > 0 ? "fill-white" : "fill-black"}`}
+            className={`w-17 h-17 ${selectedFilters.sizeCategories.length > 0 ? "fill-white" : "fill-font-mainBlue"}`}
           />
           <span>크기</span>
         </button>

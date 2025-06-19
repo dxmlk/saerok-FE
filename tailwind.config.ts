@@ -59,6 +59,7 @@ export default {
       fontFamily: {
         pretendard: ["'Pretendard Variable'", "sans-serif"],
         moneygraphy: ["'Moneygraphy'", "sans-serif"],
+        haru: ["'Jalpullineunharu'", "sans-serif"],
       },
       fontSize: {
         ...PX_ENTRIES,
