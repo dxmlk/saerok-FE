@@ -142,7 +142,7 @@ const DexDetailPage = () => {
           <button className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-56 rounded-full bg-glassmorphism z-10 cursor-pointer">
             <ScrapIcon
               onClick={() => handleScrapClick()}
-              className={`flex justify-center items-center w-24 h-24 stroke-[2px]  ${bookmarked ? "fill-font-mainBlue stroke-font-mainBlue" : " stroke-black fill-none"}`}
+              className={`flex justify-center items-center w-24 h-24 stroke-[2px]  ${bookmarked ? "fill-font-pointYellow stroke-font-pointYellow" : " stroke-black fill-none"}`}
             />
           </button>
           <button className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer">
@@ -153,7 +153,7 @@ const DexDetailPage = () => {
         <div className="flex flex-row flex-wrap justify-start gap-7 px-8 mt-18 font-pretendard">
           {/* 계절 */}
           {seasonText && (
-            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5 border-[0.35px] border-font-mainBlue bg-mainBlue rounded-100 stroke-background-white text-background-white text-body-1 ">
+            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100 stroke-background-white text-background-white text-body-1 ">
               <SeasonIcon className="w-17 h-17" />
               <div>{seasonText}</div>
             </div>
@@ -161,7 +161,7 @@ const DexDetailPage = () => {
 
           {/* 서식지 */}
           {habitatText && (
-            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5 border-[0.35px] border-font-mainBlue bg-mainBlue rounded-100 stroke-background-white text-background-white text-body-1 ">
+            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100 stroke-background-white text-background-white text-body-1 ">
               <HabitatIcon className="w-17 h-17" />
               <div>{habitatText}</div>
             </div>
@@ -169,7 +169,7 @@ const DexDetailPage = () => {
 
           {/* 크기 */}
           {bird.sizeCategory && (
-            <div className="w-fit px-12 h-33 flex flex-row justify-center items-center gap-5 border-[0.35px] border-font-mainBlue bg-mainBlue rounded-100  text-background-white text-body-1 ">
+            <div className="w-fit px-12 h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100  text-background-white text-body-1 ">
               <SizeIcon className="w-17 h-17 fill-white" />
               <div>{bird.sizeCategory}</div>
             </div>
