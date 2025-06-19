@@ -138,7 +138,7 @@ const DexDetailPage = () => {
         <div className="relative">
           <img src={bird.imageUrls[0]} alt={bird.koreanName} className="w-full rounded-20 object-cover" />
           <button
-            onClick={() => navigate(`/dex`)}
+            onClick={() => navigate(-1)}
             className="flex justify-center items-center w-40 h-40 absolute top-8 left-8 rounded-full bg-glassmorphism z-10 cursor-pointer"
           >
             <ArrowLeftIcon className="flex justify-center items-center fill-black w-17 h-17 " />

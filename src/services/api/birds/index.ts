@@ -29,29 +29,38 @@ export const fetchBookmarkStatusApi = (birdId: number) => {
   return axiosPrivate.get(`/birds/bookmarks/${birdId}/status`);
 };
 
+export const fetchBookmarkListApi = () => {
+  return axiosPrivate.get("/birds/bookmarks/items");
+};
+
 export const toggleBookmarkApi = (birdId: number) => {
   return axiosPrivate.post(`/birds/bookmarks/${birdId}/toggle`);
 };
 
-export const getBirdIdByNameApi = async (koreanName: string): Promise<number | null> => {
+export interface BirdInfo {
+  birdId: number;
+  koreanName: string;
+  scientificName: string;
+}
+
+export const getBirdInfoByNameApi = async (koreanName: string): Promise<BirdInfo | null> => {
   try {
     const res = await axiosPublic.get("/birds/", {
-      params: {
-        page: 1,
-        size: 20, // 충분한 범위에서 찾을 수 있도록
-        q: koreanName,
-        sort: "id",
-        sortDir: "asc",
-      },
+      params: { q: koreanName, page: 1, size: 20 },
+      paramsSerializer: (p) => qs.stringify(p, { arrayFormat: "repeat" }),
     });
+    const birds: any[] = res.data.birds || [];
+    if (birds.length === 0) return null;
 
-    const birds = res.data?.birds ?? [];
-
-    // 정확히 이름이 일치하는 새를 찾음
-    const exact = birds.find((b: any) => b.koreanName === koreanName);
-    return exact?.id ?? null;
+    // 정확히 일치하는 것 우선, 없으면 첫 번째
+    const match = birds.find((b) => b.koreanName === koreanName) ?? birds[0];
+    return {
+      birdId: match.id,
+      koreanName: match.koreanName,
+      scientificName: match.scientificName,
+    };
   } catch (e) {
-    console.error("조류 ID 검색 실패", e);
+    console.error("조류 정보 조회 실패:", e);
     return null;
   }
 };
