@@ -1,16 +1,15 @@
+// src/pages/SearchBirdPage.tsx
 import SearchBar from "components/common/textfield/SearchBar";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions";
+import FilterHeader from "features/dex/components/FilterHeader";
 import { ReactComponent as XIcon } from "assets/icons/button/x.svg";
+
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs, { ParsedQs } from "qs";
-import FilterHeader from "features/dex/components/FilterHeader";
-import SearchSuggestions from "components/common/textfield/SearchSuggestions";
 
-interface SelectedFilters {
-  habitats: string[];
-  seasons: string[];
-  sizeCategories: string[];
-}
+import { useRecoilState } from "recoil";
+import { filtersState, searchTermState } from "states/dexSearchState";
 
 interface SearchRecord {
   keyword: string;
@@ -20,8 +19,15 @@ interface SearchRecord {
 const SearchBirdPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // Recoil 로 전역 관리
+  const [selectedFilters, setSelectedFilters] = useRecoilState(filtersState);
+  const [searchTerm, setSearchTerm] = useRecoilState(searchTermState);
+
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchHistory, setSearchHistory] = useState<SearchRecord[]>([]);
+
+  // URL 에서 파라미터를 문자열 배열로 안전하게 꺼내는 헬퍼
   const safeStringArray = (val: string | ParsedQs | (string | ParsedQs)[] | undefined): string[] => {
     if (!val) return [];
     if (Array.isArray(val)) {
@@ -30,113 +36,74 @@ const SearchBirdPage = () => {
     return typeof val === "string" ? [val] : [];
   };
 
-  const parseQueryParams = () => {
+  // URL → 상태 동기화 (필터만, searchTerm 은 Recoil atom 에서 관리)
+  useEffect(() => {
     const params = qs.parse(location.search, {
       ignoreQueryPrefix: true,
       parseArrays: true,
     });
-    return {
+    setSelectedFilters({
       seasons: safeStringArray(params.seasons),
       habitats: safeStringArray(params.habitats),
       sizeCategories: safeStringArray(params.sizeCategories),
-      searchTerm: typeof params.searchTerm === "string" ? params.searchTerm : "",
-    };
-  };
+    });
+    // searchTerm 은 여기서 덮어쓰지 않습니다!
+  }, [location.search, setSelectedFilters]);
 
-  const initialFilters = parseQueryParams();
-
-  const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
-    habitats: initialFilters.habitats,
-    seasons: initialFilters.seasons,
-    sizeCategories: initialFilters.sizeCategories,
-  });
-
-  const [searchTerm, setSearchTerm] = useState(initialFilters.searchTerm);
-
-  const [searchHistory, setSearchHistory] = useState<SearchRecord[]>([]);
-
-  // 컴포넌트 마운트 시 localstorage에서 검색 기록 불러오기
+  // 로컬스토리지에서 검색 기록 불러오기
   useEffect(() => {
-    const storedHistory = localStorage.getItem("searchHistory");
-    if (storedHistory) {
+    const stored = localStorage.getItem("searchHistory");
+    if (stored) {
       try {
-        setSearchHistory(JSON.parse(storedHistory));
+        setSearchHistory(JSON.parse(stored));
       } catch {
         setSearchHistory([]);
       }
     }
   }, []);
 
-  // URL 쿼리 변경 시 필터 상태 초기화
-  useEffect(() => {
-    const parsed = parseQueryParams();
-    console.log("[useEffect location.search] parsed filters:", parsed);
-    setSelectedFilters({
-      habitats: parsed.habitats,
-      seasons: parsed.seasons,
-      sizeCategories: parsed.sizeCategories,
-    });
-    setSearchTerm(parsed.searchTerm);
-  }, [location.search]);
-
-  // 필터 상태 변경 함수
-  const handleFilterChange = (filterGroup: keyof SelectedFilters, values: string[]) => {
-    console.log("[handleFilterChange]", filterGroup, values);
-    setSelectedFilters((prev) => ({
-      ...prev,
-      [filterGroup]: values,
-    }));
-  };
-
-  // 검색 기록 추가 함수
-  const addSearchRecord = (newRocord: SearchRecord) => {
+  // 검색 기록 추가
+  const addSearchRecord = (newRec: SearchRecord) => {
     setSearchHistory((prev) => {
-      const updatedHistory = [...prev, newRocord];
-      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
-      return updatedHistory;
+      const updated = [...prev, newRec];
+      localStorage.setItem("searchHistory", JSON.stringify(updated));
+      return updated;
     });
   };
 
-  // 검색 실행 함수 (명시적 이벤트에서만 URL 변경)
+  // 실제 검색 실행 (명시적 이벤트)
   const handleSearch = (term: string) => {
-    const trimmedTerm = term.trim();
-    console.log("[handleSearch] trimmedTerm:", trimmedTerm);
-    console.log("[handleSearch] selectedFilters:", selectedFilters);
-
+    const trimmed = term.trim();
+    // 검색어·필터 둘 다 없으면 동작 안 함
     if (
-      !trimmedTerm &&
+      !trimmed &&
       selectedFilters.habitats.length === 0 &&
       selectedFilters.seasons.length === 0 &&
       selectedFilters.sizeCategories.length === 0
     ) {
-      console.log("[handleSearch] 검색어, 필터 모두 없음, 이동 안 함");
       return;
     }
 
+    // atom 에도 저장
+    setSearchTerm(trimmed);
+
+    // 검색 기록에 추가
     const now = new Date();
-    const formattedDate = `${String(now.getMonth() + 1).padStart(2, "0")}. ${String(now.getDate()).padStart(2, "0")}.`;
-    const newRecord: SearchRecord = {
-      keyword: trimmedTerm,
-      date: formattedDate,
-    };
-    addSearchRecord(newRecord);
+    const date = `${String(now.getMonth() + 1).padStart(2, "0")}. ${String(now.getDate()).padStart(2, "0")}.`;
+    addSearchRecord({ keyword: trimmed, date });
 
-    const params = {
+    // URL 파라미터 반영
+    const params: Record<string, any> = {
       ...selectedFilters,
-      searchTerm: trimmedTerm,
+      searchTerm: trimmed,
     };
-    const queryString = qs.stringify(params, { arrayFormat: "repeat" });
-    console.log("[handleSearch] navigate to:", `/dex?${queryString}`);
-
-    navigate(`/dex?${queryString}`);
-
-    setSearchTerm(""); // 검색 후 비우기
+    const qsStr = qs.stringify(params, { arrayFormat: "repeat" });
+    navigate(`/dex?${qsStr}`);
   };
 
-  const handleDeleteHistory = (index: number) => {
-    console.log("[handleDeleteHistory] index:", index);
+  const handleDeleteHistory = (idx: number) => {
     setSearchHistory((prev) => {
-      const updated = prev.filter((_, idx) => idx !== index);
+      const updated = prev.filter((_, i) => i !== idx);
       localStorage.setItem("searchHistory", JSON.stringify(updated));
       return updated;
     });
@@ -156,28 +123,35 @@ const SearchBirdPage = () => {
           placeholder="궁금한 새를 검색해보세요"
           onSearch={handleSearch}
         />
+
         <SearchSuggestions
           visible={showSuggestions}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           onSearch={handleSearch}
         />
-        <FilterHeader selectedFilters={selectedFilters} onFilterChange={handleFilterChange} />
+
+        <FilterHeader
+          selectedFilters={selectedFilters}
+          onFilterChange={(group, vals) => {
+            setSelectedFilters((prev) => ({ ...prev, [group]: vals }));
+          }}
+        />
       </div>
 
       <div className="flex flex-col">
         {searchHistory.length === 0 ? (
-          <span className="h-500 items-center justify-center flex text-caption-4 text-[#979797]">
+          <span className="h-500 flex items-center justify-center text-caption-4 text-[#979797]">
             아직 검색 기록이 없어요
           </span>
         ) : (
-          searchHistory.map((history, index) => (
-            <div key={index} className="border-t border-[#d9d9d9] flex h-[55px] justify-between items-center">
-              <span className="ml-[25px] text-[15px] font-400 text-[#455154]">{history.keyword}</span>
-              <div className="flex gap-[7px]">
-                <span className="text-[13px] font-400 text-[#979797]">{history.date}</span>
-                <button onClick={() => handleDeleteHistory(index)} className="mr-[25px]">
-                  <XIcon className="w-[10px] h-[10px] ml-15 fill-[#979797]" />
+          searchHistory.map((rec, idx) => (
+            <div key={idx} className="border-t border-[#d9d9d9] flex h-[55px] justify-between items-center">
+              <span className="ml-[25px] text-[15px] font-400 text-[#455154]">{rec.keyword}</span>
+              <div className="flex gap-[7px] items-center mr-[25px]">
+                <span className="text-[13px] font-400 text-[#979797]">{rec.date}</span>
+                <button onClick={() => handleDeleteHistory(idx)}>
+                  <XIcon className="w-[10px] h-[10px] fill-[#979797]" />
                 </button>
               </div>
             </div>

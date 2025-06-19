@@ -41,7 +41,7 @@ const DexHeader = ({ selectedFilters, searchTerm, onToggleBookmarkView }: DexHea
   };
 
   return (
-    <div className="bg-white font-pretendard flex flex-row pt-40 justify-between h-76 pl-28 pr-24">
+    <div className="bg-white font-pretendard flex flex-row pt-26 justify-between h-60 pl-28 pr-24">
       <span className="font-moneygraphy text-font-black text-headline-1 ">도감</span>
       <div className="flex flex-row items-center gap-22">
         <button

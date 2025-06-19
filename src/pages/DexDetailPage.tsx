@@ -1,7 +1,5 @@
-import DexDetailHeader from "features/dex/components/DexDetailHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 import { ReactComponent as ArrowLeftIcon } from "assets/icons/button/arrow-left.svg";
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
@@ -10,7 +8,7 @@ import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
-import { fetchBookmarkStatusApi, fetchDexDetailApi } from "services/api/birds";
+import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -113,15 +111,12 @@ const DexDetailPage = () => {
 
   const toggleBookmark = async (birdId: number) => {
     try {
-      await axios.post(`/api/v1/birds/bookmarks/${birdId}/toggle`);
-      setBookmarked((prev) => !prev);
+      await toggleBookmarkApi(birdId);
+      // 북마크 성공 시 로컬 상태도 반전
+      setBookmarked((prev) => (prev === null ? true : !prev));
     } catch (err) {
-      console.error("북마크 토글 실패", err);
+      console.error("북마크 토글 실패:", err);
     }
-  };
-
-  const handleScrapClick = () => {
-    toggleBookmark(Number(id));
   };
 
   if (loading) return <div className="text-center mt-10"> 로딩 중... </div>;
@@ -129,7 +124,6 @@ const DexDetailPage = () => {
 
   return (
     <div className="min-h-[100vh] bg-white pb-120">
-      {/* <DexDetailHeader item={bird} /> */}
       <div className="flex flex-col mt-36 px-16">
         <div className="relative">
           <img src={bird.imageUrls[0]} alt={bird.koreanName} className="w-full rounded-20 object-cover" />
@@ -139,9 +133,13 @@ const DexDetailPage = () => {
           >
             <ArrowLeftIcon className="flex justify-center items-center fill-black w-17 h-17 " />
           </button>
-          <button className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-56 rounded-full bg-glassmorphism z-10 cursor-pointer">
+          <button
+            onClick={() => {
+              if (bird) toggleBookmark(bird.id);
+            }}
+            className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-56 rounded-full bg-glassmorphism z-10 cursor-pointer"
+          >
             <ScrapIcon
-              onClick={() => handleScrapClick()}
               className={`flex justify-center items-center w-24 h-24 stroke-[2px]  ${bookmarked ? "fill-font-pointYellow stroke-font-pointYellow" : " stroke-black fill-none"}`}
             />
           </button>
