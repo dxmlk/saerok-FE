@@ -4,13 +4,13 @@ import { ReactComponent as BlueCircle } from "assets/background/blue-circle.svg"
 import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
 import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.svg";
 import { useNavigate } from "react-router-dom";
+import SAEROK_MESSAGES from "constants/saerokMessages";
+import { useEffect, useMemo, useState } from "react";
+import { fetchMyCollections } from "services/api/collections";
 
-interface SaerokMainProps {
-  birdCount: number;
-}
-
-const SaerokMain = ({ birdCount }: SaerokMainProps) => {
+const SaerokMain = () => {
   const navigate = useNavigate();
+  const [birdCount, setBirdCount] = useState(0);
 
   const handleSortClick = () => {
     console.log("Sort button clicked");
@@ -19,6 +19,23 @@ const SaerokMain = ({ birdCount }: SaerokMainProps) => {
     navigate(`/add-saerok`);
   };
 
+  const randomMessage = useMemo(() => {
+    const idx = Math.floor(Math.random() * SAEROK_MESSAGES.length);
+    return SAEROK_MESSAGES[idx];
+  }, []);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const items = await fetchMyCollections();
+        setBirdCount(items.length);
+      } catch (err) {
+        console.log("컬렉션 불러오기 실패", err);
+      }
+    };
+
+    loadData();
+  }, []);
   return (
     <>
       <div className="relative overflow-hidden h-384 font-pretendard ">
@@ -29,8 +46,11 @@ const SaerokMain = ({ birdCount }: SaerokMainProps) => {
         <div className="absolute inset-0 bg-[#F2F2F2]/60 backdrop-blur-[80px] z-10" />
 
         {/* 메인 문구 */}
-        <div className="absolute left-24 bottom-312 z-20 text-black font-bold text-50  leading-10">
-          <div>나의 새록</div>
+        <div
+          style={{ whiteSpace: "pre-line" }}
+          className="absolute left-24 top-30 z-20 text-black text-headline-1 font-haru leading-10"
+        >
+          <div>{randomMessage}</div>
         </div>
 
         {/* 우측 상단 정렬 버튼*/}
@@ -50,9 +70,9 @@ const SaerokMain = ({ birdCount }: SaerokMainProps) => {
         {/* 우측 하단 종추 버튼 */}
         <div
           onClick={() => handleAddSaerokClick()}
-          className="absolute right-24 bottom-22 w-60 h-60 rounded-full bg-mainBlue z-20 flex items-center justify-center "
+          className="absolute right-24 bottom-22 w-60 h-60 rounded-full bg-font-mainBlue z-20 flex items-center justify-center "
         >
-          <AddSaerokIcon className="text-white h-36 w-36" />
+          <AddSaerokIcon className="text-white h-40 w-40" />
         </div>
       </div>
     </>

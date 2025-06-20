@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { saerokItems } from "features/saerok/mock/saerokItems";
 import { useEffect, useState } from "react";
 import { CollectionItem, fetchMyCollections } from "services/api/collections";
 
@@ -36,9 +35,13 @@ const SaerokList = () => {
       <div className="flex flex-col gap-12 w-180">
         {leftItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
-            <img src={item.imageUrl ?? ""} alt={item.koreanName} className="rounded-10 w-full h-auto object-cover" />
+            <img
+              src={item.imageUrl ?? ""}
+              alt={item.koreanName ?? "이름 모를 새"}
+              className="rounded-10 w-full h-auto object-cover"
+            />
             <div className="mt-8 font-moneygraphy text-caption-2 truncate overflow-hidden whitespace-nowrap">
-              {item.koreanName}
+              {item.koreanName ?? "이름 모를 새"}
             </div>
           </div>
         ))}
@@ -48,9 +51,13 @@ const SaerokList = () => {
       <div className="flex flex-col gap-12 w-180 justify-center ">
         {rightItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
-            <img src={item.imageUrl ?? ""} alt={item.koreanName} className="rounded-10 w-full h-auto object-cover" />
+            <img
+              src={item.imageUrl ?? ""}
+              alt={item.koreanName ?? "이름 모를 새"}
+              className="rounded-10 w-full h-auto object-cover"
+            />
             <div className="mt-8 font-moneygraphy text-caption-2 truncate overflow-hidden whitespace-nowrap">
-              {item.koreanName}
+              {item.koreanName ?? "이름 모를 새"}
             </div>
           </div>
         ))}
