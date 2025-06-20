@@ -15,6 +15,7 @@ const BottomSheetPortal = ({ children }: Props) => {
   }, []);
 
   if (!mountedPortal) return;
+
   return ReactDOM.createPortal(children, mountedPortal);
 };
 

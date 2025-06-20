@@ -13,7 +13,12 @@ const Layout = () => {
   const pageParam = searchParams.get("page");
 
   const hideNavBar =
-    path === "/" || path === "/register" || path === "/add-saerok" || (path === "/mypage" && pageParam !== null);
+    path === "/" ||
+    path === "/register" ||
+    path === "/add-saerok" ||
+    path === "/search/place" ||
+    path === "/search/bird" ||
+    (path === "/mypage" && pageParam !== null);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 

@@ -3,7 +3,6 @@ import { atom } from "recoil";
 export interface SaerokFormState {
   birdName: string | null;
   birdId: number | null;
-  placeName: string;
   address: string;
   locationAlias: string;
   latitude: number | null;
@@ -12,6 +11,7 @@ export interface SaerokFormState {
   memo: string;
   imageFile: File | null;
   imagePreviewUrl: string | null;
+  accessLevel: "PUBLIC" | "PRIVATE";
 }
 
 export const saerokFormState = atom<SaerokFormState>({
@@ -19,7 +19,6 @@ export const saerokFormState = atom<SaerokFormState>({
   default: {
     birdName: "",
     birdId: null,
-    placeName: "",
     address: "",
     locationAlias: "",
     latitude: null,
@@ -28,5 +27,6 @@ export const saerokFormState = atom<SaerokFormState>({
     memo: "",
     imageFile: null,
     imagePreviewUrl: null,
+    accessLevel: "PUBLIC",
   },
 });

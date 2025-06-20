@@ -8,18 +8,31 @@ import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird";
 import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace";
 import BackButton from "components/common/BackButton";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
+import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { useSaerokForm } from "states/useSaerokForm";
 import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections";
 import axios from "axios";
 
 const AddSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const initializedRef = useRef(false); // 무한 루프 방지
-  const { form, setBirdName, setBirdId, setPlaceName, setDate, setMemo, setImageFile, resetForm } = useSaerokForm();
+  const {
+    form,
+    setBirdName,
+    setBirdId,
+    setAddress,
+    setLocationAlias,
+    setDate,
+    setMemo,
+    setImageFile,
+    setAccessLevel,
+    resetForm,
+  } = useSaerokForm();
 
   const getBorderColor = (field: string) => {
     return focusedField === field ? "#4190FF" : "#d9d9d9";
@@ -36,8 +49,16 @@ const AddSaerokPage = () => {
     }
   };
 
+  const handleAccessLevel = () => {
+    setIsPrivate(!isPrivate);
+    if (isPrivate) {
+      setAccessLevel("PRIVATE");
+    } else {
+      setAccessLevel("PUBLIC");
+    }
+  };
+
   const handleSubmit = async () => {
-    console.log("form:", form);
     if (!form.date || !form.address || !form.locationAlias || !form.memo || !form.imageFile) {
       alert("모든 항목을 입력하고 이미지를 선택해주세요.");
       return;
@@ -51,6 +72,7 @@ const AddSaerokPage = () => {
         locationAlias: form.locationAlias,
         address: form.address,
         note: form.memo,
+        accessLevel: form.accessLevel,
       });
 
       const collectionId = collectionRes.collectionId;
@@ -76,7 +98,6 @@ const AddSaerokPage = () => {
 
   useEffect(() => {
     if (initializedRef.current) return;
-
     const state = location.state as { birdId?: number; birdName?: string } | undefined;
     if (state?.birdId != null) {
       setBirdId(state.birdId);
@@ -102,7 +123,7 @@ const AddSaerokPage = () => {
             setBirdName={setBirdName}
             setBirdId={setBirdId}
             disabled={isChecked}
-          />{" "}
+          />
           <div
             onClick={handleToggleUnknownBird}
             className="mt-9 flex flex-row items-center justify-end gap-6 cursor-pointer"
@@ -133,7 +154,14 @@ const AddSaerokPage = () => {
 
         <div className="mt-[20px]">
           <div className="ml-13 mb-7 text-caption-1 text-font-black">발견 장소</div>
-          <SearchBarPlace searchTerm={form.placeName} setSearchTerm={setPlaceName} />
+          {/* address만 관리 */}
+          <SearchBarPlace searchTerm={form.address} setSearchTerm={setAddress} />
+          {form.locationAlias && (
+            <div className="flex flex-row gap-4 items-center justify-end mt-6">
+              <MapIcon className="w-24 h-24 text-font-pointYellow" />
+              <span className="text-black text-body-2">{form.locationAlias}</span>
+            </div>
+          )}
         </div>
 
         <div className="mt-[20px]">
@@ -143,7 +171,7 @@ const AddSaerokPage = () => {
             style={{ borderColor: getBorderColor("review") }}
           >
             <textarea
-              rows={3} // 기본 3줄 높이
+              rows={3}
               className="outline-none w-full h-full resize-none ml-20 mr-26 py-12 text-body-2  placeholder-font-whitegrayDark"
               placeholder="한 줄 평을 입력해주세요"
               value={form.memo}
@@ -158,6 +186,16 @@ const AddSaerokPage = () => {
           </div>
           <div className="mt-[5px] text-right text-[#979797] font-400 text-[13px]">({form.memo.length}/50)</div>
         </div>
+        <div onClick={handleAccessLevel} className="mt-12 flex flex-row items-center justify-end gap-8 cursor-pointer">
+          <div
+            className={`w-24 h-24 rounded-4 flex justify-center items-center ${
+              isPrivate ? "bg-mainBlue border-none" : "bg-transparent border-1.5 border-font-whitegrayLight"
+            }`}
+          >
+            <CheckIcon className="w-16 h-16 text-white" />
+          </div>
+          <div className=" font-pretendard text-body-2 text-font-darkgray">새록 비공개하기</div>
+        </div>
       </div>
 
       <EditFooter text="종 추가" onClick={handleSubmit} />
@@ -166,6 +204,3 @@ const AddSaerokPage = () => {
 };
 
 export default AddSaerokPage;
-function resetForm() {
-  throw new Error("Function not implemented.");
-}

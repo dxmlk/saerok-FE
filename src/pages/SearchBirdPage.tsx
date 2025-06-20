@@ -30,7 +30,6 @@ const SearchBirdPage = () => {
     navigate("/add-saerok");
   };
 
-  // ────────────────────────────────────────────────
   // 1) 검색어가 없으면 북마크한 새 목록, 있으면 자동완성 결과를 BirdInfo 로 변환
   useEffect(() => {
     let canceled = false;
@@ -130,7 +129,7 @@ const SearchBirdPage = () => {
                     }`}
                   />
                 </button>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1">
                   <div className="text-body-3 font-moneygraphy text-font-black">{info.koreanName}</div>
                   <div className="text-caption-1 font-pretendard text-font-whitegrayDark">{info.scientificName}</div>
                 </div>

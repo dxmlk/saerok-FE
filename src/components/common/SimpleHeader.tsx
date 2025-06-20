@@ -13,7 +13,7 @@ const SimpleHeader = ({ title }: SimpleHeaderProps) => {
       <button onClick={() => navigate(-1)}>
         <BracketIcon className="absolute left-24 bottom-26 w-17 h-17 scale-x-[-1] fill-black" />
       </button>
-      <div className="font-moneygraphy text-subtitle-2 text-font-black">{title}</div>
+      <div className="font-haru text-subtitle-2 text-font-black">{title}</div>
     </div>
   );
 };

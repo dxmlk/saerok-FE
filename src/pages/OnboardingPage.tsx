@@ -12,7 +12,7 @@ const OnboardingPage = () => {
   const { refreshTokenProcessed } = useRefreshToken();
 
   useEffect(() => {
-    console.log("[OnboardingPage] ⏱️ 타이머 시작");
+    console.log("[OnboardingPage] 타이머 시작");
     const timer1 = setTimeout(() => setStep("transition"), 1500);
     const timer2 = setTimeout(() => setStep("final"), 2000);
 
@@ -26,12 +26,12 @@ const OnboardingPage = () => {
     if (step === "final" && refreshTokenProcessed) {
       const accessToken = localStorage.getItem("accessToken");
 
-      console.log("[OnboardingPage] 🎫 accessToken 상태:", accessToken);
+      console.log("[OnboardingPage]  accessToken 상태:", accessToken);
       if (accessToken && isAccessTokenValid(accessToken)) {
-        console.log("[OnboardingPage] ✅ 유효한 accessToken → /saerok 이동");
+        console.log("[OnboardingPage]  유효한 accessToken → /saerok 이동");
         navigate("/saerok");
       } else {
-        console.log("[OnboardingPage] ❌ accessToken 유효하지 않음 → 로그인 필요");
+        console.log("[OnboardingPage]  accessToken 유효하지 않음 → 로그인 필요");
       }
     }
   }, [step, refreshTokenProcessed, navigate]);
