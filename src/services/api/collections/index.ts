@@ -78,3 +78,38 @@ export const fetchCollectionDetail = async (collectionId: number): Promise<Colle
   const response = await axiosPrivate.get<CollectionDetail>(`/collections/${collectionId}`);
   return response.data;
 };
+
+export interface NearbyCollectionItem {
+  collectionId: number;
+  imageUrl: string;
+  koreanName: string;
+  note: string;
+  latitude: number;
+  longitude: number;
+  locationAlias: string;
+  address: string;
+}
+
+export interface FetchNearbyCollectionsParams {
+  latitude: number;
+  longitude: number;
+  radiusMeters: number;
+  isMineOnly?: boolean;
+}
+
+export const fetchNearbyCollections = async ({
+  latitude,
+  longitude,
+  radiusMeters,
+  isMineOnly = false,
+}: FetchNearbyCollectionsParams): Promise<NearbyCollectionItem[]> => {
+  const response = await axiosPrivate.get<{ items: NearbyCollectionItem[] }>("/collections/nearby", {
+    params: {
+      latitude,
+      longitude,
+      radiusMeters,
+      isMineOnly,
+    },
+  });
+  return response.data.items;
+};

@@ -33,7 +33,7 @@ const SaerokList = () => {
   if (loading) return <div className="text-center mt-12">로딩 중...</div>;
 
   return collections.length === 0 ? (
-    <div className="px-24 py-30">
+    <div className="px-24 py-16 ">
       <EmptyPage
         bgColor="white"
         upperText="아직 발견한 새가 없어요!"

@@ -38,6 +38,7 @@ const SaerokDetailPage = () => {
         locationAlias={item.locationAlias}
         note={item.note}
         birdInfo={item.bird}
+        user={item.user}
       />
     </div>
   );

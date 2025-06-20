@@ -1,5 +1,6 @@
 import { ReactComponent as InstagramIcon } from "assets/icons/instagram.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
+import { ReactComponent as UserIcon } from "assets/icons/icon/user.svg";
 
 interface SaerokInfoProps {
   img: string | null;
@@ -12,9 +13,13 @@ interface SaerokInfoProps {
     koreanName: string | null;
     scientificName: string | null;
   };
+  user: {
+    userId: number;
+    nickname: string;
+  };
 }
 
-const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo }: SaerokInfoProps) => {
+const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user }: SaerokInfoProps) => {
   function formatDate(dateString: string) {
     if (!dateString) return "";
     const [year, month, day] = dateString.split("-");
@@ -41,9 +46,13 @@ const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo }: Saero
             <span className="text-caption-1 text-font-darkgray">{address}</span>
           </div>
         </div>
-        <div className="mt-15 flex flex-row gap-10 justify-start items-center">
+        <div className="mt-20 flex flex-row gap-10 justify-start items-center">
           <MapIcon className="w-24 h-24 text-font-pointYellow" />
           <span className="text-subtitle-3 text-font-black">{formatDate(date)}</span>
+        </div>
+        <div className="mt-28 flex flex-row gap-10 justify-start items-center">
+          <UserIcon className="w-24 h-24 text-font-pointYellow" />
+          <span className="text-subtitle-3 text-font-black">{user?.nickname ?? "알 수 없음"}</span>
         </div>
       </div>
     </>

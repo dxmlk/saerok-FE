@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 export interface MapItemsType {
   collectionId: number;
   imageUrl: string;
-  birdName: string;
+  koreanName: string;
   latitude: number;
   longitude: number;
   note: string;
@@ -12,9 +12,10 @@ export interface MapItemsType {
 interface NaverMapProps {
   mapRef: React.MutableRefObject<naver.maps.Map | null>;
   markers: MapItemsType[];
+  onCenterChanged?: (lat: number, lng: number) => void;
 }
 
-const NaverMap = ({ mapRef, markers }: NaverMapProps) => {
+const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayInstancesRef = useRef<any[]>([]);
 
@@ -30,6 +31,16 @@ const NaverMap = ({ mapRef, markers }: NaverMapProps) => {
         center: new window.naver.maps.LatLng(37.58939182281775, 127.02990237554194),
         zoom: 14,
       });
+
+      if (onCenterChanged) {
+        window.naver.maps.Event.addListener(mapRef.current, "center_changed", () => {
+          if (mapRef.current) {
+            const center = (mapRef.current as any).getCenter();
+            onCenterChanged(center.lat(), center.lng());
+          }
+        });
+        // (필요하면 "zoom_changed"도 같은 식으로 콜백)
+      }
     };
     document.head.appendChild(script);
   }, [mapRef]);
@@ -87,7 +98,7 @@ const NaverMap = ({ mapRef, markers }: NaverMapProps) => {
     overlayInstancesRef.current = [];
 
     // 새로운 오버레이 생성
-    markers.forEach(({ latitude, longitude, birdName, note, imageUrl }) => {
+    markers.forEach(({ latitude, longitude, koreanName, note, imageUrl }) => {
       const position = new window.naver.maps.LatLng(latitude, longitude);
 
       const content = `
@@ -95,7 +106,7 @@ const NaverMap = ({ mapRef, markers }: NaverMapProps) => {
         <div class="relative w-[180px] h-[97px]">
           <img src="/src/assets/icons/button/speech-bubble.svg" class="w-full h-full" />
           <div class="w-full absolute top-0 left-1/2 -translate-x-1/2 pt-[12px] pl-[18px] pr-[24px] text-center text-font-black">
-            <div class="font-moneygraphy text-body-3 ">${birdName}</div>
+            <div class="font-moneygraphy text-body-3 ">${koreanName}</div>
             <div style="min-height: 36px; display: flex; align-items: center; justify-content: center;">
               <div
                 class="mt-[7px] font-pretendard text-caption-1 text-center text-font-black"
