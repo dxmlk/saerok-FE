@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { fetchCollectionDetail, CollectionDetail } from "services/api/collections";
 import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
+import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
 
 const SaerokDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,12 +11,17 @@ const SaerokDetailPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) {
-      fetchCollectionDetail(Number(id))
-        .then((data) => setItem(data))
-        .catch(() => setItem(null))
-        .finally(() => setLoading(false));
-    }
+    const loadData = async () => {
+      try {
+        const res = await fetchCollectionDetail(Number(id));
+        setItem(res);
+      } catch (err) {
+        console.error("상세 정보 불러오기 실패", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
   }, [id]);
 
   if (loading) return <div className="p-24">불러오는 중...</div>;
@@ -23,16 +29,12 @@ const SaerokDetailPage = () => {
 
   return (
     <div className="min-h-[100vh] bg-white">
-      {/* <CollectionDetailHeader item={item} /> */}
-      <img
-        src={item.imageUrl ?? "/src/assets/icons/image/image-placeholder.svg"}
-        alt="birdImage"
-        className="w-full h-auto object-cover"
-      />
+      <SaerokDetailHeader birdId={item.bird.birdId} />
+
       <SaerokInfo
+        img={item.imageUrl}
         date={item.discoveredDate}
-        lat={item.latitude}
-        long={item.longitude}
+        address={item.address}
         locationAlias={item.locationAlias}
         note={item.note}
         birdInfo={item.bird}

@@ -74,6 +74,7 @@ export default {
         "button-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "600" }],
         "headline-1": ["30px", { lineHeight: "33px", letterSpacing: "0" }],
         "headline-2": ["22px", { lineHeight: "33px", letterSpacing: "0" }],
+        "headline-2-2": ["22px", { letterSpacing: "0" }],
         "subtitle-1": ["20px", { lineHeight: "22px", letterSpacing: "0" }],
         "subtitle-2": ["18px", { lineHeight: "20px", letterSpacing: "0" }],
         "subtitle-1-2": ["20x", { letterSpacing: "0", fontWeight: "500" }],
