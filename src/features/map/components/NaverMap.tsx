@@ -13,9 +13,10 @@ interface NaverMapProps {
   mapRef: React.MutableRefObject<naver.maps.Map | null>;
   markers: MapItemsType[];
   onCenterChanged?: (lat: number, lng: number) => void;
+  onOverlayClick?: (id: number) => void;
 }
 
-const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
+const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayInstancesRef = useRef<any[]>([]);
 
@@ -29,7 +30,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
 
       mapRef.current = new window.naver.maps.Map(containerRef.current, {
         center: new window.naver.maps.LatLng(37.58939182281775, 127.02990237554194),
-        zoom: 14,
+        zoom: 16,
       });
 
       if (onCenterChanged) {
@@ -71,6 +72,16 @@ const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
         const pane = this.getPanes()?.overlayLayer;
         if (pane) {
           pane.appendChild(this.element);
+          const btn = this.element.querySelector(".collection-overlay-btn");
+          if (btn) {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const id = btn.getAttribute("data-collection-id");
+              if (id && typeof onOverlayClick === "function") {
+                onOverlayClick(Number(id));
+              }
+            });
+          }
         }
       }
 
@@ -98,7 +109,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
     overlayInstancesRef.current = [];
 
     // 새로운 오버레이 생성
-    markers.forEach(({ latitude, longitude, koreanName, note, imageUrl }) => {
+    markers.forEach(({ latitude, longitude, collectionId, koreanName, note, imageUrl }) => {
       const position = new window.naver.maps.LatLng(latitude, longitude);
 
       const content = `
@@ -124,7 +135,11 @@ const NaverMap = ({ mapRef, markers, onCenterChanged }: NaverMapProps) => {
             </div>
           </div>
         </div>
-        <button class="w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border">
+        <button 
+          class="w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border collection-overlay-btn"
+          data-collection-id="${collectionId}"
+          type="button"
+        >
           <img src="${imageUrl}" class="w-full h-full object-cover" />
         </button>
       </div>

@@ -5,12 +5,16 @@ import useGeolocation from "hooks/useGeolocation";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections";
+import ToggleMapMode from "features/map/components/ToggleMapMode";
 
 const MapPage = () => {
   const { currentMyLocation, getCurPosition } = useGeolocation();
   const mapRef = useRef<naver.maps.Map | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [markers, setMarkers] = useState<NearbyCollectionItem[]>([]);
+  const [isMineOnly, setIsMineOnly] = useState(false);
+
+  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
   const navigate = useNavigate();
 
   const handleSearch = () => {};
@@ -22,7 +26,7 @@ const MapPage = () => {
         latitude: centerLat,
         longitude: centerLng,
         radiusMeters,
-        isMineOnly: false, // 이거 변경 필요
+        isMineOnly,
       });
       setMarkers(items);
     } catch (err) {
@@ -31,17 +35,24 @@ const MapPage = () => {
     }
   };
 
-  // 지도 이동/줌 변경 콜백: NaverMap에 props로 넘김
+  // 지도 중심 변경(이동, 줌) 콜백
   const handleMapCenterChanged = (centerLat: number, centerLng: number) => {
-    fetchAndSetNearbyCollections(centerLat, centerLng);
+    setCenter({ lat: centerLat, lng: centerLng });
   };
 
-  // 최초 렌더링 시(혹은 내 위치 이동) 지도 중심에서 한 번 호출
+  // 최초 렌더링 시 또는 내 위치 이동 시 중심좌표 갱신
   useEffect(() => {
     if (currentMyLocation) {
-      fetchAndSetNearbyCollections(currentMyLocation.lat, currentMyLocation.lng);
+      setCenter({ lat: currentMyLocation.lat, lng: currentMyLocation.lng });
     }
   }, [currentMyLocation]);
+
+  // 중심좌표나 isMineOnly 변경 시 컬렉션 재조회
+  useEffect(() => {
+    if (center) {
+      fetchAndSetNearbyCollections(center.lat, center.lng);
+    }
+  }, [center, isMineOnly]); // ← 중요! 둘 다 의존성
 
   const moveToCurrentLocation = () => {
     getCurPosition();
@@ -52,7 +63,12 @@ const MapPage = () => {
 
   return (
     <div className="relative w-screen h-screen z-0">
-      <NaverMap mapRef={mapRef} markers={markers} onCenterChanged={handleMapCenterChanged} />
+      <NaverMap
+        mapRef={mapRef}
+        markers={markers}
+        onCenterChanged={handleMapCenterChanged}
+        onOverlayClick={(id: number) => navigate(`/saerok-detail/${id}`)}
+      />
 
       <div className="absolute top-20 w-[89%] left-1/2 -translate-x-1/2 z-10  ">
         <div onClick={() => navigate("/search/place")}>
@@ -66,6 +82,7 @@ const MapPage = () => {
       </div>
 
       <CurrentLocationButton onClick={moveToCurrentLocation} />
+      <ToggleMapMode isMineOnly={isMineOnly} onToggle={setIsMineOnly} />
     </div>
   );
 };

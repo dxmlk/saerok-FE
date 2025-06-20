@@ -28,7 +28,7 @@ const SaerokDetailPage = () => {
   if (!item) return <div className="p-24">존재하지 않는 컬렉션입니다.</div>;
 
   return (
-    <div className="min-h-[100vh] bg-white">
+    <div className="min-h-[100vh] bg-white mb-100">
       <SaerokDetailHeader birdId={item.bird.birdId} />
 
       <SaerokInfo

@@ -7,7 +7,7 @@ const CollectionDetailHeader = ({ birdId }: any) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/saerok");
+    navigate(-1);
   };
 
   const handleGoToDex = () => {
