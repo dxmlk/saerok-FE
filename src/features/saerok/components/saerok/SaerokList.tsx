@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CollectionItem, fetchMyCollections } from "services/api/collections";
 import EmptyPage from "features/dex/components/EmptyPage";
+import { useAuth } from "hooks/useAuth";
+import LoginButton from "components/common/button/LoginButton";
 
 const SaerokList = () => {
   const navigate = useNavigate();
   const [collections, setCollections] = useState<CollectionItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const loadData = async () => {
@@ -15,8 +17,6 @@ const SaerokList = () => {
         setCollections(items);
       } catch (err) {
         console.error("컬렉션 불러오기 실패:", err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -30,7 +30,16 @@ const SaerokList = () => {
   const leftItems = collections.filter((_, idx) => idx % 2 === 0);
   const rightItems = collections.filter((_, idx) => idx % 2 === 1);
 
-  if (loading) return <div className="text-center mt-12">로딩 중...</div>;
+  if (!isLoggedIn)
+    return (
+      <div className="px-24 py-16 mt-10 flex flex-col gap-5 bg-white">
+        <div className="font-haru text-subtitle-1-2 text-black">로그인이 필요한 서비스예요</div>
+        <div className="font-pretendard text-body-2 text-font-darkgray">로그인하고 탐조 기록을 시작해보세요!</div>
+        <div className="flex justify-center mt-88">
+          <LoginButton />
+        </div>
+      </div>
+    );
 
   return collections.length === 0 ? (
     <div className="px-24 py-16 ">

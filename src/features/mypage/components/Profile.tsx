@@ -1,7 +1,7 @@
 import { ReactComponent as ExclamationIcon } from "assets/icons/button/exclamation.svg";
 import { ReactComponent as ProfileIcon } from "assets/icons/image/profile.svg";
 import { ReactComponent as EditIcon } from "assets/icons/button/edit.svg";
-import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
+import LoginButton from "components/common/button/LoginButton";
 
 interface ProfileProps {
   isUser: boolean;
@@ -29,10 +29,7 @@ const Profile = ({ isUser, nickname, joinedDate, onClick }: ProfileProps) => {
               <div>로그인하시겠어요?</div>
             </div>
           </div>
-          <button className="rounded-30.5 bg-font-mainBlue w-168 h-44 flex items-center justify-center gap-3 cursor-pointer">
-            <LoginIcon className="stroke-white w-24 h-24" />
-            <div className="text-body-2 text-background-white">로그인 / 회원가입</div>
-          </button>
+          <LoginButton />
         </div>
       )}
 

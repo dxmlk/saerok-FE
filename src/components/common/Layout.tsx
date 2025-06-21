@@ -14,6 +14,7 @@ const Layout = () => {
 
   const hideNavBar =
     path === "/" ||
+    path === "/login" ||
     path === "/register" ||
     path === "/add-saerok" ||
     path === "/search/place" ||

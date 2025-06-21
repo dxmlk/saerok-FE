@@ -1,13 +1,16 @@
 import { RouterProvider } from "react-router-dom";
 import { createRouter } from "routes";
 import Provider from "./components/common/Provider";
+import { AuthProvider } from "hooks/useAuth";
 
 const App = () => {
   const router = createRouter();
   return (
-    <Provider>
-      <RouterProvider router={router} />
-    </Provider>
+    <AuthProvider>
+      <Provider>
+        <RouterProvider router={router} />
+      </Provider>
+    </AuthProvider>
   );
 };
 

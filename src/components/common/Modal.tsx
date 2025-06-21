@@ -22,16 +22,14 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      {/* ✅ Modal 전체 Wrapper */}
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        {/* ✅ 어두운 배경 오버레이 (절대 위치, content 뒤에만 위치) */}
         <div className="absolute inset-0 bg-black bg-opacity-40 z-0" />
 
         <motion.div
           key="modal"
-          initial={{ opacity: 0, scale: 0.8, y: 40 }}
+          initial={{ opacity: 0, scale: 0.8, y: 0 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 40 }}
+          exit={{ opacity: 0, scale: 0.8, y: 0 }}
           transition={{ duration: 0.1, ease: "easeInOut" }}
           className="relative z-10"
         >

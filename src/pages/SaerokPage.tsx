@@ -1,4 +1,3 @@
-import SaerokHeader from "features/saerok/components/saerok/SaerokHeader";
 import SaerokList from "features/saerok/components/saerok/SaerokList";
 import SaerokMain from "features/saerok/components/saerok/SaerokMain";
 import { useEffect, useState } from "react";
@@ -7,43 +6,24 @@ import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 
 const SaerokPage = () => {
   const [opacity, setOpacity] = useState(1);
-  const [showMain, setShowMain] = useState(true);
-  const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      // 스크롤 위치에 따라 opacity 조정 (0~1 사이)
       const scrollY = window.scrollY;
-
-      if (showMain) {
-        const newOpacity = Math.max(0, 1 - scrollY / 300);
-        setOpacity(newOpacity);
-
-        if (scrollY > 362) {
-          setShowMain(false);
-          setShowHeader(true);
-        }
-      }
+      const newOpacity = Math.max(0, 1 - scrollY / 384);
+      setOpacity(newOpacity);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [showMain]);
+  }, []);
 
   return (
     <div className="min-h-[100dvh] pb-120">
-      {showMain && (
-        <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
-          <SaerokMain />
-        </div>
-      )}
-
-      {showHeader && (
-        <div className={clsx("transition-all ease-in-out opacity-100 translate-y-0")}>
-          <SaerokHeader />
-          <div className="h-72" />
-        </div>
-      )}
-
+      <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
+        <SaerokMain />
+      </div>
       <div className="px-12">
         <SaerokList />
       </div>

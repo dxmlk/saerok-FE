@@ -77,7 +77,7 @@ export default {
         "headline-2-2": ["22px", { letterSpacing: "0" }],
         "subtitle-1": ["20px", { lineHeight: "22px", letterSpacing: "0" }],
         "subtitle-2": ["18px", { lineHeight: "20px", letterSpacing: "0" }],
-        "subtitle-1-2": ["20x", { letterSpacing: "0", fontWeight: "500" }],
+        "subtitle-1-2": ["20px", { letterSpacing: "0", fontWeight: "500" }],
         "body-3": ["15px", { lineHeight: "18px", letterSpacing: "0" }],
         "caption-2": ["13px", { lineHeight: "16px", letterSpacing: "0" }],
         "caption-0": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "700" }],

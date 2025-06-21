@@ -1,9 +1,23 @@
 import { ReactComponent as ArrowUpIcon } from "assets/icons/button/arrow-up.svg";
+import { useEffect, useState } from "react";
 
 const ScrollToTopButton = () => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 디바이스 높이 넘으면 show = true
+      setShow(window.scrollY > window.innerHeight);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  if (!show) return null;
 
   return (
     <>

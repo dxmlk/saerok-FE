@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
   if (!checked) return null;
 
-  if (!isLoggedIn && showModal) {
+  if (!isLoggedIn || showModal) {
     return <LoginModal onClose={() => setShowModal(false)} />;
   }
 

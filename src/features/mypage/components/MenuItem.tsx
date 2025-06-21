@@ -4,18 +4,19 @@ interface MenuItemProps {
   icon: ReactNode;
   content: ReactNode;
   isActive: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 
-const MenuItem = ({ icon, content, isActive, onClick }: MenuItemProps) => {
+const MenuItem = ({ icon, content, isActive, onClick, disabled }: MenuItemProps) => {
   return (
     <button
-      className={`inline-flex bg-background-whitegray rounded-30.5 h-40 px-15 gap-8 w-fit items-center ${!isActive ? "cursor-not-allowed" : "cursor-pointer"}`}
-      disabled={!isActive}
+      className={`inline-flex bg-background-whitegray rounded-30.5 h-40 px-15 gap-8 w-fit items-center ${!isActive || disabled ? "cursor-not-allowed" : "cursor-pointer active:opacity-70 transition-opacity duration-100"}`}
+      disabled={!isActive || disabled}
       onClick={onClick}
     >
       <div
-        className={`w-24 h-24 ${isActive ? " text-font-pointYellow stroke-font-pointYellow" : "text-font-whitegrayLight stroke-font-whitegrayLight"}`}
+        className={`w-24 h-24 stroke-[2px] ${isActive ? " text-font-pointYellow stroke-font-pointYellow" : "text-font-whitegrayLight stroke-font-whitegrayLight fill-none"}`}
       >
         {icon}
       </div>

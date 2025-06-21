@@ -4,10 +4,15 @@ import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
 import { useState } from "react";
 import Modal from "components/common/Modal";
 import { AnimatePresence } from "framer-motion";
+import { useAuth } from "hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="w-full min-h-[100dvh] bg-white">
@@ -15,28 +20,28 @@ const AccountPage = () => {
       <div className="flex flex-col gap-28 px-24 py-28">
         <div className="flex flex-row text-body-2 justify-between">
           <span className="text-font-black">연관된 소셜 로그인 계정</span>
-          <span className="text-font-whitegrayDark">apu@apple.id.com</span>
+          <span className="text-font-whitegrayDark">{user?.email}</span>
         </div>
         <div className="flex flex-row text-body-2 justify-between">
           <span className="text-font-black">가입일자</span>
-          <span className="text-font-whitegrayDark">2025.05.30</span>
+          <span className="text-font-whitegrayDark">{user?.joinedDate}</span>
         </div>
       </div>
       <div className="flex flex-col gap-16 mt-12 px-24 ">
         <button
           onClick={() => setIsLogoutClicked(true)}
-          className="w-fit px-15 py-9 bg-background-whitegray rounded-30.5 gap-8 flex flex-row items-center"
+          className="active:opacity-70 transition-opacity duration-100 w-fit px-15 py-9 bg-background-whitegray rounded-30.5 gap-8 flex flex-row items-center"
         >
           <LoginIcon className="w-24 h-24 stroke-font-black" />
           <span className="text-body-2 text-font-black">로그아웃</span>
         </button>
-        <button
+        {/* <button
           onClick={() => setIsDeleteClicked(true)}
           className="w-fit px-15 py-9 bg-background-whitegray rounded-30.5 gap-8 flex flex-row items-center"
         >
           <NoticeIcon className="w-24 h-24 stroke-red" />
           <span className="text-body-2 text-font-black">회원 탈퇴</span>
-        </button>
+        </button> */}
       </div>
 
       <AnimatePresence>
@@ -49,13 +54,14 @@ const AccountPage = () => {
             righttext={"로그아웃"}
             handleRightClick={() => {
               setIsLogoutClicked(false);
-              // 로그아웃 로직
+              logout();
+              navigate("/");
             }}
           />
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isDeleteClicked && (
           <Modal
             key="modal"
@@ -71,7 +77,7 @@ const AccountPage = () => {
             isDeleted={true}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 };

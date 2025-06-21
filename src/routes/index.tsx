@@ -15,28 +15,25 @@ import KakaoCallback from "services/api/auth/KakaoCallback";
 import RegisterPage from "pages/RegisterPage";
 import MyPage from "pages/MyPage";
 import ProtectedRoute from "components/common/ProtectedRoute";
+import LoginPage from "pages/LoginPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
     {
       path: "/",
+      children: [
+        { path: "", element: <OnboardingPage /> },
+        { path: "login", element: <LoginPage /> },
+        { path: "register", element: <RegisterPage /> },
+      ],
+    },
+    {
+      path: "/",
       element: <Layout />,
       children: [
         {
-          path: "",
-          element: <OnboardingPage />,
-        },
-        // {
-        //   index: true,
-        //   element: <Navigate to="/map" replace />,
-        // },
-        {
           path: "/register",
           element: <RegisterPage />,
-        },
-        {
-          path: "/test",
-          element: <Test />,
         },
         {
           path: "/dex",
@@ -47,16 +44,8 @@ export const createRouter = () => {
           element: <DexDetailPage />,
         },
         {
-          path: "/search/dex",
-          element: <SearchDexPage />,
-        },
-        {
           path: "/saerok",
-          element: (
-            <ProtectedRoute>
-              <SaerokPage />
-            </ProtectedRoute>
-          ),
+          element: <SaerokPage />,
         },
         {
           path: "/saerok-detail/:id",
@@ -77,6 +66,10 @@ export const createRouter = () => {
         {
           path: "/mypage",
           element: <MyPage />,
+        },
+        {
+          path: "/search/dex",
+          element: <SearchDexPage />,
         },
         {
           path: "/search/bird",
