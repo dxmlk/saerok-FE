@@ -4,10 +4,12 @@ import { CollectionItem, fetchMyCollections } from "services/api/collections";
 import EmptyPage from "features/dex/components/EmptyPage";
 import { useAuth } from "hooks/useAuth";
 import LoginButton from "components/common/button/LoginButton";
+import { SaerokItemSkeleton } from "components/common/SkeletonItem";
 
 const SaerokList = () => {
   const navigate = useNavigate();
   const [collections, setCollections] = useState<CollectionItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
@@ -17,6 +19,8 @@ const SaerokList = () => {
         setCollections(items);
       } catch (err) {
         console.error("컬렉션 불러오기 실패:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -37,6 +41,23 @@ const SaerokList = () => {
         <div className="font-pretendard text-body-2 text-font-darkgray">로그인하고 탐조 기록을 시작해보세요!</div>
         <div className="flex justify-center mt-88">
           <LoginButton />
+        </div>
+      </div>
+    );
+
+  // 스켈레톤 로딩
+  if (loading)
+    return (
+      <div className="mt-12 flex gap-9 justify-center">
+        <div className="flex flex-col gap-12 w-180">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <SaerokItemSkeleton key={idx} />
+          ))}
+        </div>
+        <div className="flex flex-col gap-12 w-180 justify-center">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <SaerokItemSkeleton key={idx} />
+          ))}
         </div>
       </div>
     );

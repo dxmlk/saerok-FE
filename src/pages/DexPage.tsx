@@ -258,6 +258,7 @@ export default function DexPage() {
             dexItems={showBookmarkOnly ? dexItems.filter((i) => bookmarkedBirdIds.includes(i.id)) : dexItems}
             bookmarkedBirdIds={bookmarkedBirdIds}
             onToggleBookmark={toggleBookmark}
+            loading={loading}
           />
         )}
       </div>

@@ -1,5 +1,6 @@
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { useNavigate } from "react-router-dom";
+import { DexItemSkeleton } from "../../../components/common/SkeletonItem";
 
 interface DexItem {
   id: number;
@@ -12,9 +13,10 @@ interface DexListProps {
   dexItems: DexItem[];
   bookmarkedBirdIds?: number[];
   onToggleBookmark?: (id: number) => void;
+  loading?: boolean;
 }
 
-const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark }: DexListProps) => {
+const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }: DexListProps) => {
   const navigate = useNavigate();
 
   const handleItemClick = (id: number) => {
@@ -26,6 +28,17 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark }: DexList
       onToggleBookmark(id);
     }
   };
+
+  // Skeleton 그리드 렌더
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <DexItemSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>

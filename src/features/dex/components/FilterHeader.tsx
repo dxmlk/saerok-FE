@@ -178,9 +178,9 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
               }}
             >
               <div className="relative w-18 h-18">
-                <RadioButton className="w-18 h-18" />
+                <RadioButton className="w-18 h-18 stroke-[1.5px]" />
                 {selected.length === 0 && (
-                  <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-font-whitegrayDark" />
+                  <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-font-whitegrayDark" />
                 )}
               </div>
               전체해제

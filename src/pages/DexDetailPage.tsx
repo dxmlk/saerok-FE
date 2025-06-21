@@ -9,6 +9,7 @@ import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
 import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds";
+import { DexDetailSkeleton } from "components/common/SkeletonItem";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -129,7 +130,7 @@ const DexDetailPage = () => {
     });
   };
 
-  if (loading) return <div className="text-center mt-10"> 로딩 중... </div>;
+  if (loading) return <DexDetailSkeleton />;
   if (error || !bird) return <div className="text-center mt-10">{error}</div>;
 
   return (

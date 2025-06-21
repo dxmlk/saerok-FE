@@ -32,6 +32,10 @@ export const createRouter = () => {
       element: <Layout />,
       children: [
         {
+          path: "/test",
+          element: <Test />,
+        },
+        {
           path: "/register",
           element: <RegisterPage />,
         },

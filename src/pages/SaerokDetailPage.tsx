@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchCollectionDetail, CollectionDetail } from "services/api/collections";
 import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
 import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
+import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
 
 const SaerokDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,15 +32,19 @@ const SaerokDetailPage = () => {
     <div className="min-h-[100vh] bg-white mb-100">
       <SaerokDetailHeader birdId={item.bird.birdId} />
 
-      <SaerokInfo
-        img={item.imageUrl}
-        date={item.discoveredDate}
-        address={item.address}
-        locationAlias={item.locationAlias}
-        note={item.note}
-        birdInfo={item.bird}
-        user={item.user}
-      />
+      {loading ? (
+        <SaerokInfoSkeleton />
+      ) : (
+        <SaerokInfo
+          img={item.imageUrl}
+          date={item.discoveredDate}
+          address={item.address}
+          locationAlias={item.locationAlias}
+          note={item.note}
+          birdInfo={item.bird}
+          user={item.user}
+        />
+      )}
     </div>
   );
 };

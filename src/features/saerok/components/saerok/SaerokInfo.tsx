@@ -1,6 +1,7 @@
 import { ReactComponent as InstagramIcon } from "assets/icons/instagram.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as UserIcon } from "assets/icons/icon/user.svg";
+import { ReactComponent as TimeIcon } from "assets/icons/icon/time.svg";
 
 interface SaerokInfoProps {
   img: string | null;
@@ -47,7 +48,7 @@ const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user }:
           </div>
         </div>
         <div className="mt-20 flex flex-row gap-10 justify-start items-center">
-          <MapIcon className="w-24 h-24 text-font-pointYellow" />
+          <TimeIcon className="w-24 h-24 text-font-pointYellow" />
           <span className="text-subtitle-3 text-font-black">{formatDate(date)}</span>
         </div>
         <div className="mt-28 flex flex-row gap-10 justify-start items-center">

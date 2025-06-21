@@ -4,20 +4,43 @@ import { ReactComponent as BlueCircle } from "assets/background/blue-circle.svg"
 import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
 import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.svg";
 import { ReactComponent as SpeechBubbleIcon } from "assets/icons/image/speech-bubble.svg";
+import { ReactComponent as RadioButton } from "assets/icons/button/radio-button.svg";
+
 import { useNavigate } from "react-router-dom";
 import SAEROK_MESSAGES from "constants/saerokMessages";
 import { useEffect, useMemo, useState } from "react";
 import { fetchMyCollections } from "services/api/collections";
 import { useAuth } from "hooks/useAuth";
+import useBottomSheet from "hooks/useBottomSheet";
+import BottomSheet from "components/common/BottomSheet";
 
 const SaerokMain = () => {
   const navigate = useNavigate();
   const [birdCount, setBirdCount] = useState(0);
   const { isLoggedIn } = useAuth();
 
-  const handleSortClick = () => {
-    console.log("Sort button clicked");
-  };
+  // const SortItem = ({title, checked, onChange}: {title: string; checked: boolean; onChange: () => void}) => {
+  //   <button onClick={(e) => {
+  //     e.stopPropagation();
+  //     onChange();
+  //   }} className="flex flex-row justify-between items-center">
+  //     <div className="flex flex-row gap-0 justify-start items-center text-subtitle-3 font-pretendard">
+  //       <span className="text-font-mainBlue" >{title}</span>
+  //       <span className="text-font-black">으로 정렬</span>
+  //     </div>
+  //     <RadioButton className={`w-24 h-24 stroke-[1.5px] ${checked ? "text-mainBlue" : "text-font-whitegrayDark" }`} />
+  //               {checked && (
+  //                 <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-mainBlue" />
+  //               )}
+  //   </button>
+  // }
+  // const getBottomSheetContent = () => {
+  //   return (
+  //     <div className="flex flex-col gap-25">
+  //       <SortItem title={"이름 순"} checked={} onChange={}></SortItem>
+  //     </div>
+  //   )
+  // }
 
   const handleAddSaerokClick = () => {
     navigate(`/add-saerok`);
@@ -58,12 +81,12 @@ const SaerokMain = () => {
         </div>
 
         {/* 우측 상단 정렬 버튼*/}
-        <div
-          onClick={() => handleSortClick()}
+        {/* <div
+          onClick={() => openBottomSheet()}
           className="active:opacity-70 transition-opacity duration-100 absolute right-24 bottom-316 w-40 h-40 rounded-full bg-glassmorphism z-20 flex items-center justify-center"
         >
           <SortIcon />
-        </div>
+        </div> */}
 
         {/* 몇 종의 새 */}
         <div className="absolute left-24 bottom-28 z-20 leading-10 ">
@@ -82,11 +105,11 @@ const SaerokMain = () => {
         )}
         {!isLoggedIn && (
           <>
-            <div className="absolute right-24 bottom-100 z-20">
+            <button className="absolute right-24 bottom-100 z-20" onClick={() => navigate("/login")}>
               <div className="relative w-176 h-56">
                 <SpeechBubbleIcon className="absolute top-0 left-0 w-full h-full" />
               </div>
-            </div>
+            </button>
             <button
               disabled
               className="active:opacity-70 transition-opacity duration-100 absolute right-24 bottom-28 w-60 h-60 rounded-full bg-font-whitegray z-20 flex items-center justify-center "
@@ -96,6 +119,17 @@ const SaerokMain = () => {
           </>
         )}
       </div>
+
+      {/* <BottomSheet
+        ref={bottomSheetRef}
+        title={"정렬하기"}
+        close={closeBottomSheet}
+        apply={closeBottomSheet}
+      >
+        <div ref={contentRef} className="px-36">
+        {getBottomSheetContent}
+        </div>
+      </BottomSheet> */}
     </>
   );
 };
