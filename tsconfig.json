@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2015",
-    "lib": ["ES2015", "DOM", "DOM.Iterable"],
+    "lib": ["es2015", "DOM"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "jsx": "react-jsx",
