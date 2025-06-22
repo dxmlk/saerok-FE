@@ -20,6 +20,8 @@ import {
 } from "services/api/collections";
 import { fetchDexDetailApi } from "services/api/birds";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
+import Modal from "components/common/Modal";
 
 const EditSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -27,6 +29,8 @@ const EditSaerokPage = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -143,27 +147,22 @@ const EditSaerokPage = () => {
         await registerImageMetaApi(Number(id), objectKey, contentType);
       }
 
-      alert("수정이 완료되었습니다!");
       resetForm();
       navigate("/saerok");
     } catch (err) {
       console.error("수정 실패:", err);
-      alert("수정 중 오류가 발생했습니다.");
     }
   };
 
   // 삭제 버튼 핸들러
   const handleDelete = async () => {
     if (!id) return;
-    if (!window.confirm("정말 삭제하시겠습니까? 복구할 수 없습니다.")) return;
     try {
       await deleteCollectionApi(Number(id));
-      alert("삭제가 완료되었습니다.");
       resetForm();
       navigate("/saerok");
     } catch (err) {
       console.error("삭제 실패:", err);
-      alert("삭제 중 오류가 발생했습니다.");
     }
   };
 
@@ -183,7 +182,7 @@ const EditSaerokPage = () => {
           </button>
         }
         rightContent={
-          <button onClick={handleDelete} className="text-button-1 font-pretendard text-red">
+          <button onClick={() => setIsDeleteModalOpen(true)} className="text-button-1 font-pretendard text-red">
             삭제
           </button>
         }
@@ -268,6 +267,46 @@ const EditSaerokPage = () => {
         </div>
       </div>
       <EditFooter text="편집 완료" onClick={handleSubmit} />
+
+      <AnimatePresence>
+        {isEditModalOpen && (
+          <Modal
+            maintext="작성 중인 내용이 있어요"
+            subtext="이대로 나가면 변경사항이 저장되지 않아요.
+            취소할까요?"
+            lefttext="나가기"
+            righttext="계속하기"
+            handleLeftClick={() => {
+              resetForm();
+              navigate("/saerok");
+              setIsEditModalOpen(false);
+            }}
+            handleRightClick={() => {
+              setIsEditModalOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isDeleteModalOpen && (
+          <Modal
+            maintext="삭제하시겠어요?"
+            subtext={`'${form.birdName || "이름 모를 새"}' 새록이 삭제돼요.`}
+            lefttext="삭제하기"
+            righttext="취소"
+            isDeleted={true}
+            handleLeftClick={() => {
+              handleDelete();
+              setIsDeleteModalOpen(false);
+              navigate("/saerok");
+            }}
+            handleRightClick={() => {
+              setIsDeleteModalOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

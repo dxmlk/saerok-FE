@@ -33,11 +33,13 @@ const Modal = ({
           transition={{ duration: 0.1, ease: "easeInOut" }}
           className="relative z-10"
         >
-          <div className="bg-white rounded-10  flex flex-col items-center justify-center gap-15 px-16 py-18 z-20">
+          <div className="w-316 bg-white rounded-10  flex flex-col items-center justify-center gap-15 px-16 py-18 z-20">
             <NoticeIcon className="w-30 h-30 text-mainBlue" />
             <div className="text-center flex flex-col gap-6 ">
               <div className="text-body-3 text-black font-moneygraphy">{maintext}</div>
-              {subtext && <div className="text-body-2 text-font-darkgray font-pretendard ">{subtext}</div>}
+              {subtext && (
+                <div className="text-body-2 text-font-darkgray font-pretendard whitespace-pre-line ">{subtext}</div>
+              )}
             </div>
             <div className="mt-5 flex flex-row px-4 justify-between gap-16 w-full">
               <button

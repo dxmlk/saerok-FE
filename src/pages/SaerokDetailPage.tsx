@@ -5,11 +5,14 @@ import { fetchCollectionDetail, CollectionDetail } from "services/api/collection
 import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
 import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
 import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
+import { useAuth } from "hooks/useAuth";
 
 const SaerokDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const [item, setItem] = useState<CollectionDetail | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadData = async () => {
@@ -25,11 +28,13 @@ const SaerokDetailPage = () => {
     loadData();
   }, [id]);
 
+  const isMine = item?.user.nickname === user?.nickname;
+
   if (!item) return <div className="p-24">존재하지 않는 컬렉션입니다.</div>;
 
   return (
     <div className="min-h-[100vh] mb-120 bg-white ">
-      <SaerokDetailHeader birdId={item.bird.birdId} collectionId={item.collectionId} />
+      <SaerokDetailHeader birdId={item.bird.birdId} collectionId={item.collectionId} isMine={isMine} />
 
       {loading ? (
         <SaerokInfoSkeleton />
@@ -42,6 +47,7 @@ const SaerokDetailPage = () => {
           note={item.note}
           birdInfo={item.bird}
           user={item.user}
+          isMine={isMine}
         />
       )}
     </div>

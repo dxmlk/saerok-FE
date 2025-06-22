@@ -18,9 +18,10 @@ interface SaerokInfoProps {
     userId: number;
     nickname: string;
   };
+  isMine?: boolean;
 }
 
-const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user }: SaerokInfoProps) => {
+const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user, isMine = false }: SaerokInfoProps) => {
   function formatDate(dateString: string) {
     if (!dateString) return "";
     const [year, month, day] = dateString.split("-");
@@ -51,10 +52,12 @@ const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user }:
           <TimeIcon className="w-24 h-24 text-font-pointYellow" />
           <span className="text-subtitle-3 text-font-black">{formatDate(date)}</span>
         </div>
-        <div className="mt-28 flex flex-row gap-10 justify-start items-center">
-          <UserIcon className="w-24 h-24 text-font-pointYellow" />
-          <span className="text-subtitle-3 text-font-black">{user?.nickname ?? "알 수 없음"}</span>
-        </div>
+        {!isMine && (
+          <div className="mt-28 flex flex-row gap-10 justify-start items-center">
+            <UserIcon className="w-24 h-24 fill-font-pointYellow" />
+            <span className="text-subtitle-3 text-font-black">{user?.nickname ?? "알 수 없음"}</span>
+          </div>
+        )}
       </div>
     </>
   );

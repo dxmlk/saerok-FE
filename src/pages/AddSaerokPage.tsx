@@ -7,11 +7,16 @@ import DatePicker from "components/common/DatePicker";
 import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird";
 import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace";
 import BackButton from "components/common/BackButton";
+import { ReactComponent as XBlackIcon } from "assets/icons/xblack.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { useSaerokForm } from "states/useSaerokForm";
 import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
+import Modal from "components/common/Modal";
+import { useAuth } from "hooks/useAuth";
+import { set } from "date-fns";
 
 const AddSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -19,6 +24,9 @@ const AddSaerokPage = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const initializedRef = useRef(false); // 무한 루프 방지
   const {
@@ -59,6 +67,11 @@ const AddSaerokPage = () => {
   };
 
   const handleSubmit = async () => {
+    if (!isLoggedIn) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+
     if (!form.date || !form.address || !form.locationAlias || !form.memo || !form.imageFile) {
       alert("모든 항목을 입력하고 이미지를 선택해주세요.");
       return;
@@ -110,7 +123,13 @@ const AddSaerokPage = () => {
     <>
       <EditHeader
         leftContent={<span className="text-headline-2 font-moneygraphy text-font-black">새록 작성하기</span>}
-        rightContent={<BackButton />}
+        rightContent={
+          <div className="w-[32px] h-[32px]">
+            <button onClick={() => setIsModalOpen(true)}>
+              <XBlackIcon />
+            </button>
+          </div>
+        }
       />
 
       <div className="px-24 bg-white h-[100vh] font-pretendard">
@@ -199,6 +218,43 @@ const AddSaerokPage = () => {
       </div>
 
       <EditFooter text="종 추가" onClick={handleSubmit} />
+      <AnimatePresence>
+        {isModalOpen && (
+          <Modal
+            maintext="작성 중인 내용이 있어요"
+            subtext="이대로 나가면 변경사항이 저장되지 않아요.
+            취소할까요?"
+            lefttext="나가기"
+            righttext="계속하기"
+            handleLeftClick={() => {
+              resetForm();
+              navigate("/saerok");
+              setIsModalOpen(false);
+            }}
+            handleRightClick={() => {
+              setIsModalOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isLoginModalOpen && (
+          <Modal
+            maintext="로그인하시겠어요?"
+            subtext="로그인이 필요한 기능이에요."
+            lefttext="돌아가기"
+            righttext="로그인 하러가기"
+            handleLeftClick={() => {
+              setIsLoginModalOpen(false);
+            }}
+            handleRightClick={() => {
+              navigate("/login");
+              setIsLoginModalOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
