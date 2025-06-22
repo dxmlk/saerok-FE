@@ -49,12 +49,12 @@ const SaerokList = () => {
   if (loading)
     return (
       <div className="mt-12 flex gap-9 justify-center">
-        <div className="flex flex-col gap-12 w-180">
+        <div className="flex flex-col gap-12 flex-1">
           {Array.from({ length: 4 }).map((_, idx) => (
             <SaerokItemSkeleton key={idx} />
           ))}
         </div>
-        <div className="flex flex-col gap-12 w-180 justify-center">
+        <div className="flex flex-col gap-12 flex-1 ">
           {Array.from({ length: 4 }).map((_, idx) => (
             <SaerokItemSkeleton key={idx} />
           ))}
@@ -73,7 +73,7 @@ const SaerokList = () => {
   ) : (
     <div className="mt-12 flex gap-9 justify-center">
       {/* 왼쪽 컬럼 */}
-      <div className="flex flex-col gap-12 w-180">
+      <div className="flex flex-col gap-12 flex-1">
         {leftItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
             <img
@@ -89,7 +89,7 @@ const SaerokList = () => {
       </div>
 
       {/* 오른쪽 컬럼 */}
-      <div className="flex flex-col gap-12 w-180 justify-center ">
+      <div className="flex flex-col gap-12 flex-1 ">
         {rightItems.map((item) => (
           <div key={item.collectionId} onClick={() => handleItemClick(item.collectionId)} className="cursor-pointer">
             <img

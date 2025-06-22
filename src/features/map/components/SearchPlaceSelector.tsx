@@ -4,7 +4,7 @@ import { KakaoPlace } from "types/kakao";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 
-const KAKAO_APP_KEY = "9f8230e848e24bb14fa14ff044819970";
+const KAKAO_APP_KEY = import.meta.env.production.VITE_KAKAO_APP_KEY;
 
 interface SearchPlaceSelectorProps {
   onSelect: (place: { lat: number; lng: number; address: string; roadAddress?: string }) => void;

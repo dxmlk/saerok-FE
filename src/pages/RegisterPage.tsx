@@ -1,14 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NicknameInput from "features/mypage/components/NicknameInput";
 import axios from "axios";
+import { useAuth } from "hooks/useAuth";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [nickname, setNickname] = useState(""); // 닉네임 상태 관리
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+  const location = useLocation();
+  const { isLoggedIn, loading } = useAuth();
+
+  useEffect(() => {
+    // 1. 유저 정보 아직 로딩 중이면 아무 동작하지 않음
+    if (loading) return;
+
+    // 2. 로그인된 유저는 바로 saerok으로 이동
+    if (isLoggedIn) {
+      navigate("/saerok", { replace: true });
+      return;
+    }
+
+    // 3. 카카오 콜백이 아니면 로그인 페이지로 강제 이동
+    if (!location.state || !location.state.fromKakao) {
+      navigate("/login", { replace: true });
+    }
+  }, [isLoggedIn, loading, location, navigate]);
 
   // 닉네임 수정
   const handleSubmit = async () => {

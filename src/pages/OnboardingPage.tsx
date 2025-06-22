@@ -37,7 +37,7 @@ const OnboardingPage = () => {
 
   return (
     <div
-      className={`h-[100dvh] w-[100dvw] max-w-500 flex flex-col font-pretendard justify-center items-center transition-colors duration-700 ${
+      className={`h-[100dvh] w-[100dvw] flex flex-col font-pretendard justify-center items-center transition-colors duration-700 ${
         isStart ? "bg-custom-gradient" : "bg-white"
       }`}
     >

@@ -16,13 +16,15 @@ interface NaverMapProps {
   onOverlayClick?: (id: number) => void;
 }
 
+const NAVER_APP_KEY = import.meta.env.production.VITE_NAVER_APP_KEY;
+
 const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayInstancesRef = useRef<any[]>([]);
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=yj17bib8ok";
+    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_APP_KEY}`;
     script.async = true;
 
     script.onload = () => {

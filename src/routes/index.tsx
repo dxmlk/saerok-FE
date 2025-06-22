@@ -17,6 +17,7 @@ import MyPage from "pages/MyPage";
 import ProtectedRoute from "components/common/ProtectedRoute";
 import LoginPage from "pages/LoginPage";
 import EditSaerokPage from "pages/EditSaerokPage";
+import NotFoundPage from "pages/NotFoundPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -26,16 +27,13 @@ export const createRouter = () => {
         { path: "", element: <OnboardingPage /> },
         { path: "login", element: <LoginPage /> },
         { path: "register", element: <RegisterPage /> },
+        { path: "/auth/kakao/login", element: <KakaoCallback /> },
       ],
     },
     {
       path: "/",
       element: <Layout />,
       children: [
-        {
-          path: "/test",
-          element: <Test />,
-        },
         {
           path: "/register",
           element: <RegisterPage />,
@@ -54,11 +52,7 @@ export const createRouter = () => {
         },
         {
           path: "/saerok-detail/:id",
-          element: (
-            <ProtectedRoute>
-              <SaerokDetailPage />
-            </ProtectedRoute>
-          ),
+          element: <SaerokDetailPage />,
         },
         {
           path: "/add-saerok",
@@ -66,7 +60,11 @@ export const createRouter = () => {
         },
         {
           path: "/edit-saerok/:id",
-          element: <EditSaerokPage />,
+          element: (
+            <ProtectedRoute>
+              <EditSaerokPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/map",
@@ -88,9 +86,10 @@ export const createRouter = () => {
           path: "/search/place",
           element: <SearchPlacePage />,
         },
+
         {
-          path: "/auth/kakao/login",
-          element: <KakaoCallback />,
+          path: "*",
+          element: <NotFoundPage />,
         },
       ],
     },

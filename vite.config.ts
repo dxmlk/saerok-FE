@@ -25,7 +25,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://dev-api.saerok.app",
+        target: "https://api.saerok.app",
         changeOrigin: true,
       },
     },
