@@ -72,16 +72,17 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
         const pane = this.getPanes()?.overlayLayer;
         if (pane) {
           pane.appendChild(this.element);
-          const btn = this.element.querySelector(".collection-overlay-btn");
-          if (btn) {
-            btn.addEventListener("click", (e) => {
+          const btns = this.element.querySelectorAll(".collection-overlay-btn");
+          btns.forEach((btn) => {
+            const button = btn as HTMLButtonElement;
+            button.addEventListener("click", (e) => {
               e.stopPropagation();
-              const id = btn.getAttribute("data-collection-id");
+              const id = button.getAttribute("data-collection-id");
               if (id && typeof onOverlayClick === "function") {
                 onOverlayClick(Number(id));
               }
             });
-          }
+          });
         }
       }
 
@@ -117,6 +118,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
     <button
       type="button"
       class="collection-overlay-btn relative gap-7 flex flex-col items-center bg-[#FEFEFE] rounded-[10px] min-w-[120px] max-w-[180px] px-16 py-16 z-10"
+      data-collection-id="${collectionId}"
     >
       <div class="font-moneygraphy text-body-3 text-black mb-1">${koreanName}</div>
       <div
