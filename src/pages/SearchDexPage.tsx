@@ -1,12 +1,12 @@
 import { useRecoilState } from "recoil";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { filtersState, searchTermState } from "states/dexSearchState";
+import { filtersState, searchTermState } from "states/dexSearchState.js";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "components/common/textfield/SearchBar";
-import SearchSuggestions from "components/common/textfield/SearchSuggestions";
-import { getBirdInfoByNameApi, BirdInfo } from "services/api/birds";
-import FilterHeader from "features/dex/components/FilterHeader";
+import SearchBar from "components/common/textfield/SearchBar.js";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions.js";
+import { getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index.js";
+import FilterHeader from "features/dex/components/FilterHeader.js";
 import qs, { ParsedQs } from "qs";
 
 interface SearchRecord {

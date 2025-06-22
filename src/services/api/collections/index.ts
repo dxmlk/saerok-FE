@@ -1,4 +1,4 @@
-import axiosPrivate from "../axiosPrivate";
+import axiosPrivate from "../axiosPrivate.js";
 
 export interface CreateCollectionRequest {
   birdId: number | null;

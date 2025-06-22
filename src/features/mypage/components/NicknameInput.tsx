@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as ExclamationIcon } from "assets/icons/button/exclamation.svg";
-import { validateNickname } from "features/register/function/NicknameValidation";
+import { validateNickname } from "features/register/function/NicknameValidation.js";
 import { FC } from "react";
-import { checkNicknameAvailable } from "services/api/user";
+import { checkNicknameAvailable } from "services/api/user/index.js";
 
 interface NicknameInputProps {
   nickname: string;

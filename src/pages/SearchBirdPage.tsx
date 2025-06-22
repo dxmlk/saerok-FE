@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SimpleHeader from "components/common/SimpleHeader";
-import SearchBar from "components/common/textfield/SearchBar";
-import { useSaerokForm } from "states/useSaerokForm";
-import { autocompleteApi, fetchBookmarkListApi, getBirdInfoByNameApi, BirdInfo } from "services/api/birds";
-import SearchSuggestions from "components/common/textfield/SearchSuggestions";
+import SimpleHeader from "components/common/SimpleHeader.js";
+import SearchBar from "components/common/textfield/SearchBar.js";
+import { useSaerokForm } from "states/useSaerokForm.js";
+import { autocompleteApi, fetchBookmarkListApi, getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index.js";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions.js";
 
 const SearchBirdPage = () => {
   const navigate = useNavigate();

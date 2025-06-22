@@ -1,6 +1,6 @@
 import qs from "qs";
-import axiosPublic from "../axiosPublic";
-import axiosPrivate from "../axiosPrivate";
+import axiosPublic from "../axiosPublic.js";
+import axiosPrivate from "../axiosPrivate.js";
 
 // 도감 api
 export const fetchDexItemsApi = (params: any) => {

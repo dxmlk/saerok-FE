@@ -1,6 +1,6 @@
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { useNavigate } from "react-router-dom";
-import { DexItemSkeleton } from "../../../components/common/SkeletonItem";
+import { DexItemSkeleton } from "../../../components/common/SkeletonItem.js";
 
 interface DexItem {
   id: number;

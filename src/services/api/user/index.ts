@@ -1,5 +1,5 @@
-import axiosPrivate from "../axiosPrivate";
-import axiosPublic from "../axiosPublic";
+import axiosPrivate from "../axiosPrivate.js";
+import axiosPublic from "../axiosPublic.js";
 
 // 나의 회원 정보 조회
 export interface UserInfoResponse {

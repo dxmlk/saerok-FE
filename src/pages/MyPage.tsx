@@ -1,24 +1,22 @@
 import { useSearchParams } from "react-router-dom";
-import { useAuth } from "hooks/useAuth";
+import { useAuth } from "hooks/useAuth.js";
 import { ReactComponent as LogoIcon } from "assets/background/logo-cut.svg";
 import { ReactComponent as UserIcon } from "assets/icons/icon/user.svg";
-import { ReactComponent as DocumentIcon } from "assets/icons/icon/document.svg";
 import { ReactComponent as BellIcon } from "assets/icons/icon/bell.svg";
-import { ReactComponent as EggIcon } from "assets/icons/icon/egg.svg";
 import { ReactComponent as LockIcon } from "assets/icons/icon/lock.svg";
 import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
 
-import MenuItem from "features/mypage/components/MenuItem";
-import Profile from "features/mypage/components/Profile";
+import MenuItem from "features/mypage/components/MenuItem.js";
+import Profile from "features/mypage/components/Profile.js";
 
-import EditNicknamePage from "features/mypage/pages/EditNicknamePage";
-import AccountPage from "features/mypage/pages/AccountPage";
+import EditNicknamePage from "features/mypage/pages/EditNicknamePage.js";
+import AccountPage from "features/mypage/pages/AccountPage.js";
 
-import FeedbackPage from "features/mypage/pages/FeedbackPage";
-import GuidgePage from "features/mypage/pages/GuidePage";
-import PublicSettingPage from "features/mypage/pages/PublicSettingPage";
-import PrivacyPage from "features/mypage/pages/PrivacyPage";
-import VersionPage from "features/mypage/pages/VersionPage";
+// import FeedbackPage from "features/mypage/pages/FeedbackPage";
+// import GuidgePage from "features/mypage/pages/GuidePage";
+// import PublicSettingPage from "features/mypage/pages/PublicSettingPage";
+// import PrivacyPage from "features/mypage/pages/PrivacyPage";
+// import VersionPage from "features/mypage/pages/VersionPage";
 
 const MyPage = () => {
   const [params, setParams] = useSearchParams();

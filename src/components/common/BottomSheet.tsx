@@ -1,5 +1,5 @@
 import { forwardRef, ReactNode } from "react";
-import BottomSheetPortal from "./BottomSheetPortal";
+import BottomSheetPortal from "./BottomSheetPortal.js";
 import { ReactComponent as XIcon } from "assets/icons/button/x.svg";
 
 interface Props {

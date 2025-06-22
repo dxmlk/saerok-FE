@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CollectionItem, fetchMyCollections } from "services/api/collections";
-import EmptyPage from "features/dex/components/EmptyPage";
-import { useAuth } from "hooks/useAuth";
-import LoginButton from "components/common/button/LoginButton";
-import { SaerokItemSkeleton } from "components/common/SkeletonItem";
+import { CollectionItem, fetchMyCollections } from "services/api/collections/index.js";
+import EmptyPage from "features/dex/components/EmptyPage.js";
+import { useAuth } from "hooks/useAuth.js";
+import LoginButton from "components/common/button/LoginButton.js";
+import { SaerokItemSkeleton } from "components/common/SkeletonItem.js";
 
 const SaerokList = () => {
   const navigate = useNavigate();

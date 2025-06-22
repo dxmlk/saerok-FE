@@ -3,17 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import qs from "qs";
 import clsx from "clsx";
 
-import DexMain from "features/dex/components/DexMain";
-import DexHeader from "features/dex/components/DexHeader";
-import DexList from "features/dex/components/DexList";
-import FilterHeader from "features/dex/components/FilterHeader";
-import ScrollToTopButton from "components/common/button/ScrollToTopButton";
-import EmptyPage from "features/dex/components/EmptyPage";
+import DexMain from "features/dex/components/DexMain.js";
+import DexList from "features/dex/components/DexList.js";
+import FilterHeader from "features/dex/components/FilterHeader.js";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton.js";
+import EmptyPage from "features/dex/components/EmptyPage.js";
 
-import { fetchDexItemsApi, fetchBookmarksApi, fetchDexDetailApi } from "services/api/birds";
+import { fetchDexItemsApi, fetchBookmarksApi, fetchDexDetailApi } from "services/api/birds/index.js";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { filtersState, searchTermState } from "states/dexSearchState";
-import { bookmarkedBirdIdsState, useSyncBookmarks, useToggleBookmarkAndSync } from "states/bookmarkState";
+import { filtersState, searchTermState } from "states/dexSearchState.js";
+import { bookmarkedBirdIdsState, useSyncBookmarks, useToggleBookmarkAndSync } from "states/bookmarkState.js";
 
 interface DexItem {
   id: number;

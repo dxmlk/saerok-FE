@@ -1,22 +1,24 @@
 import { useRecoilState } from "recoil";
-import { saerokFormState } from "./saerokFormAtom";
+import { saerokFormState, SaerokFormState } from "./saerokFormAtom.js";
 import { set } from "date-fns";
 
 export const useSaerokForm = () => {
   const [form, setForm] = useRecoilState(saerokFormState);
 
-  const setBirdName = (name: string | null) => setForm((prev) => ({ ...prev, birdName: name }));
-  const setBirdId = (id: number | null) => setForm((prev) => ({ ...prev, birdId: id }));
-  const setAddress = (addr: string) => setForm((prev) => ({ ...prev, address: addr }));
-  const setLocationAlias = (alias: string) => setForm((prev) => ({ ...prev, locationAlias: alias }));
-  const setLatitude = (lat: number | null) => setForm((prev) => ({ ...prev, latitude: lat }));
-  const setLongitude = (lng: number | null) => setForm((prev) => ({ ...prev, longitude: lng }));
-  const setDate = (date: string) => setForm((prev) => ({ ...prev, date }));
-  const setMemo = (memo: string) => setForm((prev) => ({ ...prev, memo }));
-  const setImageFile = (file: File | null) => setForm((prev) => ({ ...prev, imageFile: file }));
-  const setImagePreviewUrl = (url: string | null) => setForm((prev) => ({ ...prev, imagePreviewUrl: url }));
-  const setImageId = (id: number | null) => setForm((prev) => ({ ...prev, imageId: id }));
-  const setAccessLevel = (access: "PUBLIC" | "PRIVATE") => setForm((prev) => ({ ...prev, accessLevel: access }));
+  const setBirdName = (name: string | null) => setForm((prev: SaerokFormState) => ({ ...prev, birdName: name }));
+  const setBirdId = (id: number | null) => setForm((prev: SaerokFormState) => ({ ...prev, birdId: id }));
+  const setAddress = (addr: string) => setForm((prev: SaerokFormState) => ({ ...prev, address: addr }));
+  const setLocationAlias = (alias: string) => setForm((prev: SaerokFormState) => ({ ...prev, locationAlias: alias }));
+  const setLatitude = (lat: number | null) => setForm((prev: SaerokFormState) => ({ ...prev, latitude: lat }));
+  const setLongitude = (lng: number | null) => setForm((prev: SaerokFormState) => ({ ...prev, longitude: lng }));
+  const setDate = (date: string) => setForm((prev: SaerokFormState) => ({ ...prev, date }));
+  const setMemo = (memo: string) => setForm((prev: SaerokFormState) => ({ ...prev, memo }));
+  const setImageFile = (file: File | null) => setForm((prev: SaerokFormState) => ({ ...prev, imageFile: file }));
+  const setImagePreviewUrl = (url: string | null) =>
+    setForm((prev: SaerokFormState) => ({ ...prev, imagePreviewUrl: url }));
+  const setImageId = (id: number | null) => setForm((prev: SaerokFormState) => ({ ...prev, imageId: id }));
+  const setAccessLevel = (access: "PUBLIC" | "PRIVATE") =>
+    setForm((prev: SaerokFormState) => ({ ...prev, accessLevel: access }));
 
   const setAddressDetails = ({
     address,

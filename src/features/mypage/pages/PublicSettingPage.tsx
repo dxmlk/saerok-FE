@@ -1,4 +1,4 @@
-import SimpleHeader from "components/common/SimpleHeader";
+import SimpleHeader from "components/common/SimpleHeader.js";
 
 const PublicSettingPage = () => {
   return (

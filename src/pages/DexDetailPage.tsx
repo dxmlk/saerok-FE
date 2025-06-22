@@ -7,9 +7,9 @@ import addSaerokPng from "assets/icons/button/add-saerok.png";
 import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
-import ScrollToTopButton from "components/common/button/ScrollToTopButton";
-import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds";
-import { DexDetailSkeleton } from "components/common/SkeletonItem";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton.js";
+import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds/index.js";
+import { DexDetailSkeleton } from "components/common/SkeletonItem.js";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",

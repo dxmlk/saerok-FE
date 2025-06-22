@@ -16,7 +16,7 @@ interface NaverMapProps {
   onOverlayClick?: (id: number) => void;
 }
 
-const NAVER_APP_KEY = import.meta.env.production.VITE_NAVER_APP_KEY;
+const NAVER_APP_KEY = import.meta.env.VITE_NAVER_APP_KEY;
 
 const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);

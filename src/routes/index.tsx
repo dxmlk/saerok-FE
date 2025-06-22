@@ -1,23 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
-import Test from "pages/Test";
-import DexPage from "pages/DexPage";
-import DexDetailPage from "pages/DexDetailPage";
-import SearchDexPage from "pages/SearchDexPage";
-import SearchBirdPage from "pages/SearchBirdPage";
-import SaerokPage from "pages/SaerokPage";
-import SaerokDetailPage from "pages/SaerokDetailPage";
-import AddSaerokPage from "pages/AddSaerokPage";
-import MapPage from "pages/MapPage";
-import Layout from "components/common/Layout";
-import SearchPlacePage from "pages/SearchPlacePage";
-import OnboardingPage from "pages/OnboardingPage";
-import KakaoCallback from "services/api/auth/KakaoCallback";
-import RegisterPage from "pages/RegisterPage";
-import MyPage from "pages/MyPage";
-import ProtectedRoute from "components/common/ProtectedRoute";
-import LoginPage from "pages/LoginPage";
-import EditSaerokPage from "pages/EditSaerokPage";
-import NotFoundPage from "pages/NotFoundPage";
+import DexPage from "pages/DexPage.js";
+import DexDetailPage from "pages/DexDetailPage.js";
+import SearchDexPage from "pages/SearchDexPage.js";
+import SearchBirdPage from "pages/SearchBirdPage.js";
+import SaerokPage from "pages/SaerokPage.js";
+import SaerokDetailPage from "pages/SaerokDetailPage.js";
+import AddSaerokPage from "pages/AddSaerokPage.js";
+import MapPage from "pages/MapPage.js";
+import Layout from "components/common/Layout.js";
+import SearchPlacePage from "pages/SearchPlacePage.js";
+import OnboardingPage from "pages/OnboardingPage.js";
+import KakaoCallback from "services/api/auth/KakaoCallback.js";
+import RegisterPage from "pages/RegisterPage.js";
+import MyPage from "pages/MyPage.js";
+import ProtectedRoute from "components/common/ProtectedRoute.js";
+import LoginPage from "pages/LoginPage.js";
+import EditSaerokPage from "pages/EditSaerokPage.js";
+import NotFoundPage from "pages/NotFoundPage.js";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -71,7 +70,7 @@ export const createRouter = () => {
           element: <MapPage />,
         },
         {
-          path: "/mypage",
+          path: "/myPage.js",
           element: <MyPage />,
         },
         {

@@ -3,7 +3,7 @@ import { ReactComponent as DexIcon } from "assets/icons/nav/dex.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as SaerokIcon } from "assets/icons/nav/saerok.svg";
 import { ReactComponent as MyIcon } from "assets/icons/nav/my.svg";
-import NavButton from "./button/NavButton";
+import NavButton from "./button/NavButton.js";
 
 const Layout = () => {
   const location = useLocation();

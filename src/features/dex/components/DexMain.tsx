@@ -4,7 +4,7 @@ import qs from "qs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { searchTermState } from "states/dexSearchState";
+import { searchTermState } from "states/dexSearchState.js";
 
 interface SelectedFilters {
   habitats: string[];

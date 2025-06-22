@@ -1,5 +1,5 @@
 // src/components/ProtectedRoute.tsx
-import LoginModal from "features/onboarding/components/LoginModal";
+import LoginModal from "features/onboarding/components/LoginModal.js";
 import { useState, useEffect, JSX } from "react";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {

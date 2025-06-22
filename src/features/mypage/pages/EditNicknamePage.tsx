@@ -1,9 +1,9 @@
-import SimpleHeader from "components/common/SimpleHeader";
-import NicknameInput from "../components/NicknameInput";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter";
+import SimpleHeader from "components/common/SimpleHeader.js";
+import NicknameInput from "../components/NicknameInput.js";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUserInfo } from "services/api/user/index";
+import { updateUserInfo } from "services/api/user/index.js";
 
 const EditNicknamePage = () => {
   const [nickname, setNickname] = useState("");

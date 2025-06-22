@@ -1,10 +1,10 @@
 // components/common/textfield/SearchSuggestions.tsx
-import { BirdInfo } from "services/api/birds";
+import { BirdInfo } from "services/api/birds/index.js";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 import { useRecoilValue } from "recoil";
-import { bookmarkedBirdIdsState, useToggleBookmarkAndSync } from "states/bookmarkState";
+import { bookmarkedBirdIdsState, useToggleBookmarkAndSync } from "states/bookmarkState.js";
 
 interface SearchSuggestionsProps {
   visible: boolean;

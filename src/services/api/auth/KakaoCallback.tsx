@@ -1,7 +1,7 @@
-import { useAuth } from "hooks/useAuth";
+import { useAuth } from "hooks/useAuth.js";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
-import { loginKakao, refreshAuth } from "services/api/auth";
+import { loginKakao, refreshAuth } from "services/api/auth/index.js";
 
 const KakaoCallback = () => {
   const [searchParams] = useSearchParams();

@@ -1,4 +1,4 @@
-import Modal from "components/common/Modal";
+import Modal from "components/common/Modal.js";
 import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ onClose }: { onClose: () => void }) => {

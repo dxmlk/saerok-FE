@@ -1,8 +1,8 @@
-import SaerokList from "features/saerok/components/saerok/SaerokList";
-import SaerokMain from "features/saerok/components/saerok/SaerokMain";
+import SaerokList from "features/saerok/components/saerok/SaerokList.js";
+import SaerokMain from "features/saerok/components/saerok/SaerokMain.js";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton.js";
 
 const SaerokPage = () => {
   const [opacity, setOpacity] = useState(1);

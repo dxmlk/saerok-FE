@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddImage from "features/saerok/components/add-saerok/AddImage";
-import EditHeader from "features/saerok/components/add-saerok/EditHeader";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter";
-import DatePicker from "components/common/DatePicker";
-import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird";
-import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace";
-import BackButton from "components/common/BackButton";
+import AddImage from "features/saerok/components/add-saerok/AddImage.js";
+import EditHeader from "features/saerok/components/add-saerok/EditHeader.js";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
+import DatePicker from "components/common/DatePicker.js";
+import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird.js";
+import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace.js";
 import { ReactComponent as XBlackIcon } from "assets/icons/xblack.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
-import { useSaerokForm } from "states/useSaerokForm";
-import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections";
+import { useSaerokForm } from "states/useSaerokForm.js";
+import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections/index.js";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import Modal from "components/common/Modal";
-import { useAuth } from "hooks/useAuth";
-import { set } from "date-fns";
+import Modal from "components/common/Modal.js";
+import { useAuth } from "hooks/useAuth.js";
 
 const AddSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);

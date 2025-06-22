@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import SearchBar from "components/common/textfield/SearchBar";
-import { KakaoPlace } from "types/kakao";
+import SearchBar from "components/common/textfield/SearchBar.js";
+import { KakaoPlace } from "types/kakao.js";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 
-const KAKAO_APP_KEY = import.meta.env.production.VITE_KAKAO_APP_KEY;
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY;
 
 interface SearchPlaceSelectorProps {
   onSelect: (place: { lat: number; lng: number; address: string; roadAddress?: string }) => void;

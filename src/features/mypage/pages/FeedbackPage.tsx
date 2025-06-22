@@ -1,5 +1,5 @@
-import SimpleHeader from "components/common/SimpleHeader";
-import AutoResizeTextArea from "components/common/textfield/AutoResizeTextArea";
+import SimpleHeader from "components/common/SimpleHeader.js";
+import AutoResizeTextArea from "components/common/textfield/AutoResizeTextArea.js";
 import { useState } from "react";
 
 const FeedbackPage = () => {

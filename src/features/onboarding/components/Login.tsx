@@ -1,9 +1,9 @@
 import { ReactComponent as AppleIcon } from "assets/icons/logo/apple.svg";
 import { ReactComponent as KakaoIcon } from "assets/icons/logo/kakao.svg";
-import Modal from "components/common/Modal";
+import Modal from "components/common/Modal.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { KAKAO_AUTH_URL } from "services/api/auth/kakaoLogin";
+import { KAKAO_AUTH_URL } from "services/api/auth/kakaoLogin.js";
 import { AnimatePresence } from "framer-motion";
 
 const Login = () => {

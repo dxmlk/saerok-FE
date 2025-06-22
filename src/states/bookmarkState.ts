@@ -1,6 +1,5 @@
-// states/bookmarkState.ts
 import { atom, useSetRecoilState } from "recoil";
-import { fetchBookmarksApi, toggleBookmarkApi } from "services/api/birds";
+import { fetchBookmarksApi, toggleBookmarkApi } from "services/api/birds/index.js";
 
 export const bookmarkedBirdIdsState = atom<number[]>({
   key: "bookmarkedBirdIdsState",

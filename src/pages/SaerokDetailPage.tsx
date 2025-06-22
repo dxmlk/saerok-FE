@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { fetchCollectionDetail, CollectionDetail } from "services/api/collections";
-import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
-import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
-import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
-import { useAuth } from "hooks/useAuth";
+import { fetchCollectionDetail, CollectionDetail } from "services/api/collections/index.js";
+import SaerokInfo from "features/saerok/components/saerok/SaerokInfo.js";
+import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader.js";
+import { SaerokInfoSkeleton } from "components/common/SkeletonItem.js";
+import { useAuth } from "hooks/useAuth.js";
 
 const SaerokDetailPage = () => {
   const { id } = useParams<{ id: string }>();

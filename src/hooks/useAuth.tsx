@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
-import { getUserInfo } from "services/api/user";
-import { refreshAuth } from "services/api/auth"; // 토큰 갱신 api
-import type { User } from "types/auth";
+import { getUserInfo } from "services/api/user/index.js";
+// import { refreshAuth } from "services/api/auth/index.js"; // 토큰 갱신 api
+import type { User } from "types/auth.js";
 
 interface AuthContextProps {
   isLoggedIn: boolean;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import NicknameInput from "features/mypage/components/NicknameInput";
+import NicknameInput from "features/mypage/components/NicknameInput.js";
 import axios from "axios";
-import { useAuth } from "hooks/useAuth";
+import { useAuth } from "hooks/useAuth.js";
 
 const RegisterPage = () => {
   const navigate = useNavigate();

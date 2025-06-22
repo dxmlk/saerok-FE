@@ -1,6 +1,3 @@
-import { DexDetailSkeleton, DexItemSkeleton, SaerokItemSkeleton } from "components/common/SkeletonItem";
-import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
-import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
 import { ReactComponent as BubbleTailIcon } from "assets/icons/icon/bubble-tail.svg";
 
 const Test = () => {

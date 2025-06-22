@@ -1,11 +1,11 @@
-import NaverMap from "features/map/components/NaverMap";
-import SearchPlaceSelector from "features/map/components/SearchPlaceSelector";
-import CurrentLocationButton from "features/map/components/CurrentLocationButton";
-import useGeolocation from "hooks/useGeolocation";
+import NaverMap from "features/map/components/NaverMap.js";
+import SearchPlaceSelector from "features/map/components/SearchPlaceSelector.js";
+import CurrentLocationButton from "features/map/components/CurrentLocationButton.js";
+import useGeolocation from "hooks/useGeolocation.js";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections";
-import ToggleMapMode from "features/map/components/ToggleMapMode";
+import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections/index.js";
+import ToggleMapMode from "features/map/components/ToggleMapMode.js";
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { ReactComponent as ReloadingIcon } from "assets/icons/icon/reloading.svg";

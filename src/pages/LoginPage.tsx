@@ -1,4 +1,4 @@
-import Login from "features/onboarding/components/Login";
+import Login from "features/onboarding/components/Login.js";
 import { ReactComponent as SplashLogo } from "assets/icons/logo/splash.svg";
 
 const LoginPage = () => {

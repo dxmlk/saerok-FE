@@ -1,7 +1,7 @@
 import { ReactComponent as ExclamationIcon } from "assets/icons/button/exclamation.svg";
 import { ReactComponent as ProfileIcon } from "assets/icons/image/profile.svg";
 import { ReactComponent as EditIcon } from "assets/icons/button/edit.svg";
-import LoginButton from "components/common/button/LoginButton";
+import LoginButton from "components/common/button/LoginButton.js";
 
 interface ProfileProps {
   isUser: boolean;

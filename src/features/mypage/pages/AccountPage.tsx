@@ -1,15 +1,13 @@
-import SimpleHeader from "components/common/SimpleHeader";
+import SimpleHeader from "components/common/SimpleHeader.js";
 import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
-import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
 import { useState } from "react";
-import Modal from "components/common/Modal";
+import Modal from "components/common/Modal.js";
 import { AnimatePresence } from "framer-motion";
-import { useAuth } from "hooks/useAuth";
+import { useAuth } from "hooks/useAuth.js";
 import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
-  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();

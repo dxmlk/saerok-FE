@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as SplashLogo } from "assets/icons/logo/splash.svg";
 import { useNavigate } from "react-router-dom";
-import useRefreshToken, { isAccessTokenValid } from "hooks/useRefreshToken";
+import useRefreshToken, { isAccessTokenValid } from "hooks/useRefreshToken.js";
 
 type SplashStep = "start" | "transition" | "final";
 

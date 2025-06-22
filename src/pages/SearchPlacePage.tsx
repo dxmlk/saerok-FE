@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "components/common/textfield/SearchBar";
-import SimpleHeader from "components/common/SimpleHeader";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter";
-import PlaceBottomSheet from "features/saerok/components/add-saerok/PlaceBottomSheet";
-import useBottomSheet from "hooks/useBottomSheet";
-import { useSaerokForm } from "states/useSaerokForm";
-import { KakaoPlace } from "types/kakao";
+import SearchBar from "components/common/textfield/SearchBar.js";
+import SimpleHeader from "components/common/SimpleHeader.js";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
+import PlaceBottomSheet from "features/saerok/components/add-saerok/PlaceBottomSheet.js";
+import useBottomSheet from "hooks/useBottomSheet.js";
+import { useSaerokForm } from "states/useSaerokForm.js";
+import { KakaoPlace } from "types/kakao.js";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
-import { reverseGeocode, ReverseGeocodeResult } from "features/saerok/utils/reverseGeocode";
+import { reverseGeocode, ReverseGeocodeResult } from "features/saerok/utils/reverseGeocode.js";
 
 const HEADER_HEIGHT = 68;
 const SEARCHBAR_HEIGHT = 70;

@@ -1,18 +1,14 @@
 import { ReactComponent as YellowCircle } from "assets/background/yellow-circle.svg";
 import { ReactComponent as PinkCircle } from "assets/background/pink-circle.svg";
 import { ReactComponent as BlueCircle } from "assets/background/blue-circle.svg";
-import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
 import addSaerokPng from "assets/icons/button/add-saerok2.png";
 import { ReactComponent as SpeechBubbleIcon } from "assets/icons/image/speech-bubble.svg";
-import { ReactComponent as RadioButton } from "assets/icons/button/radio-button.svg";
 
 import { useNavigate } from "react-router-dom";
-import SAEROK_MESSAGES from "constants/saerokMessages";
+import SAEROK_MESSAGES from "constants/saerokMessages.js";
 import { useEffect, useMemo, useState } from "react";
-import { fetchMyCollections } from "services/api/collections";
-import { useAuth } from "hooks/useAuth";
-import useBottomSheet from "hooks/useBottomSheet";
-import BottomSheet from "components/common/BottomSheet";
+import { fetchMyCollections } from "services/api/collections/index.js";
+import { useAuth } from "hooks/useAuth.js";
 
 const SaerokMain = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import axiosPublic from "../axiosPublic";
+import axiosPublic from "../axiosPublic.js";
 
 export interface AuthResponse {
   accessToken: string;
