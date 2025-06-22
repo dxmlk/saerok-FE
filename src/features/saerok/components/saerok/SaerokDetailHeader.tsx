@@ -3,7 +3,7 @@ import { ReactComponent as DexIcon } from "assets/icons/button/dex.svg";
 import { ReactComponent as EditIcon } from "assets/icons/button/edit.svg";
 import { useNavigate } from "react-router-dom";
 
-const CollectionDetailHeader = ({ birdId }: any) => {
+const CollectionDetailHeader = ({ birdId, collectionId }: any) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -14,9 +14,9 @@ const CollectionDetailHeader = ({ birdId }: any) => {
     navigate(`/dex-detail/${birdId}`);
   };
 
-  function handleEdit(): void {
-    throw new Error("Function not implemented.");
-  }
+  const handleEdit = () => {
+    navigate(`/edit-saerok/${collectionId}`);
+  };
 
   return (
     <div className="z-10 fixed top-0 w-full bg-transparent h-auto flex flex-row items-center justify-between px-24 py-10">

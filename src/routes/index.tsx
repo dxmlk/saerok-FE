@@ -16,6 +16,7 @@ import RegisterPage from "pages/RegisterPage";
 import MyPage from "pages/MyPage";
 import ProtectedRoute from "components/common/ProtectedRoute";
 import LoginPage from "pages/LoginPage";
+import EditSaerokPage from "pages/EditSaerokPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -62,6 +63,10 @@ export const createRouter = () => {
         {
           path: "/add-saerok",
           element: <AddSaerokPage />,
+        },
+        {
+          path: "/edit-saerok/:id",
+          element: <EditSaerokPage />,
         },
         {
           path: "/map",

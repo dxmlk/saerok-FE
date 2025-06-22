@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { saerokFormState } from "./saerokFormAtom";
+import { set } from "date-fns";
 
 export const useSaerokForm = () => {
   const [form, setForm] = useRecoilState(saerokFormState);
@@ -14,6 +15,7 @@ export const useSaerokForm = () => {
   const setMemo = (memo: string) => setForm((prev) => ({ ...prev, memo }));
   const setImageFile = (file: File | null) => setForm((prev) => ({ ...prev, imageFile: file }));
   const setImagePreviewUrl = (url: string | null) => setForm((prev) => ({ ...prev, imagePreviewUrl: url }));
+  const setImageId = (id: number | null) => setForm((prev) => ({ ...prev, imageId: id }));
   const setAccessLevel = (access: "PUBLIC" | "PRIVATE") => setForm((prev) => ({ ...prev, accessLevel: access }));
 
   const setAddressDetails = ({
@@ -47,6 +49,7 @@ export const useSaerokForm = () => {
       memo: "",
       imageFile: null,
       imagePreviewUrl: null,
+      imageId: null,
       accessLevel: "PUBLIC",
     });
 
@@ -63,6 +66,7 @@ export const useSaerokForm = () => {
     setMemo,
     setImageFile,
     setImagePreviewUrl,
+    setImageId,
     setAddressDetails,
     setAccessLevel,
     resetForm,

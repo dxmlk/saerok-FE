@@ -30,7 +30,7 @@ const SaerokInfo = ({ img, date, address, locationAlias, note, birdInfo, user }:
     <>
       <div className="relative w-full h-auto z-0">
         <img src={img ?? ""} className="w-full h-auto object-cover" />
-        <div className="bg-[linear-gradient(180deg,rgba(254,254,254,0)_0%,rgba(254,254,254,1)_100%)] absolute w-full h-84 bottom-0"></div>
+        <div className="bg-[linear-gradient(180deg,rgba(254,254,254,0)_0%,rgba(254,254,254,1)_100%)] absolute w-full h-84 -bottom-1"></div>
         <div className="absolute left-24 -bottom-28 [filter:drop-shadow(0_0px_10px_rgba(0,0,0,0.15))] px-20 py-12 items-center justify-center flex flex-row gap-7 bg-background-white rounded-20">
           <span className="text-headline-2 font-moneygraphy">{birdInfo.koreanName ?? "이름 모를 새"}</span>
           <span className="text-body-2 text-font-darkgray">{birdInfo.scientificName}</span>

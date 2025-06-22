@@ -29,7 +29,7 @@ const SaerokDetailPage = () => {
 
   return (
     <div className="min-h-[100vh] mb-120 bg-white ">
-      <SaerokDetailHeader birdId={item.bird.birdId} />
+      <SaerokDetailHeader birdId={item.bird.birdId} collectionId={item.collectionId} />
 
       {loading ? (
         <SaerokInfoSkeleton />

@@ -11,6 +11,7 @@ export interface SaerokFormState {
   memo: string;
   imageFile: File | null;
   imagePreviewUrl: string | null;
+  imageId: number | null;
   accessLevel: "PUBLIC" | "PRIVATE";
 }
 
@@ -27,6 +28,7 @@ export const saerokFormState = atom<SaerokFormState>({
     memo: "",
     imageFile: null,
     imagePreviewUrl: null,
+    imageId: null,
     accessLevel: "PUBLIC",
   },
 });

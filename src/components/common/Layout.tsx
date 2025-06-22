@@ -17,6 +17,7 @@ const Layout = () => {
     path === "/login" ||
     path === "/register" ||
     path === "/add-saerok" ||
+    path.startsWith("/edit-saerok") ||
     path === "/search/place" ||
     path === "/search/bird" ||
     (path === "/mypage" && pageParam !== null);
