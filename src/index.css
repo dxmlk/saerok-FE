@@ -11,3 +11,33 @@
     @apply text-14 font-400;
   }
 } */
+
+.swiper-pagination-bullet {
+  width: 11px !important;
+  height: 11px !important;
+  background-color: #fefefe !important;
+  opacity: 1 !important;
+  border-radius: 9999px !important;
+  margin: 8px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #51bea6 !important;
+}
+
+.react-datepicker__month-container {
+  border-radius: 13px !important;
+  background-color: white !important;
+  overflow: hidden;
+}
+
+.react-datepicker {
+  border: none !important;
+  border-radius: 13px !important;
+  background-color: white !important;
+}
+
+.react-datepicker__header {
+  background-color: white !important;
+  border: none !important;
+}

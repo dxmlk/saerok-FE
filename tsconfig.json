@@ -1,14 +1,26 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "*": ["*"]
-    }
+      "features/*": ["features/*"],
+      "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
+      "services/*": ["services/*"],
+      "states/*": ["states/*"],
+      "types/*": ["types/*"],
+      "constants/*": ["constants/*"],
+      "hooks/*": ["hooks/*"]
+    },
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "include": ["src"]
 }
