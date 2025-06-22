@@ -10,7 +10,7 @@ export default defineConfig({
     tsconfigPaths(),
     svgr({
       svgrOptions: {
-        exportType: "default",
+        exportType: "named",
         ref: true,
         svgo: false,
         titleProp: true,
@@ -18,7 +18,16 @@ export default defineConfig({
       include: "**/*.svg",
     }),
   ],
+  css: {
+    postcss: "./postcss.config.cjs",
+  },
   server: {
     port: 3000,
+    proxy: {
+      "/api": {
+        target: "https://api.saerok.app",
+        changeOrigin: true,
+      },
+    },
   },
 });

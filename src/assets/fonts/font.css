@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("./PretendardVariable.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Moneygraphy";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("./Moneygraphy-Rounded.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Jalpullineunharu";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("./JalpullineunharuOTF.woff2") format("woff2-variations");
+}
