@@ -2,7 +2,7 @@ import { ReactComponent as YellowCircle } from "assets/background/yellow-circle.
 import { ReactComponent as PinkCircle } from "assets/background/pink-circle.svg";
 import { ReactComponent as BlueCircle } from "assets/background/blue-circle.svg";
 import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
-import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.svg";
+import addSaerokPng from "assets/icons/button/add-saerok2.png";
 import { ReactComponent as SpeechBubbleIcon } from "assets/icons/image/speech-bubble.svg";
 import { ReactComponent as RadioButton } from "assets/icons/button/radio-button.svg";
 
@@ -100,7 +100,7 @@ const SaerokMain = () => {
             onClick={() => handleAddSaerokClick()}
             className="active:opacity-70 transition-opacity duration-100 absolute right-24 bottom-28 w-60 h-60 rounded-full bg-font-mainBlue z-20 flex items-center justify-center "
           >
-            <AddSaerokIcon className="text-white h-40 w-40" />
+            <img src={addSaerokPng} alt="새록 추가" className="w-40 h-40 object-contain" />
           </button>
         )}
         {!isLoggedIn && (
@@ -114,7 +114,7 @@ const SaerokMain = () => {
               disabled
               className="active:opacity-70 transition-opacity duration-100 absolute right-24 bottom-28 w-60 h-60 rounded-full bg-font-whitegray z-20 flex items-center justify-center "
             >
-              <AddSaerokIcon className="text-white h-40 w-40" />
+              <img src={addSaerokPng} alt="새록 추가" className="w-40 h-40 object-contain" />
             </button>
           </>
         )}

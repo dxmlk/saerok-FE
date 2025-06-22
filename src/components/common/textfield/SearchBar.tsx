@@ -41,7 +41,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, 
               <BackIcon />
             </button>
           )}
-          {!isInputFocused && <SearchIcon className="w-17 h-17 ml-14 text-font-whitegrayLight" />}
+          {!isInputFocused && <SearchIcon className="w-22 h-22 ml-14 text-font-whitegrayLight" />}
 
           <input
             value={searchTerm}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 import { ReactComponent as ArrowLeftIcon } from "assets/icons/button/arrow-left.svg";
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
-import { ReactComponent as AddSaerokIcon } from "assets/icons/button/add-saerok.svg";
+import addSaerokPng from "assets/icons/button/add-saerok.png";
 import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
@@ -134,7 +134,7 @@ const DexDetailPage = () => {
   if (error || !bird) return <div className="text-center mt-10">{error}</div>;
 
   return (
-    <div className="min-h-[100vh] bg-white pb-120">
+    <div className="min-h-[100vh] bg-white mb-120">
       <div className="flex flex-col mt-36 px-16">
         <div className="relative">
           <img src={bird.imageUrls[0]} alt={bird.koreanName} className="w-full rounded-20 object-cover" />
@@ -158,7 +158,7 @@ const DexDetailPage = () => {
             onClick={() => handleAddSaerok()}
             className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer"
           >
-            <AddSaerokIcon className="flex justify-center items-center fill-black w-24 h-24 " />
+            <img src={addSaerokPng} alt="새록 추가" className="w-24 h-24 object-contain" />
           </button>
         </div>
 

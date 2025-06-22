@@ -1,4 +1,3 @@
-// src/pages/DexPage.tsx
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs from "qs";
@@ -9,12 +8,12 @@ import DexHeader from "features/dex/components/DexHeader";
 import DexList from "features/dex/components/DexList";
 import FilterHeader from "features/dex/components/FilterHeader";
 import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import EmptyPage from "features/dex/components/EmptyPage";
 
-import { fetchBookmarksApi, fetchDexItemsApi, toggleBookmarkApi } from "services/api/birds";
-
+import { fetchDexItemsApi, fetchBookmarksApi, fetchDexDetailApi } from "services/api/birds";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { filtersState, searchTermState } from "states/dexSearchState";
-import EmptyPage from "features/dex/components/EmptyPage";
+import { bookmarkedBirdIdsState, useSyncBookmarks, useToggleBookmarkAndSync } from "states/bookmarkState";
 
 interface DexItem {
   id: number;
@@ -66,14 +65,17 @@ export default function DexPage() {
   // Recoil 전역 상태
   const [selectedFilters, setSelectedFilters] = useRecoilState(filtersState);
   const [searchTerm, setSearchTerm] = useRecoilState(searchTermState);
+  const bookmarkedBirdIds = useRecoilValue(bookmarkedBirdIdsState);
+  const syncBookmarks = useSyncBookmarks();
+  const toggleBookmark = useToggleBookmarkAndSync();
 
   // 로컬 상태
   const [dexItems, setDexItems] = useState<DexItem[]>([]);
+  const [bookmarkItems, setBookmarkItems] = useState<DexItem[]>([]); // 북마크용 별도 상태
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [bookmarkedBirdIds, setBookmarkedBirdIds] = useState<number[]>([]);
   const [showBookmarkOnly, setShowBookmarkOnly] = useState(false);
 
   // URL parse 헬퍼
@@ -93,21 +95,22 @@ export default function DexPage() {
     };
   };
 
-  // 1️. 마운트 시 URL→Recoil 초기화 + URL에서 searchTerm 삭제
+  // 1️. 마운트 시 URL→Recoil 초기화 + URL에서 searchTerm 삭제 + 북마크 동기화
   useEffect(() => {
     const { habitats, seasons, sizeCategories, searchTerm: q } = parseQueryParams();
-
-    // 1) Recoil에 값 세팅
     setSelectedFilters({ habitats, seasons, sizeCategories });
     setSearchTerm(q);
 
-    // 2) URL에서 searchTerm 파라미터만 제거
+    // URL에서 searchTerm 파라미터만 제거
     if (q) {
       const params = qs.parse(location.search, { ignoreQueryPrefix: true });
       delete params.searchTerm;
       const cleaned = qs.stringify(params, { arrayFormat: "repeat" });
       navigate(cleaned ? `/dex?${cleaned}` : "/dex", { replace: true });
     }
+
+    // 북마크 동기화(앱 첫 진입)
+    syncBookmarks();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 2.  URL 변경 시 필터만 Recoil 동기화 (searchTerm은 건드리지 않음)
@@ -159,11 +162,14 @@ export default function DexPage() {
 
   // 페이징 이펙트
   useEffect(() => {
-    fetchDexItems(page, selectedFilters, searchTerm);
-  }, [page, selectedFilters, searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!showBookmarkOnly) {
+      fetchDexItems(page, selectedFilters, searchTerm);
+    }
+  }, [page, selectedFilters, searchTerm, showBookmarkOnly]); // showBookmarkOnly 의존성 추가
 
   // 무한 스크롤
   useEffect(() => {
+    if (showBookmarkOnly) return; // 북마크 뷰에서는 스크롤 무의미
     const onScroll = () => {
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300 && !loading && hasMore) {
         setPage((x) => x + 1);
@@ -171,7 +177,7 @@ export default function DexPage() {
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [loading, hasMore]);
+  }, [loading, hasMore, showBookmarkOnly]);
 
   // 3. Recoil → URL 동기화 (필터+검색어 반영)
   useEffect(() => {
@@ -181,57 +187,68 @@ export default function DexPage() {
     navigate(qsStr ? `/dex?${qsStr}` : "/dex", { replace: true });
   }, [selectedFilters, searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 북마크 상태 로드
+  // 4. 북마크 전용 뷰에서 북마크 아이템 로드
   useEffect(() => {
-    fetchBookmarksApi()
-      .then((res) => setBookmarkedBirdIds(res.data.items.map((b: any) => b.birdId)))
-      .catch(console.error);
-  }, []);
+    if (!showBookmarkOnly) return;
+    (async () => {
+      try {
+        const res = await fetchBookmarksApi();
+        const ids = (res.data.items || []).map((item: any) => item.birdId);
 
-  const toggleBookmark = async (id: number) => {
-    await toggleBookmarkApi(id);
-    setBookmarkedBirdIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
-  };
+        // 모든 birdId에 대해 병렬로 상세 정보 fetch
+        const birds = await Promise.all(
+          ids.map(async (id: number) => {
+            try {
+              const detailRes = await fetchDexDetailApi(id);
+              const bird = detailRes.data;
+              if (!bird) return null;
+              return {
+                id: bird.id,
+                koreanName: bird.koreanName,
+                scientificName: bird.scientificName,
+                thumbImageUrl: Array.isArray(bird.imageUrls) && bird.imageUrls.length > 0 ? bird.imageUrls[0] : "",
+              };
+            } catch {
+              return null;
+            }
+          })
+        );
+
+        // null 필터링 후 set
+        setBookmarkItems(birds.filter(Boolean));
+      } catch {
+        setBookmarkItems([]);
+      }
+    })();
+  }, [showBookmarkOnly, bookmarkedBirdIds]);
 
   // 스크롤에 따른 Main/Header 전환
   const [opacity, setOpacity] = useState(1);
   const [showMain, setShowMain] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
 
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      if (showMain) {
-        const newOpacity = Math.max(0, 1 - scrollY / 180);
-        setOpacity(newOpacity);
-
-        if (scrollY > 260) {
-          setShowMain(false);
-          setShowHeader(true);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [showMain]);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="bg-background-whitegray min-h-[100dvh]">
-      {showMain && (
-        <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
-          <DexMain
-            birdCount={585}
-            selectedFilters={selectedFilters}
-            searchTerm={searchTerm}
-            onToggleBookmarkView={() => setShowBookmarkOnly((x) => !x)}
-            bookmarkedBirdIds={bookmarkedBirdIds}
-          />
-        </div>
-      )}
+    <div className="bg-background-whitegray min-h-[100dvh] pb-120">
+      {/* {showMain && (
+        <div className={clsx("transition-all ease-in-out")} style={{ opacity }}> */}
+      <DexMain
+        birdCount={585}
+        selectedFilters={selectedFilters}
+        searchTerm={searchTerm}
+        onToggleBookmarkView={() => setShowBookmarkOnly((x) => !x)}
+        bookmarkedBirdIds={bookmarkedBirdIds}
+      />
+      {/* </div>
+      )} */}
 
-      {showHeader && (
+      {/* {showHeader && (
         <div className={clsx("transition-all ease-in-out opacity-100 translate-y-0")}>
           <DexHeader
             selectedFilters={selectedFilters}
@@ -240,22 +257,31 @@ export default function DexPage() {
             bookmarkedBirdIds={bookmarkedBirdIds}
           />
         </div>
-      )}
+      )} */}
 
       <div className={clsx("px-28", showHeader ? "bg-white py-18 mb-20" : "py-22")}>
         <FilterHeader selectedFilters={selectedFilters} onFilterChange={handleFilterChange} />
       </div>
 
       <div className="px-24">
-        {showBookmarkOnly && dexItems.filter((i) => bookmarkedBirdIds.includes(i.id)).length === 0 ? (
-          <EmptyPage
-            upperText="스크랩한 새가 없어요!"
-            lowerText="새 카드 오른쪽 위 스크랩 버튼을 눌러 스크랩해보세요."
-            bgColor="gray"
-          />
+        {showBookmarkOnly ? (
+          bookmarkItems.length === 0 ? (
+            <EmptyPage
+              upperText="스크랩한 새가 없어요!"
+              lowerText="새 카드 오른쪽 위 스크랩 버튼을 눌러 스크랩해보세요."
+              bgColor="gray"
+            />
+          ) : (
+            <DexList
+              dexItems={bookmarkItems}
+              bookmarkedBirdIds={bookmarkedBirdIds}
+              onToggleBookmark={toggleBookmark}
+              loading={loading}
+            />
+          )
         ) : (
           <DexList
-            dexItems={showBookmarkOnly ? dexItems.filter((i) => bookmarkedBirdIds.includes(i.id)) : dexItems}
+            dexItems={dexItems}
             bookmarkedBirdIds={bookmarkedBirdIds}
             onToggleBookmark={toggleBookmark}
             loading={loading}

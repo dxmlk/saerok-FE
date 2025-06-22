@@ -24,7 +24,7 @@ const Layout = () => {
   const isActive = (path: string) => location.pathname.startsWith(path);
 
   return (
-    <div className="relative min-h-[100dvh] w-[100dvw] font-pretendard">
+    <div className="relative  min-h-[100dvh] w-[100dvw] font-pretendard">
       <div className="relative mx-auto flex min-h-[100dvh] max-w-500 flex-col bg-white shadow-xl justify-center">
         <div className="flex-grow">
           <Outlet />

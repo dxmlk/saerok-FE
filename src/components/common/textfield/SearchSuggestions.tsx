@@ -1,53 +1,74 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// components/common/textfield/SearchSuggestions.tsx
+import { BirdInfo } from "services/api/birds";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
+import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
+import { useRecoilValue } from "recoil";
+import { bookmarkedBirdIdsState, useToggleBookmarkAndSync } from "states/bookmarkState";
 
 interface SearchSuggestionsProps {
   visible: boolean;
-  searchTerm: string;
-  onSearch: (keyword: string) => void;
-  setSearchTerm: (value: string) => void;
+  suggestions: BirdInfo[];
+  onSelect: (info: BirdInfo) => void;
 }
 
-const SearchSuggestions = ({ visible, searchTerm, onSearch, setSearchTerm }: SearchSuggestionsProps) => {
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+const SearchSuggestions = ({ visible, suggestions, onSelect }: SearchSuggestionsProps) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!searchTerm.trim()) {
-      setSuggestions([]);
-      return;
-    }
+  // 전역 북마크 상태/토글 훅
+  const bookmarkedBirdIds = useRecoilValue(bookmarkedBirdIdsState);
+  const toggleBookmark = useToggleBookmarkAndSync();
 
-    const debounce = setTimeout(async () => {
-      try {
-        const res = await axios.get("/api/v1/birds/autocomplete", {
-          params: { q: searchTerm.trim() },
-        });
-        setSuggestions(res.data.suggestions || []);
-      } catch (err) {
-        console.error("자동완성 실패:", err);
-      }
-    }, 200);
-
-    return () => clearTimeout(debounce);
-  }, [searchTerm]);
-
-  if (!visible || suggestions.length === 0) return null;
+  if (!visible || !suggestions.length) return null;
 
   return (
-    <div className="absolute top-[44px] left-0 right-0 bg-white border border-font-whitegrayLight z-40 rounded shadow-md">
-      {suggestions.map((item, idx) => (
-        <div
-          key={idx}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setSearchTerm(item);
-            onSearch(item);
-          }}
-          className="px-12 py-8 text-sm cursor-pointer font-pretendard hover:bg-gray-100"
-        >
-          {item}
-        </div>
-      ))}
+    <div className="absolute left-0 right-0 bg-white border border-font-whitegrayLight z-40">
+      {suggestions.map((info) => {
+        const isBookmarked = bookmarkedBirdIds.includes(info.birdId);
+        return (
+          <div
+            key={info.birdId}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest("button") || (e.target as HTMLElement).tagName === "BUTTON") {
+                return;
+              }
+              onSelect(info);
+            }}
+            className="px-24 border-t bg-white border-background-whitegray flex h-68 justify-between items-center cursor-pointer hover:bg-gray-100"
+          >
+            <div className="flex items-center gap-18">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleBookmark(info.birdId);
+                }}
+              >
+                <ScrapIcon
+                  className={`w-24 h-24 stroke-[2px] ${
+                    isBookmarked
+                      ? "fill-font-pointYellow stroke-font-pointYellow"
+                      : "stroke-font-whitegrayDark fill-none"
+                  }`}
+                />
+              </button>
+              <div className="flex flex-col gap-1">
+                <div className="text-body-3 font-moneygraphy text-font-black">{info.koreanName}</div>
+                <div className="text-caption-1 font-pretendard text-font-whitegrayDark">{info.scientificName}</div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/dex-detail/${info.birdId}`);
+              }}
+            >
+              <BracketIcon className="w-17 h-17" />
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };
