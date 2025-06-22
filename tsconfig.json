@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "rootDir": "src",
-    "outDir": "dist",
+    "paths": {
+      "features/*": ["features/*"],
+      "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
+      "services/*": ["services/*"],
+      "states/*": ["states/*"],
+      "types/*": ["types/*"],
+      "constants/*": ["constants/*"],
+      "hooks/*": ["hooks/*"]
+    },
+    "target": "es2015",
+    "lib": ["es2015", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2015",
-    "lib": ["es2015", "DOM"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
-    "composite": true,
-    "noEmit": false
+    "noEmit": true
   },
   "include": ["src"]
 }

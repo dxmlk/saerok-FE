@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { saerokFormState, SaerokFormState } from "./saerokFormAtom.js";
+import { saerokFormState, SaerokFormState } from "./saerokFormAtom";
 import { set } from "date-fns";
 
 export const useSaerokForm = () => {

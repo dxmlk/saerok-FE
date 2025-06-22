@@ -7,9 +7,9 @@ import addSaerokPng from "assets/icons/button/add-saerok.png";
 import { ReactComponent as SeasonIcon } from "assets/icons/icon/season.svg";
 import { ReactComponent as HabitatIcon } from "assets/icons/icon/habitat.svg";
 import { ReactComponent as SizeIcon } from "assets/icons/icon/size.svg";
-import ScrollToTopButton from "components/common/button/ScrollToTopButton.js";
-import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds/index.js";
-import { DexDetailSkeleton } from "components/common/SkeletonItem.js";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import { fetchBookmarkStatusApi, fetchDexDetailApi, toggleBookmarkApi } from "services/api/birds/index";
+import { DexDetailSkeleton } from "components/common/SkeletonItem";
 
 const seasonMap: Record<string, string> = {
   SPRING: "봄",
@@ -95,7 +95,7 @@ const DexDetailPage = () => {
         const res = await fetchBookmarkStatusApi(numericId);
         setBookmarked(res.data.bookmarked);
       } catch (err) {
-        console.error("북마크 상태 조회 실패:", err);
+        console.error("북마크 상태 조회 실패", err);
       }
     };
     fetchStatus();
@@ -158,7 +158,7 @@ const DexDetailPage = () => {
             onClick={() => handleAddSaerok()}
             className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer"
           >
-            <img src={addSaerokPng} alt="새록 추가" className="w-24 h-24 object-contain" />
+            <img src={addSaerokPng} alt="?�록 추�?" className="w-24 h-24 object-contain" />
           </button>
         </div>
 

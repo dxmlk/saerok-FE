@@ -1,1 +1,1 @@
-export * from "./saerokFormAtom.js";
+export * from "./saerokFormAtom";

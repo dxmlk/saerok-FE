@@ -1,6 +1,6 @@
 import { ReactComponent as ScrapIcon } from "assets/icons/button/scrap.svg";
 import { useNavigate } from "react-router-dom";
-import { DexItemSkeleton } from "../../../components/common/SkeletonItem.js";
+import { DexItemSkeleton } from "../../../components/common/SkeletonItem";
 
 interface DexItem {
   id: number;
@@ -48,12 +48,6 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className="relative rounded-10 stroke-font-whitegrayLight stroke-1 bg-background-white flex flex-col w-full h-198 overflow-visible "
-            // style={{
-            //   boxShadow: bookmarkedBirdIds.includes(item.id)
-            //     ? "0px 0px 5px rgba(152, 194, 253, 1)" // 북마크 O
-            //     : "0px 0px 10px rgba(13, 13, 13, 0.1)", // 북마크 x
-            // }}
-            // 북마크 여부가 아니라 새록 여부네... 나중에 수정 필요
             style={{ boxShadow: "0px 0px 5px rgba(13,13,13,0.1)" }}
           >
             <button

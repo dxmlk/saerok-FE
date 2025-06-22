@@ -1,25 +1,22 @@
-import SimpleHeader from "components/common/SimpleHeader.js";
-import NicknameInput from "../components/NicknameInput.js";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
+import SimpleHeader from "components/common/SimpleHeader";
+import NicknameInput from "../components/NicknameInput";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUserInfo } from "services/api/user/index.js";
+import { updateUserInfo } from "services/api/user/index";
 
 const EditNicknamePage = () => {
   const [nickname, setNickname] = useState("");
-  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false); // 중복확인 통과 여부
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  // 닉네임 중복확인 결과를 자식에서 부모로 올려줌
   const handleNicknameCheckResult = (isAvailable: boolean, error?: string) => {
     setIsNicknameAvailable(isAvailable);
     setErrorMessage(error || "");
   };
-
-  // 닉네임 변경 버튼 클릭
 
   const handleButtonClick = async () => {
     if (!isNicknameAvailable || !nickname) {
@@ -48,7 +45,7 @@ const EditNicknamePage = () => {
           nickname={nickname}
           setNickname={(v) => {
             setNickname(v);
-            setIsNicknameAvailable(false); // 입력이 바뀌면 중복확인 다시 필요
+            setIsNicknameAvailable(false);
           }}
           onCheckResult={handleNicknameCheckResult}
         />

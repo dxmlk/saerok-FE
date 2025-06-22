@@ -2,7 +2,7 @@ import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { ReactComponent as SortIcon } from "assets/icons/button/sort2.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SortBottomSheet from "./SortBottomSheet.js";
+import SortBottomSheet from "./SortBottomSheet";
 
 const SaerokHeader = () => {
   const navigate = useNavigate();

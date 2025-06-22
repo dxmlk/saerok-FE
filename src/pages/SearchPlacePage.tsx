@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "components/common/textfield/SearchBar.js";
-import SimpleHeader from "components/common/SimpleHeader.js";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
-import PlaceBottomSheet from "features/saerok/components/add-saerok/PlaceBottomSheet.js";
-import useBottomSheet from "hooks/useBottomSheet.js";
-import { useSaerokForm } from "states/useSaerokForm.js";
-import { KakaoPlace } from "types/kakao.js";
+import SearchBar from "components/common/textfield/SearchBar";
+import SimpleHeader from "components/common/SimpleHeader";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter";
+import PlaceBottomSheet from "features/saerok/components/add-saerok/PlaceBottomSheet";
+import useBottomSheet from "hooks/useBottomSheet";
+import { useSaerokForm } from "states/useSaerokForm";
+import { KakaoPlace } from "types/kakao";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
-import { reverseGeocode, ReverseGeocodeResult } from "features/saerok/utils/reverseGeocode.js";
+import { reverseGeocode, ReverseGeocodeResult } from "features/saerok/utils/reverseGeocode";
 
 const HEADER_HEIGHT = 68;
 const SEARCHBAR_HEIGHT = 70;
@@ -21,6 +21,7 @@ export default function SearchPlacePage() {
   const [kakaoReady, setKakaoReady] = useState(false);
 
   const navigate = useNavigate();
+
   const { setAddressDetails } = useSaerokForm();
   const { bottomSheetRef, openBottomSheet, closeBottomSheet } = useBottomSheet();
 
@@ -93,7 +94,7 @@ export default function SearchPlacePage() {
     });
   };
 
-  // 1. handleSelect는 상태만 갱신
+  // 1. handleSelect  상태만 갱신
   const handleSelect = (place: KakaoPlace) => {
     setSelectedPlace(place);
     const lat = parseFloat(place.y);
@@ -206,7 +207,7 @@ export default function SearchPlacePage() {
         />
       </div>
 
-      {/* 검색 결과 리스트 */}
+      {/* 검색결과 리스트*/}
       {!selectedPlace && searchPerformed && (
         <div className="flex flex-col">
           {places.length > 0 ? (
@@ -249,7 +250,7 @@ export default function SearchPlacePage() {
       />
 
       {/* 확정 버튼 */}
-      {selectedPlace && <EditFooter text="선택하기" onClick={handleConfirm} />}
+      {selectedPlace && <EditFooter text="?�택?�기" onClick={handleConfirm} />}
 
       {/* 장소 별칭 입력용 BottomSheet */}
       <PlaceBottomSheet

@@ -1,12 +1,12 @@
 import { useRecoilState } from "recoil";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { filtersState, searchTermState } from "states/dexSearchState.js";
+import { filtersState, searchTermState } from "states/dexSearchState";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "components/common/textfield/SearchBar.js";
-import SearchSuggestions from "components/common/textfield/SearchSuggestions.js";
-import { getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index.js";
-import FilterHeader from "features/dex/components/FilterHeader.js";
+import SearchBar from "components/common/textfield/SearchBar";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions";
+import { getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index";
+import FilterHeader from "features/dex/components/FilterHeader";
 import qs, { ParsedQs } from "qs";
 
 interface SearchRecord {
@@ -116,7 +116,7 @@ const SearchDexPage = () => {
     navigate(`/dex?${qsStr}`);
   };
 
-  // handleDeleteHistory도 동일하게
+  // handleDeleteHistory도 동일
   const handleDeleteHistory = (idx: number) => {
     setSearchHistory((prev) => {
       const updated = prev.filter((_, i) => i !== idx);
@@ -128,7 +128,7 @@ const SearchDexPage = () => {
   const handleSuggestionSelect = (info: BirdInfo) => {
     setSearchTerm(info.koreanName);
     handleSearch(info.koreanName);
-    setShowSuggestions(false); // 자동완성창 닫기
+    setShowSuggestions(false); // 자동완성 닫
   };
 
   return (
@@ -193,7 +193,7 @@ const SearchDexPage = () => {
                         handleDeleteHistory(idx);
                       }}
                     >
-                      {/* 삭제 아이콘 예시 */}
+                      {/* 삭제 아이콘 */}
                       <svg className="w-10 h-10" fill="none" stroke="gray" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>

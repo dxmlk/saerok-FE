@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddImage from "features/saerok/components/add-saerok/AddImage.js";
-import EditHeader from "features/saerok/components/add-saerok/EditHeader.js";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
-import DatePicker from "components/common/DatePicker.js";
-import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird.js";
-import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace.js";
+import AddImage from "features/saerok/components/add-saerok/AddImage";
+import EditHeader from "features/saerok/components/add-saerok/EditHeader";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter";
+import DatePicker from "components/common/DatePicker";
+import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird";
+import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace";
 import { ReactComponent as XBlackIcon } from "assets/icons/xblack.svg";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
-import { useSaerokForm } from "states/useSaerokForm.js";
-import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections/index.js";
+import { useSaerokForm } from "states/useSaerokForm";
+import { createCollectionApi, getPresignedUrlApi, registerImageMetaApi } from "services/api/collections/index";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import Modal from "components/common/Modal.js";
-import { useAuth } from "hooks/useAuth.js";
+import Modal from "components/common/Modal";
+import { useAuth } from "hooks/useAuth";
 
 const AddSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -171,7 +171,7 @@ const AddSaerokPage = () => {
 
         <div className="mt-[20px]">
           <div className="ml-13 mb-7 text-caption-1 text-font-black">발견 장소</div>
-          {/* address만 관리 */}
+          {/* address�?관�?*/}
           <SearchBarPlace searchTerm={form.address} setSearchTerm={setAddress} />
           {form.locationAlias && (
             <div className="flex flex-row gap-4 items-center justify-end mt-6">

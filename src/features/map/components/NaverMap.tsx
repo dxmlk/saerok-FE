@@ -53,7 +53,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
 
     const map = mapRef.current as naver.maps.Map & {
       getZoom: () => number;
-    }; // zoom 수정해야 할 것 같음 너무 억지
+    };
 
     // 커스텀 오버레이 클래스 정의
     class CustomOverlay extends window.naver.maps.OverlayView {
@@ -154,7 +154,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
       overlayInstancesRef.current.push(overlay);
     });
 
-    // 줌 변화에 따라 표시 여부 업데이트
+    //  줌 변화에 따라 표시 여부 업데이트
     const updateOverlaysVisibility = () => {
       const zoom = map.getZoom();
       overlayInstancesRef.current.forEach((overlay) => {

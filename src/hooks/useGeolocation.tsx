@@ -24,7 +24,6 @@ const useGeolocation = () => {
     };
 
     const error = () => {
-      // fallback: 서울시청 좌표
       setCurrentMyLocation({ lat: 37.5666103, lng: 126.9783882 });
       setLocationLoading(false);
     };

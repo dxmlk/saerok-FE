@@ -28,7 +28,7 @@ const Test = () => {
       <div className="relative -mt-12 z-0">
         <BubbleTailIcon />
       </div>
-      {/* 썸네일 버튼 */}
+      {/* 썸넬 버튼 */}
       <button
         className="collection-overlay-btn w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border "
         type="button"

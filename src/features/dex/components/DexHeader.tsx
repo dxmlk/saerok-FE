@@ -62,6 +62,4 @@ const DexHeader = ({ selectedFilters, searchTerm, onToggleBookmarkView }: DexHea
   );
 };
 
-// 이거 아이콘 컴포넌트 디자인인 수정 필요
-
 export default DexHeader;

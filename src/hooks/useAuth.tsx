@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
-import { getUserInfo } from "services/api/user/index.js";
-// import { refreshAuth } from "services/api/auth/index.js"; // 토큰 갱신 api
-import type { User } from "types/auth.js";
+import { getUserInfo } from "services/api/user/index";
+// import { refreshAuth } from "services/api/auth/index"; // ?�큰 갱신 api
+import type { User } from "types/auth";
 
 interface AuthContextProps {
   isLoggedIn: boolean;
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 최초 mount 시 토큰 확인
+  // 최초 mount 토큰 확인
   useEffect(() => {
     const checkAuth = async () => {
       setLoading(true);
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           // 토큰 없으면 비회원
           setUser(null);
         } else {
-          // 토큰 있으면 유저 정보 불러오기
+          //토큰 있으면 유저 정보 불러오기
           const userInfo = await getUserInfo();
           setUser(userInfo);
         }

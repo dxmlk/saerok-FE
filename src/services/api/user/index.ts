@@ -1,5 +1,5 @@
-import axiosPrivate from "../axiosPrivate.js";
-import axiosPublic from "../axiosPublic.js";
+import axiosPrivate from "../axiosPrivate";
+import axiosPublic from "../axiosPublic";
 
 // 나의 회원 정보 조회
 export interface UserInfoResponse {
@@ -22,7 +22,7 @@ export const updateUserInfo = async (payload: { nickname: string }): Promise<Upd
   return response.data;
 };
 
-// 닉네임 사용 가능 여부 조회
+// 닉네임 사용 가능 여부 조회ㄴ
 export interface CheckNicknameResponse {
   isAvailable: boolean;
   reason: string;

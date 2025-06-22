@@ -1,9 +1,9 @@
 import { ReactComponent as AppleIcon } from "assets/icons/logo/apple.svg";
 import { ReactComponent as KakaoIcon } from "assets/icons/logo/kakao.svg";
-import Modal from "components/common/Modal.js";
+import Modal from "components/common/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { KAKAO_AUTH_URL } from "services/api/auth/kakaoLogin.js";
+import { KAKAO_AUTH_URL } from "services/api/auth/kakaoLogin";
 import { AnimatePresence } from "framer-motion";
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
       <div className="px-24 flex flex-col justify-center gap-10 font-pretendard font-600 text-20">
         {/* <div className="flex flex-row h-54 w-full bg-black text-white gap-15 items-center justify-center rounded-10 ">
           <AppleIcon />
-          <div>Apple로 계속하기</div>
+          <div>Apple�?계속?�기</div>
         </div> */}
         <div
           onClick={() => (window.location.href = KAKAO_AUTH_URL)}

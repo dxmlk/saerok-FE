@@ -1,5 +1,5 @@
 import { atom, useSetRecoilState } from "recoil";
-import { fetchBookmarksApi, toggleBookmarkApi } from "services/api/birds/index.js";
+import { fetchBookmarksApi, toggleBookmarkApi } from "services/api/birds/index";
 
 export const bookmarkedBirdIdsState = atom<number[]>({
   key: "bookmarkedBirdIdsState",
@@ -21,6 +21,7 @@ export function useToggleBookmarkAndSync() {
   const sync = useSyncBookmarks();
   return async (birdId: number) => {
     await toggleBookmarkApi(birdId);
+    await sync();
     await sync(); // 무조건 서버에서 재동기화
   };
 }

@@ -1,11 +1,11 @@
-import NaverMap from "features/map/components/NaverMap.js";
-import SearchPlaceSelector from "features/map/components/SearchPlaceSelector.js";
-import CurrentLocationButton from "features/map/components/CurrentLocationButton.js";
-import useGeolocation from "hooks/useGeolocation.js";
+import NaverMap from "features/map/components/NaverMap";
+import SearchPlaceSelector from "features/map/components/SearchPlaceSelector";
+import CurrentLocationButton from "features/map/components/CurrentLocationButton";
+import useGeolocation from "hooks/useGeolocation";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections/index.js";
-import ToggleMapMode from "features/map/components/ToggleMapMode.js";
+import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections/index";
+import ToggleMapMode from "features/map/components/ToggleMapMode";
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { ReactComponent as ReloadingIcon } from "assets/icons/icon/reloading.svg";
@@ -66,7 +66,7 @@ const MapPage = () => {
     // eslint-disable-next-line
   }, [center, isMineOnly]);
 
-  // 현재 위치로 이동
+  //현재 위치로 이동
   const moveToCurrentLocation = () => {
     getCurPosition();
     if (mapRef.current && currentMyLocation) {
@@ -77,7 +77,8 @@ const MapPage = () => {
   // 장소 검색 → 해당 위치로 중심 이동
   const handlePlaceSelected = ({ lat, lng }: { lat: number; lng: number }) => {
     setCenter({ lat, lng });
-    setIsSearching(false); // 검색 결과 선택 시에 검색 모드 종료
+    setIsSearching(false);
+    -setIsSearching(false);
     if (mapRef.current) {
       mapRef.current.setCenter(new window.naver.maps.LatLng(lat, lng));
     }
@@ -100,7 +101,7 @@ const MapPage = () => {
             style={{ boxShadow: "0px 1px 3px 0px rgba(0,0,0,0.5)" }}
           >
             <ReloadingIcon className="inline-block mr-8" />
-            <span> 이 지역 재검색하기 </span>
+            <span>이 지역 재검색하기</span>
           </button>
         </div>
       )}
@@ -132,7 +133,7 @@ const MapPage = () => {
 
             <input
               value={""}
-              placeholder={"장소를 검색하세요"}
+              placeholder={"원하는 장소 검색"}
               className="outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 "
             />
             <DeleteIcon className="w-20 h-20 mr-16" />

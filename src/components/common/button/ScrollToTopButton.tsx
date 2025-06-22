@@ -6,7 +6,7 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 디바이스 높이 넘으면 show = true
+      /// 디바이스 높이 넘으면 show = true
       setShow(window.scrollY > window.innerHeight);
     };
     window.addEventListener("scroll", handleScroll);

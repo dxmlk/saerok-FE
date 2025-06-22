@@ -5,10 +5,10 @@ import addSaerokPng from "assets/icons/button/add-saerok2.png";
 import { ReactComponent as SpeechBubbleIcon } from "assets/icons/image/speech-bubble.svg";
 
 import { useNavigate } from "react-router-dom";
-import SAEROK_MESSAGES from "constants/saerokMessages.js";
+import SAEROK_MESSAGES from "constants/saerokMessages";
 import { useEffect, useMemo, useState } from "react";
-import { fetchMyCollections } from "services/api/collections/index.js";
-import { useAuth } from "hooks/useAuth.js";
+import { fetchMyCollections } from "services/api/collections/index";
+import { useAuth } from "hooks/useAuth";
 
 const SaerokMain = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const SaerokMain = () => {
   //   }} className="flex flex-row justify-between items-center">
   //     <div className="flex flex-row gap-0 justify-start items-center text-subtitle-3 font-pretendard">
   //       <span className="text-font-mainBlue" >{title}</span>
-  //       <span className="text-font-black">으로 정렬</span>
+  //       <span className="text-font-black">?�로 ?�렬</span>
   //     </div>
   //     <RadioButton className={`w-24 h-24 stroke-[1.5px] ${checked ? "text-mainBlue" : "text-font-whitegrayDark" }`} />
   //               {checked && (
@@ -33,7 +33,7 @@ const SaerokMain = () => {
   // const getBottomSheetContent = () => {
   //   return (
   //     <div className="flex flex-col gap-25">
-  //       <SortItem title={"이름 순"} checked={} onChange={}></SortItem>
+  //       <SortItem title={"?�름 ??} checked={} onChange={}></SortItem>
   //     </div>
   //   )
   // }
@@ -76,7 +76,7 @@ const SaerokMain = () => {
           <div>{randomMessage}</div>
         </div>
 
-        {/* 우측 상단 정렬 버튼*/}
+        {/* 정렬 버튼*/}
         {/* <div
           onClick={() => openBottomSheet()}
           className="active:opacity-70 transition-opacity duration-100 absolute right-24 bottom-316 w-40 h-40 rounded-full bg-glassmorphism z-20 flex items-center justify-center"
@@ -84,13 +84,13 @@ const SaerokMain = () => {
           <SortIcon />
         </div> */}
 
-        {/* 몇 종의 새 */}
+        {/* 몇 종 새 */}
         <div className="absolute left-24 bottom-28 z-20 leading-10 ">
           <div className="font-bold text-40 text-[#4190FF]">{birdCount}</div>
           <div className="text-caption-1 text-font-black">종의 새가 새록에 담겨있어요</div>
         </div>
 
-        {/* 우측 하단 종추 버튼 */}
+        {/* 종추 버튼 */}
         {isLoggedIn && (
           <button
             onClick={() => handleAddSaerokClick()}

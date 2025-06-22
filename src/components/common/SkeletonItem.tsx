@@ -27,7 +27,7 @@ export const SaerokInfoSkeleton = () => (
     {/* 이미지 영역 */}
     <div className="relative w-full h-auto z-0 animate-pulse">
       <div className="w-full h-240 bg-gray-200 rounded-10" />
-      {/* 하단 그라데이션 효과 */}
+      {/* 그라데이션 */}
       <div className="bg-[linear-gradient(180deg,rgba(254,254,254,0)_0%,rgba(254,254,254,1)_100%)] absolute w-full h-84 bottom-0"></div>
     </div>
 
@@ -77,7 +77,7 @@ export const DexDetailSkeleton = () => (
         </div>
       </div>
 
-      {/* 상단 태그들 */}
+      {/* 상단 태그들*/}
       <div className="flex flex-row flex-wrap justify-start gap-7 px-8 mt-18">
         <div className="w-fit px-12 h-33 flex flex-row items-center gap-5 bg-mainBlueLight rounded-100">
           <SeasonIcon className="w-17 h-17 opacity-40" />

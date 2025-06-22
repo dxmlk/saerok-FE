@@ -1,16 +1,16 @@
 import { useSearchParams } from "react-router-dom";
-import { useAuth } from "hooks/useAuth.js";
+import { useAuth } from "hooks/useAuth";
 import { ReactComponent as LogoIcon } from "assets/background/logo-cut.svg";
 import { ReactComponent as UserIcon } from "assets/icons/icon/user.svg";
 import { ReactComponent as BellIcon } from "assets/icons/icon/bell.svg";
 import { ReactComponent as LockIcon } from "assets/icons/icon/lock.svg";
 import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
 
-import MenuItem from "features/mypage/components/MenuItem.js";
-import Profile from "features/mypage/components/Profile.js";
+import MenuItem from "features/mypage/components/MenuItem";
+import Profile from "features/mypage/components/Profile";
 
-import EditNicknamePage from "features/mypage/pages/EditNicknamePage.js";
-import AccountPage from "features/mypage/pages/AccountPage.js";
+import EditNicknamePage from "features/mypage/pages/EditNicknamePage";
+import AccountPage from "features/mypage/pages/AccountPage";
 
 // import FeedbackPage from "features/mypage/pages/FeedbackPage";
 // import GuidgePage from "features/mypage/pages/GuidePage";
@@ -47,7 +47,7 @@ const MyPage = () => {
 
   const isSubPage = current !== null;
 
-  if (loading) return <div className="p-24 text-body-1">로딩 중...</div>;
+  if (loading) return <div className="p-24 text-body-1">로딩 중..</div>;
   if (isSubPage) return renderPage();
 
   return (
@@ -55,7 +55,7 @@ const MyPage = () => {
       {/* 배경 */}
       <LogoIcon className="absolute right-0 top-0 z-0" />
 
-      {/* 프로필 */}
+      {/* 프로필*/}
       <div className="px-24 mt-20 z-10 relative">
         <Profile
           isUser={isLoggedIn}

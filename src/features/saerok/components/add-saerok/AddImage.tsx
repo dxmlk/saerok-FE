@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { ReactComponent as AddIcon } from "assets/icons/button/add.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
-import { useSaerokForm } from "states/useSaerokForm.js";
+import { useSaerokForm } from "states/useSaerokForm";
 
 const AddImage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);

@@ -28,7 +28,7 @@ export function reverseGeocode(lat: number, lng: number): Promise<ReverseGeocode
       },
       function (status: any, response: any) {
         if (status !== window.naver.maps.Service.Status.OK) {
-          reject("역지오코딩 실패(status not OK)");
+          reject("????�코???�패(status not OK)");
           return;
         }
         // 3. 주소 결과 robust하게 파싱

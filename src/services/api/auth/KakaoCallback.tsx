@@ -1,7 +1,7 @@
-import { useAuth } from "hooks/useAuth.js";
+import { useAuth } from "hooks/useAuth";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
-import { loginKakao, refreshAuth } from "services/api/auth/index.js";
+import { loginKakao, refreshAuth } from "services/api/auth/index";
 
 const KakaoCallback = () => {
   const [searchParams] = useSearchParams();
@@ -22,10 +22,10 @@ const KakaoCallback = () => {
         // 토큰 저장
         localStorage.setItem("accessToken", accessToken);
 
-        // 상태 동기화
+        // 상태 분기
         await refreshUser();
 
-        // 회원가입 상태 분기 처리
+        //회원가입 상태 분기 처리
         if (signupStatus === "PROFILE_REQUIRED") {
           navigate("/register", { state: { fromKakao: true } });
         } else if (signupStatus === "COMPLETED") {

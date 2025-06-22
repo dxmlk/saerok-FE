@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SimpleHeader from "components/common/SimpleHeader.js";
-import SearchBar from "components/common/textfield/SearchBar.js";
-import { useSaerokForm } from "states/useSaerokForm.js";
-import { autocompleteApi, fetchBookmarkListApi, getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index.js";
-import SearchSuggestions from "components/common/textfield/SearchSuggestions.js";
+import SimpleHeader from "components/common/SimpleHeader";
+import SearchBar from "components/common/textfield/SearchBar";
+import { useSaerokForm } from "states/useSaerokForm";
+import { autocompleteApi, fetchBookmarkListApi, getBirdInfoByNameApi, BirdInfo } from "services/api/birds/index";
+import SearchSuggestions from "components/common/textfield/SearchSuggestions";
 
 const SearchBirdPage = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const SearchBirdPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<BirdInfo[]>([]);
 
-  // 항목 클릭 시
+  //항목 클릭 시
   const handleSelect = (info: BirdInfo) => {
     setBirdName(info.koreanName);
     setBirdId(info.birdId);
@@ -68,7 +68,6 @@ const SearchBirdPage = () => {
         />
       </div>
 
-      {/* 분리된 컴포넌트로 제안 리스트 렌더 */}
       <SearchSuggestions visible={true} suggestions={suggestions} onSelect={handleSelect} />
     </div>
   );

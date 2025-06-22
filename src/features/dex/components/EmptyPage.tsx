@@ -14,10 +14,7 @@ export default function EmptyState({ bgColor, upperText, lowerText }: Props) {
       <div className="font-pretendard text-body-2 text-font-darkgray">{lowerText}</div>
       <div className="flex justify-center mt-88">
         <SaerokImage
-          className={clsx(
-            "fill-current" /* SVG가 currentColor를 따르도록 */,
-            bgColor === "white" ? "text-background-whitegray" : "text-white"
-          )}
+          className={clsx("fill-current", bgColor === "white" ? "text-background-whitegray" : "text-white")}
         />
       </div>
     </div>

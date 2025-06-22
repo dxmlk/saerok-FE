@@ -16,7 +16,7 @@ const SearchBarBird = ({ searchTerm, setBirdName, setBirdId, disabled }: SearchB
 
   useEffect(() => {
     setInputValue(searchTerm);
-    console.log("🐦 SearchBarBird term:", searchTerm);
+    console.log("?�� SearchBarBird term:", searchTerm);
   }, [searchTerm]);
 
   const handleClick = () => {

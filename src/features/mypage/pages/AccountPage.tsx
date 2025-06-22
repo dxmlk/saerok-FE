@@ -1,9 +1,9 @@
-import SimpleHeader from "components/common/SimpleHeader.js";
+import SimpleHeader from "components/common/SimpleHeader";
 import { ReactComponent as LoginIcon } from "assets/icons/icon/login.svg";
 import { useState } from "react";
-import Modal from "components/common/Modal.js";
+import Modal from "components/common/Modal";
 import { AnimatePresence } from "framer-motion";
-import { useAuth } from "hooks/useAuth.js";
+import { useAuth } from "hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
@@ -38,7 +38,7 @@ const AccountPage = () => {
           className="w-fit px-15 py-9 bg-background-whitegray rounded-30.5 gap-8 flex flex-row items-center"
         >
           <NoticeIcon className="w-24 h-24 stroke-red" />
-          <span className="text-body-2 text-font-black">회원 탈퇴</span>
+          <span className="text-body-2 text-font-black">?�원 ?�퇴</span>
         </button> */}
       </div>
 
@@ -63,14 +63,14 @@ const AccountPage = () => {
         {isDeleteClicked && (
           <Modal
             key="modal"
-            maintext={"정말 탈퇴하시겠어요?"}
-            subtext={"탈퇴 시 탐조 기록이 모두 삭제돼요."}
-            lefttext={"탈퇴하기"}
+-            maintext={"정말 탈퇴하시겠어요?"}
+-            subtext={"탈퇴 시 탐조 기록이 모두 삭제돼요."}
+-            lefttext={"탈퇴하기"}
             handleLeftClick={() => {
               setIsDeleteClicked(false);
-              // 탈퇴 로직
-            }}
-            righttext={"돌아가기"}
+-              // 탈퇴 로직
+             }}
+-            righttext={"돌아가기"}
             handleRightClick={() => setIsDeleteClicked(false)}
             isDeleted={true}
           />

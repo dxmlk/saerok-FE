@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AddImage from "features/saerok/components/add-saerok/AddImage.js";
-import EditHeader from "features/saerok/components/add-saerok/EditHeader.js";
-import EditFooter from "features/saerok/components/add-saerok/EditFooter.js";
-import DatePicker from "components/common/DatePicker.js";
-import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird.js";
-import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace.js";
+import AddImage from "features/saerok/components/add-saerok/AddImage";
+import EditHeader from "features/saerok/components/add-saerok/EditHeader";
+import EditFooter from "features/saerok/components/add-saerok/EditFooter";
+import DatePicker from "components/common/DatePicker";
+import SearchBarBird from "features/saerok/components/add-saerok/SearchBarBird";
+import SearchBarPlace from "features/saerok/components/add-saerok/SearchBarPlace";
 // import BackButton from "components/common/BackButton";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
-import { useSaerokForm } from "states/useSaerokForm.js";
+import { useSaerokForm } from "states/useSaerokForm";
 import {
   fetchEditCollectionDetail,
   patchCollectionApi,
@@ -17,11 +17,11 @@ import {
   getPresignedUrlApi,
   registerImageMetaApi,
   deleteCollectionImageApi,
-} from "services/api/collections/index.js";
-import { fetchDexDetailApi } from "services/api/birds/index.js";
+} from "services/api/collections/index";
+import { fetchDexDetailApi } from "services/api/birds/index";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import Modal from "components/common/Modal.js";
+import Modal from "components/common/Modal";
 
 const EditSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -167,7 +167,7 @@ const EditSaerokPage = () => {
   };
 
   if (loading) {
-    return <div className="p-24 text-center">불러오는 중...</div>;
+    return <div className="p-24 text-center">불러오는 중..</div>;
   }
 
   return (

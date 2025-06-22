@@ -4,7 +4,7 @@ import qs from "qs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { searchTermState } from "states/dexSearchState.js";
+import { searchTermState } from "states/dexSearchState";
 
 interface SelectedFilters {
   habitats: string[];
@@ -61,7 +61,6 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
       />
 
       <div className="fixed top-0 left-0 w-full h-84 z-50 pointer-events-none">
-        {/* 흰색 반투명 배경 */}
         <div
           className="absolute top-0 left-0 w-full h-84 transition-opacity duration-300 pointer-events-none"
           style={{

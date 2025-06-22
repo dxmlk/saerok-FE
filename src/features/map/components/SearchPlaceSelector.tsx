@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import SearchBar from "components/common/textfield/SearchBar.js";
-import { KakaoPlace } from "types/kakao.js";
+import SearchBar from "components/common/textfield/SearchBar";
+import { KakaoPlace } from "types/kakao";
 import { ReactComponent as MapIcon } from "assets/icons/nav/map.svg";
 import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 
@@ -35,7 +35,6 @@ export default function SearchPlaceSelector({ onSelect, placeholder, onBack }: S
     if (!keyword.trim()) return;
     const kakao = (window as any).kakao;
     if (!kakao?.maps?.services) {
-      alert("카카오 지도 서비스 준비 중");
       return;
     }
     const ps = new kakao.maps.services.Places();

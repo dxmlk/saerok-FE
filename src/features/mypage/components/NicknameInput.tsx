@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { ReactComponent as CheckIcon } from "assets/icons/button/check.svg";
 import { ReactComponent as ExclamationIcon } from "assets/icons/button/exclamation.svg";
-import { validateNickname } from "features/register/function/NicknameValidation.js";
+import { validateNickname } from "features/register/function/NicknameValidation";
 import { FC } from "react";
-import { checkNicknameAvailable } from "services/api/user/index.js";
+import { checkNicknameAvailable } from "services/api/user/index";
 
 interface NicknameInputProps {
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
-  onCheckResult?: (isAvailable: boolean, error?: string) => void; // 부모에게 결과 알림
+  onCheckResult?: (isAvailable: boolean, error?: string) => void;
 }
 
 const NicknameInput: FC<NicknameInputProps> = ({ nickname, setNickname, onCheckResult = () => {} }) => {
@@ -43,7 +43,7 @@ const NicknameInput: FC<NicknameInputProps> = ({ nickname, setNickname, onCheckR
         onCheckResult(true);
       }
     } catch (err) {
-      setErrorMessage("중복 확인 요청에 실패했습니다. 다시 시도해 주세요.");
+      setErrorMessage("중복 확인 요청에 실패했습니다.");
       setIsNicknameAvailable(false);
       onCheckResult(false, "중복 확인 요청에 실패했습니다.");
     } finally {
@@ -63,7 +63,7 @@ const NicknameInput: FC<NicknameInputProps> = ({ nickname, setNickname, onCheckR
           value={nickname}
           onChange={(e) => {
             setNickname(e.target.value);
-            setIsButtonClicked(false); // 입력 변경 시 중복확인 다시 필요
+            setIsButtonClicked(false);
             setIsNicknameAvailable(null);
             setErrorMessage("");
             onCheckResult(false);

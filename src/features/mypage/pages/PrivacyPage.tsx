@@ -1,4 +1,4 @@
-import SimpleHeader from "components/common/SimpleHeader.js";
+import SimpleHeader from "components/common/SimpleHeader";
 
 const PrivacyPage = () => {
   return (

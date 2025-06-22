@@ -1,4 +1,4 @@
-import axiosPrivate from "../axiosPrivate.js";
+import axiosPrivate from "../axiosPrivate";
 
 export interface CreateCollectionRequest {
   birdId: number | null;
@@ -129,7 +129,7 @@ export interface EditCollectionDetail {
 }
 
 /**
- * 컬렉션 수정용 상세 정보 조회
+ * * 컬렉션 수정용 상세 정보 조회
  * @param collectionId
  * @returns EditCollectionDetail
  */
@@ -165,7 +165,7 @@ export interface PatchCollectionResponse {
 }
 
 /**
- * 컬렉션 수정 (PATCH)
+ * 컬렉션  수정 (PATCH)
  * @param collectionId
  * @param data
  * @returns PatchCollectionResponse

@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
-import { createRouter } from "routes/index.js";
-import Provider from "./components/common/Provider.js";
-import { AuthProvider } from "hooks/useAuth.js";
+import { createRouter } from "routes/index";
+import Provider from "./components/common/Provider";
+import { AuthProvider } from "hooks/useAuth";
 
 const App = () => {
   const router = createRouter();

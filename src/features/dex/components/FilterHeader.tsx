@@ -9,8 +9,8 @@ import { ReactComponent as PigeonIcon } from "assets/icons/image/pigeon.svg";
 import { ReactComponent as DuckIcon } from "assets/icons/image/duck.svg";
 import { ReactComponent as WildGooseIcon } from "assets/icons/image/wild-goose.svg";
 
-import BottomSheet from "components/common/BottomSheet.js";
-import useBottomSheet from "hooks/useBottomSheet.js";
+import BottomSheet from "components/common/BottomSheet";
+import useBottomSheet from "hooks/useBottomSheet";
 import { useEffect, useState, useRef, ComponentType, SVGProps } from "react";
 
 interface SelectedFilters {

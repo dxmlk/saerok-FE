@@ -15,7 +15,7 @@ const SearchBarPlace = ({ searchTerm, setSearchTerm }: SearchBarPlaceProps) => {
   // 외부 상태 변경 시 inputValue를 항상 동기화
   useEffect(() => {
     setInputValue(searchTerm);
-    console.log("🐦 SearchPlace term:", searchTerm);
+    console.log("?�� SearchPlace term:", searchTerm);
   }, [searchTerm]);
 
   const handleClick = () => {

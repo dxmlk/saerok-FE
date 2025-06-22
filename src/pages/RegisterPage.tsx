@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import NicknameInput from "features/mypage/components/NicknameInput.js";
+import NicknameInput from "features/mypage/components/NicknameInput";
 import axios from "axios";
-import { useAuth } from "hooks/useAuth.js";
+import { useAuth } from "hooks/useAuth";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const RegisterPage = () => {
     }
   }, [isLoggedIn, loading, location, navigate]);
 
-  // 닉네임 수정
+  // ?�네???�정
   const handleSubmit = async () => {
     if (!nickname.trim()) {
       alert("닉네임을 입력해주세요.");
@@ -77,7 +77,7 @@ const RegisterPage = () => {
         </>
       )}
 
-      {submitted && <div className="mt-92 text-black font-moneygraphy text-headline-1">회원가입이 완료됐어요 🎉</div>}
+      {submitted && <div className="mt-92 text-black font-moneygraphy text-headline-1">회원가입이 완료됐어요</div>}
 
       {!submitted && (
         <div

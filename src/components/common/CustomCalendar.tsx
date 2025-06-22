@@ -22,9 +22,9 @@ const CustomCalendar = () => {
     // <DatePicker
     //   selected={date}
     //   onChange={(date: Date | null) => setDate(date)}
-    //   dateFormat="yyyy년 MM월 dd일"
+    //   dateFormat="yyyy??MM??dd??
     //   className="font-pretendard w-full px-4 py-2 border border-gray-300 rounded-md text-black"
-    //   placeholderText="날짜를 선택하세요"
+    //   placeholderText="?�짜�??�택?�세??
     //   locale="custom-en"
     // />
     <></>

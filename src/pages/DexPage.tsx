@@ -3,16 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import qs from "qs";
 import clsx from "clsx";
 
-import DexMain from "features/dex/components/DexMain.js";
-import DexList from "features/dex/components/DexList.js";
-import FilterHeader from "features/dex/components/FilterHeader.js";
-import ScrollToTopButton from "components/common/button/ScrollToTopButton.js";
-import EmptyPage from "features/dex/components/EmptyPage.js";
+import DexMain from "features/dex/components/DexMain";
+import DexList from "features/dex/components/DexList";
+import FilterHeader from "features/dex/components/FilterHeader";
+import ScrollToTopButton from "components/common/button/ScrollToTopButton";
+import EmptyPage from "features/dex/components/EmptyPage";
 
-import { fetchDexItemsApi, fetchBookmarksApi, fetchDexDetailApi } from "services/api/birds/index.js";
+import { fetchDexItemsApi, fetchBookmarksApi, fetchDexDetailApi } from "services/api/birds/index";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { filtersState, searchTermState } from "states/dexSearchState.js";
-import { bookmarkedBirdIdsState, useSyncBookmarks, useToggleBookmarkAndSync } from "states/bookmarkState.js";
+import { filtersState, searchTermState } from "states/dexSearchState";
+import { bookmarkedBirdIdsState, useSyncBookmarks, useToggleBookmarkAndSync } from "states/bookmarkState";
 
 interface DexItem {
   id: number;
@@ -221,7 +221,7 @@ export default function DexPage() {
     })();
   }, [showBookmarkOnly, bookmarkedBirdIds]);
 
-  // 스크롤에 따른 Main/Header 전환
+  //  스크롤에 따른 Main/Header 전환
   const [opacity, setOpacity] = useState(1);
   const [showMain, setShowMain] = useState(true);
   const [showHeader, setShowHeader] = useState(false);

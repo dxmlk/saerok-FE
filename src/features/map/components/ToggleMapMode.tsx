@@ -11,7 +11,7 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
   const [noticeText, setNoticeText] = useState("");
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // isMineOnly가 변할 때마다 안내문구 보여줌
+  //  isMineOnly가 변할 때마다 안내문구 보여줌
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -22,7 +22,7 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
     }
     setShowNotice(true);
 
-    // 1초 뒤 사라짐
+    // 1초
     timeoutRef.current = setTimeout(() => setShowNotice(false), 1000);
 
     // 컴포넌트 언마운트 시 타임아웃 정리
@@ -42,7 +42,6 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
         //   boxShadow: "0px 2px 8px 0px rgba(35, 53, 137, 0.10)",
         // }}
       >
-        {/* 트랙 내부의 아이콘이 좌/우로 부드럽게 이동 */}
         <div
           className={`w-36 h-36 flex items-center justify-center rounded-full bg-white shadow
           transition-transform duration-300
