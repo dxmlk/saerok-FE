@@ -70,7 +70,7 @@ export const createRouter = () => {
           element: <MapPage />,
         },
         {
-          path: "/myPage.js",
+          path: "/myPage",
           element: <MyPage />,
         },
         {
