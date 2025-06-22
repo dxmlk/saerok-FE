@@ -22,8 +22,8 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
     }
     setShowNotice(true);
 
-    // 2초 뒤 사라짐
-    timeoutRef.current = setTimeout(() => setShowNotice(false), 1500);
+    // 1초 뒤 사라짐
+    timeoutRef.current = setTimeout(() => setShowNotice(false), 1000);
 
     // 컴포넌트 언마운트 시 타임아웃 정리
     return () => {

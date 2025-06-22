@@ -22,7 +22,10 @@ const SearchSuggestions = ({ visible, suggestions, onSelect }: SearchSuggestions
   if (!visible || !suggestions.length) return null;
 
   return (
-    <div className="absolute left-0 right-0 bg-white border border-font-whitegrayLight z-40">
+    <div
+      className="search-suggestions-list absolute left-0 right-0 bg-white border border-font-whitegrayLight z-40"
+      tabIndex={-1}
+    >
       {suggestions.map((info) => {
         const isBookmarked = bookmarkedBirdIds.includes(info.birdId);
         return (
@@ -39,7 +42,7 @@ const SearchSuggestions = ({ visible, suggestions, onSelect }: SearchSuggestions
             <div className="flex items-center gap-18">
               <button
                 type="button"
-                onClick={(e) => {
+                onMouseDown={(e) => {
                   e.stopPropagation();
                   toggleBookmark(info.birdId);
                 }}

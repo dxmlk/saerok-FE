@@ -72,9 +72,9 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
           }}
         />
 
-        <div className="relative flex items-center justify-between h-60 max-w-500 px-24 pointer-events-auto">
+        <div className="relative flex items-center justify-between h-60  px-24 pointer-events-auto">
           <div className="text-black text-headline-1 font-haru mt-32">도감</div>
-          <div className="flex gap-4 mt-28">
+          <div className="flex gap-7 mt-28">
             <button
               onClick={() => {
                 handleFilterClick("스크랩");

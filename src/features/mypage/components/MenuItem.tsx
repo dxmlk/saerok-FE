@@ -16,7 +16,7 @@ const MenuItem = ({ icon, content, isActive, onClick, disabled }: MenuItemProps)
       onClick={onClick}
     >
       <div
-        className={`w-24 h-24 stroke-[2px] ${isActive ? " text-font-pointYellow stroke-font-pointYellow" : "text-font-whitegrayLight stroke-font-whitegrayLight fill-none"}`}
+        className={`w-24 h-24 stroke-[2px] ${isActive ? " text-font-pointYellow stroke-font-pointYellow " : "text-font-whitegrayLight stroke-font-whitegrayLight fill-none"}`}
       >
         {icon}
       </div>

@@ -22,7 +22,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=yj17bib8ok`;
+    script.src = "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=yj17bib8ok";
     script.async = true;
 
     script.onload = () => {
@@ -113,37 +113,38 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
       const position = new window.naver.maps.LatLng(latitude, longitude);
 
       const content = `
-      <div class="flex flex-col items-center justify-center gap-2 text-xs">
-        <div class="relative w-[180px] h-[97px]">
-          <img src="/src/assets/icons/button/speech-bubble.svg" class="w-full h-full" />
-          <div class="w-full absolute top-0 left-1/2 -translate-x-1/2 pt-[12px] pl-[18px] pr-[24px] text-center text-font-black">
-            <div class="font-moneygraphy text-body-3 ">${koreanName}</div>
-            <div style="min-height: 36px; display: flex; align-items: center; justify-content: center;">
-              <div
-                class="mt-[7px] font-pretendard text-caption-1 text-center text-font-black"
-                style="
-                  display: -webkit-box;
-                  -webkit-line-clamp: 2;
-                  -webkit-box-orient: vertical;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  max-width: 100%;
-                "
-              >
-                ${note}
-              </div>
-            </div>
-          </div>
-        </div>
-        <button 
-          class="w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border collection-overlay-btn"
-          data-collection-id="${collectionId}"
-          type="button"
-        >
-          <img src="${imageUrl}" class="w-full h-full object-cover" />
-        </button>
+  <div class="flex flex-col items-center gap-10">
+    <button
+      type="button"
+      class="collection-overlay-btn relative gap-7 flex flex-col items-center bg-[#FEFEFE] rounded-[10px] min-w-[120px] max-w-[180px] px-16 py-16 z-10"
+    >
+      <div class="font-moneygraphy text-body-3 text-black mb-1">${koreanName}</div>
+      <div
+        class="font-pretendard text-caption-1 text-center text-font-black"
+        style="
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+        "
+      >
+        ${note}
       </div>
-    `;
+    </button>
+    <div class="relative -mt-12 z-0">
+      <img src="/src/assets/icons/icon/bubble-tail.svg" width="22" height="19" />
+    </div>
+    <button
+      class="collection-overlay-btn w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
+      data-collection-id="${collectionId}"
+      type="button"
+    >
+      <img src="${imageUrl}" class="w-full h-full object-cover" />
+    </button>
+  </div>
+`;
 
       const overlay = new CustomOverlay(position, content);
       overlayInstancesRef.current.push(overlay);

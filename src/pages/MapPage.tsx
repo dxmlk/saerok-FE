@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchNearbyCollections, NearbyCollectionItem } from "services/api/collections";
 import ToggleMapMode from "features/map/components/ToggleMapMode";
+import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
+import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
+import { ReactComponent as ReloadingIcon } from "assets/icons/icon/reloading.svg";
 
 const MapPage = () => {
   const { currentMyLocation, getCurPosition } = useGeolocation();
@@ -13,10 +16,13 @@ const MapPage = () => {
   const [markers, setMarkers] = useState<NearbyCollectionItem[]>([]);
   const [isMineOnly, setIsMineOnly] = useState(false);
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [pendingCenter, setPendingCenter] = useState<{ lat: number; lng: number } | null>(null);
+
   const navigate = useNavigate();
 
   // 지도 중심 기준 주변 컬렉션 조회
-  const fetchAndSetNearbyCollections = async (centerLat: number, centerLng: number, radiusMeters = 1000) => {
+  const fetchAndSetNearbyCollections = async (centerLat: number, centerLng: number, radiusMeters = 500) => {
     try {
       const items = await fetchNearbyCollections({
         latitude: centerLat,
@@ -33,7 +39,13 @@ const MapPage = () => {
 
   // 지도 중심 변경 콜백
   const handleMapCenterChanged = (centerLat: number, centerLng: number) => {
-    setCenter({ lat: centerLat, lng: centerLng });
+    setPendingCenter({ lat: centerLat, lng: centerLng });
+  };
+
+  const handleRelocate = () => {
+    if (pendingCenter) {
+      setCenter(pendingCenter); // 이때만 fetchAndSetNearbyCollections 작동
+    }
   };
 
   // 최초 렌더/내 위치 이동 시 지도 중심 갱신
@@ -65,6 +77,7 @@ const MapPage = () => {
   // 장소 검색 → 해당 위치로 중심 이동
   const handlePlaceSelected = ({ lat, lng }: { lat: number; lng: number }) => {
     setCenter({ lat, lng });
+    setIsSearching(false); // 검색 결과 선택 시에 검색 모드 종료
     if (mapRef.current) {
       mapRef.current.setCenter(new window.naver.maps.LatLng(lat, lng));
     }
@@ -79,10 +92,53 @@ const MapPage = () => {
         onOverlayClick={(id: number) => navigate(`/saerok-detail/${id}`)}
       />
 
-      {/* 상단 장소 검색 */}
-      <div className="absolute top-20 w-[89%] left-1/2 -translate-x-1/2 z-10">
-        <SearchPlaceSelector onSelect={handlePlaceSelected} placeholder="원하는 장소 검색" />
-      </div>
+      {pendingCenter && center && (pendingCenter.lat !== center.lat || pendingCenter.lng !== center.lng) && (
+        <div className="absolute left-1/2 top-80 z-30 -translate-x-1/2">
+          <button
+            onClick={handleRelocate}
+            className="px-16 py-10 rounded-20 bg-background-white text-font-black font-regular text-15 font-pretendard"
+            style={{ boxShadow: "0px 1px 3px 0px rgba(0,0,0,0.5)" }}
+          >
+            <ReloadingIcon className="inline-block mr-8" />
+            <span> 이 지역 재검색하기 </span>
+          </button>
+        </div>
+      )}
+
+      {/* 1. 검색 모드: 흰 배경 + 검색창(모든 클릭 차단) */}
+      {isSearching && (
+        <div className="fixed inset-0 bg-background-white z-50 flex flex-col">
+          <div className="absolute top-20 left-0 right-0 flex-1 flex flex-col">
+            <SearchPlaceSelector
+              onSelect={(place) => {
+                handlePlaceSelected(place);
+                setIsSearching(false);
+              }}
+              placeholder="원하는 장소 검색"
+              onBack={() => setIsSearching(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* 2. 검색 모드 아닐 때: 상단 고정 검색 버튼만 (기존 디자인 그대로) */}
+      {!isSearching && (
+        <div className="absolute top-20 left-24 right-24">
+          <div
+            onClick={() => setIsSearching(true)}
+            className="font-pretendard relative h-44 w-full flex flex-row rounded-10 border-2 items-center bg-white border-mainBlue justify-between"
+          >
+            <SearchIcon className="w-22 h-22 ml-14 text-font-whitegrayLight" />
+
+            <input
+              value={""}
+              placeholder={"장소를 검색하세요"}
+              className="outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 "
+            />
+            <DeleteIcon className="w-20 h-20 mr-16" />
+          </div>
+        </div>
+      )}
 
       <CurrentLocationButton onClick={moveToCurrentLocation} />
       <ToggleMapMode isMineOnly={isMineOnly} onToggle={setIsMineOnly} />
