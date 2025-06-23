@@ -171,7 +171,6 @@ const AddSaerokPage = () => {
 
         <div className="mt-[20px]">
           <div className="ml-13 mb-7 text-caption-1 text-font-black">발견 장소</div>
-          {/* address�?관�?*/}
           <SearchBarPlace searchTerm={form.address} setSearchTerm={setAddress} />
           {form.locationAlias && (
             <div className="flex flex-row gap-4 items-center justify-end mt-6">

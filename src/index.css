@@ -41,3 +41,18 @@
   background-color: white !important;
   border: none !important;
 }
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+.react-datepicker__day--selected {
+  border-radius: 9999px !important;
+  background: #91bfff !important;
+  color: #fff !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  border-radius: 9999px !important;
+  background: #91bfff !important;
+  color: #fff !important;
+}

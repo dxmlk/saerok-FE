@@ -193,6 +193,18 @@ export default function SearchPlacePage() {
     navigate("/add-saerok");
   };
 
+  const handleSkip = () => {
+    setAddressDetails({
+      address:
+        draggedAddress.road || draggedAddress.jibun || selectedPlace!.road_address_name || selectedPlace!.address_name,
+      locationAlias: "",
+      latitude: markerPos!.lat,
+      longitude: markerPos!.lng,
+    });
+    closeBottomSheet();
+    navigate("/add-saerok");
+  };
+
   const mapHeight = `calc(100vh - ${HEADER_HEIGHT + SEARCHBAR_HEIGHT}px)`;
 
   return (
@@ -250,13 +262,14 @@ export default function SearchPlacePage() {
       />
 
       {/* 확정 버튼 */}
-      {selectedPlace && <EditFooter text="?�택?�기" onClick={handleConfirm} />}
+      {selectedPlace && <EditFooter text="선택하기" onClick={handleConfirm} />}
 
       {/* 장소 별칭 입력용 BottomSheet */}
       <PlaceBottomSheet
         ref={bottomSheetRef}
         close={closeBottomSheet}
         apply={handleApply}
+        skip={handleSkip}
         address={draggedAddress.road || draggedAddress.jibun || selectedPlace?.road_address_name || ""}
         alias={alias}
         onAliasChange={(e) => setAlias(e.target.value)}

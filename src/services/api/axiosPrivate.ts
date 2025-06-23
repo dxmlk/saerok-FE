@@ -2,7 +2,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 const axiosPrivate = axios.create({
-  baseURL: "https://api.saerok.app/api/v1",
+  baseURL: "https://dev-api.saerok.app/api/v1",
   withCredentials: true,
 });
 
