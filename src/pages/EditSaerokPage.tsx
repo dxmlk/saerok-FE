@@ -150,7 +150,7 @@ const EditSaerokPage = () => {
       resetForm();
       navigate("/saerok");
     } catch (err) {
-      console.error("수정 실패:", err);
+      // console.error("수정 실패:", err);
     }
   };
 
@@ -162,7 +162,7 @@ const EditSaerokPage = () => {
       resetForm();
       navigate("/saerok");
     } catch (err) {
-      console.error("삭제 실패:", err);
+      // console.error("삭제 실패:", err);
     }
   };
 

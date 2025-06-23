@@ -54,7 +54,7 @@ const RegisterPage = () => {
         setSubmitted(true); // 회원가입 완료 상태로 변경
       }
     } catch (error) {
-      console.error("회원가입 실패", error);
+      // console.error("회원가입 실패", error);
       alert("회원가입에 실패했습니다.");
     } finally {
       setIsLoading(false);

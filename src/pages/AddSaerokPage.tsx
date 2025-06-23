@@ -102,7 +102,7 @@ const AddSaerokPage = () => {
       setIsChecked(false);
       navigate("/saerok");
     } catch (err) {
-      console.error("등록 실패:", err);
+      // console.error("등록 실패:", err);
       alert("등록 중 오류가 발생했습니다.");
     }
   };

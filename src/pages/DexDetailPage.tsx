@@ -95,7 +95,7 @@ const DexDetailPage = () => {
         const res = await fetchBookmarkStatusApi(numericId);
         setBookmarked(res.data.bookmarked);
       } catch (err) {
-        console.error("북마크 상태 조회 실패", err);
+        // console.error("북마크 상태 조회 실패", err);
       }
     };
     fetchStatus();
@@ -116,7 +116,7 @@ const DexDetailPage = () => {
       // 북마크 성공 시 로컬 상태도 반전
       setBookmarked((prev) => (prev === null ? true : !prev));
     } catch (err) {
-      console.error("북마크 토글 실패:", err);
+      // console.error("북마크 토글 실패:", err);
     }
   };
 
