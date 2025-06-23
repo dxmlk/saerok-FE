@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  baseURL: "https://dev-api.saerok.app/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export default axiosPublic;
