@@ -57,7 +57,7 @@ const LoadingScreen = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-full flex justify-center items-center">
       <div style={{ position: "relative", width: 315.04, height: 390.59 }}>
         {footprints.map((f, idx) => (
           <FootPrintIcon
