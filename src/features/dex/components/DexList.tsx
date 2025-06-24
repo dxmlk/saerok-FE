@@ -19,6 +19,9 @@ interface DexListProps {
 const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }: DexListProps) => {
   const navigate = useNavigate();
 
+  // 초기 로딩 판별 (ex. 아이템이 하나도 없고 loading 중이면 초기 로딩)
+  const isInitialLoading = loading && dexItems.length === 0;
+
   const handleItemClick = (id: number) => {
     navigate(`/dex-detail/${id}`);
   };
@@ -29,8 +32,8 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
     }
   };
 
-  // Skeleton 그리드 렌더
-  if (loading) {
+  if (isInitialLoading) {
+    // 최초 진입/새 필터 등에서만 전체 Skeleton
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15">
         {Array.from({ length: 8 }).map((_, i) => (
@@ -40,6 +43,7 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
     );
   }
 
+  // 기존 리스트
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15">
@@ -86,6 +90,11 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
           </div>
         ))}
       </div>
+      {loading && dexItems.length > 0 && (
+        <div className="flex justify-center py-4">
+          <DexItemSkeleton />
+        </div>
+      )}
     </>
   );
 };
