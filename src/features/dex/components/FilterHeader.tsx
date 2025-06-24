@@ -208,7 +208,13 @@ const FilterHeader = ({ selectedFilters, onFilterChange }: FilterHeaderProps) =>
         { key: "기러기", label: "기러기 이상", desc: "55cm~", Icon: WildGooseIcon },
       ];
 
-      const margins = ["mr-[27px]", "mr-[20px]", "mr-[-17px]", "mr-0"];
+      // const margins = ["mr-[27px]", "mr-[20px]", "mr-[-17px]", "mr-0"];
+      const margins = [
+        "mr-[27px] md:mr-[5vw] lg:mr-[60px]",
+        "mr-[20px] md:mr-[3.5vw] lg:mr-[40px]",
+        "mr-[-17px] md:mr-[2vw] lg:mr-[18px]",
+        "mr-0",
+      ];
 
       return (
         <div className="flex flex-row w-full justify-center">

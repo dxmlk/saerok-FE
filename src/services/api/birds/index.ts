@@ -60,7 +60,7 @@ export const getBirdInfoByNameApi = async (koreanName: string): Promise<BirdInfo
       scientificName: match.scientificName,
     };
   } catch (e) {
-    console.error("조류 정보 조회 실패:", e);
+    // console.error("조류 정보 조회 실패:", e);
     return null;
   }
 };

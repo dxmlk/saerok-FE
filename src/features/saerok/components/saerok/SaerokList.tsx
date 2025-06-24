@@ -18,7 +18,7 @@ const SaerokList = () => {
         const items = await fetchMyCollections();
         setCollections(items);
       } catch (err) {
-        console.error("컬렉션 불러오기 실패:", err);
+        // console.error("컬렉션 불러오기 실패:", err);
       } finally {
         setLoading(false);
       }

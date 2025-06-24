@@ -9,10 +9,10 @@ export const isAccessTokenValid = (accessToken: string | null): boolean => {
     const payload = JSON.parse(atob(accessToken.split(".")[1]));
     const now = Math.floor(Date.now() / 1000);
     const isValid = payload.exp > now;
-    console.log("[useRefreshToken] ?�� accessToken payload: ", payload);
+    // console.log("[useRefreshToken] ?�� accessToken payload: ", payload);
     return isValid;
   } catch (e) {
-    console.error("[useRefreshToken] ??accessToken 파싱 실패", e);
+    // console.error("[useRefreshToken] ??accessToken 파싱 실패", e);
     return false;
   }
 };
@@ -23,12 +23,12 @@ const useRefreshToken = () => {
 
   useEffect(() => {
     const refresh = async () => {
-      console.log("[useRefreshToken] ?�� 리프레시 요청 시작");
+      // console.log("[useRefreshToken] ?�� 리프레시 요청 시작");
 
       try {
         const refreshToken = localStorage.getItem("refreshToken");
         if (!refreshToken) {
-          console.warn("[useRefreshToken] 리프레스 토큰 없음");
+          // console.warn("[useRefreshToken] 리프레스 토큰 없음");
           setRefreshTokenProcessed(true);
           return;
         }
@@ -44,19 +44,19 @@ const useRefreshToken = () => {
         );
 
         const { accessToken, signupStatus } = response.data;
-        console.log("[useRefreshToken] 리프레시 성공 \n", response.data);
+        // console.log("[useRefreshToken] 리프레시 성공 \n", response.data);
 
         localStorage.setItem("accessToken", accessToken);
 
         if (signupStatus === "COMPLETED") {
-          console.log("[useRefreshToken] 로그인 완료 새록으로 이동 ");
+          // console.log("[useRefreshToken] 로그인 완료 새록으로 이동 ");
           navigate("/saerok");
         } else {
-          console.warn("[useRefreshToken] 미완료 회원은 회원가입 페이지로 이동");
+          // console.warn("[useRefreshToken] 미완료 회원은 회원가입 페이지로 이동");
           navigate("/signup");
         }
       } catch (error) {
-        console.error("[useRefreshToken] 리프레시 실패 \n", error);
+        // console.error("[useRefreshToken] 리프레시 실패 \n", error);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         // navigate("/login"); // 필요 시

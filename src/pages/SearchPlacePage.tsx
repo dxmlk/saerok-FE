@@ -14,8 +14,8 @@ import { reverseGeocode, ReverseGeocodeResult } from "features/saerok/utils/reve
 const HEADER_HEIGHT = 68;
 const SEARCHBAR_HEIGHT = 70;
 
-const KAKAO_APP_KEY = "9f8230e848e24bb14fa14ff044819970";
-const NAVER_CLIENT_ID = "yj17bib8ok";
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY;
+const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_APP_KEY;
 
 export default function SearchPlacePage() {
   const [kakaoReady, setKakaoReady] = useState(false);
@@ -141,9 +141,9 @@ export default function SearchPlacePage() {
           road: addr.roadAddress,
           jibun: addr.jibunAddress,
         });
-        console.log("드래그 주소 갱신", addr);
+        // console.log("드래그 주소 갱신", addr);
       } catch {
-        console.log("역지오코딩 실패");
+        // console.log("역지오코딩 실패");
       }
     });
 
@@ -151,10 +151,9 @@ export default function SearchPlacePage() {
     setMarkerPos({ lat, lng });
     setDraggedAddress({ road: selectedPlace.road_address_name, jibun: selectedPlace.address_name });
 
-    // 지도 센터 이동, 패닝
+    // 지도 센터 이동
     const center = new window.naver.maps.LatLng(lat, lng);
     mapInstance.current.setCenter(center);
-    (mapInstance.current as any).panBy(0, -window.innerHeight * 0.5);
 
     // cleanup
     return () => {
@@ -167,10 +166,10 @@ export default function SearchPlacePage() {
   }, [selectedPlace, mapInstance.current]);
 
   useEffect(() => {
-    console.log("마커 좌표 변경됨:", markerPos);
+    // console.log("마커 좌표 변경됨:", markerPos);
   }, [markerPos]);
   useEffect(() => {
-    console.log("드래그 주소 변경됨:", draggedAddress);
+    // console.log("드래그 주소 변경됨:", draggedAddress);
   }, [draggedAddress]);
 
   // 5) 바텀시트 열기 (별칭 입력)
@@ -186,6 +185,18 @@ export default function SearchPlacePage() {
       address:
         draggedAddress.road || draggedAddress.jibun || selectedPlace!.road_address_name || selectedPlace!.address_name,
       locationAlias: alias.trim(), // 별칭
+      latitude: markerPos!.lat,
+      longitude: markerPos!.lng,
+    });
+    closeBottomSheet();
+    navigate("/add-saerok");
+  };
+
+  const handleSkip = () => {
+    setAddressDetails({
+      address:
+        draggedAddress.road || draggedAddress.jibun || selectedPlace!.road_address_name || selectedPlace!.address_name,
+      locationAlias: "",
       latitude: markerPos!.lat,
       longitude: markerPos!.lng,
     });
@@ -243,20 +254,23 @@ export default function SearchPlacePage() {
           bottom: 0,
           left: 0,
           width: "100%",
-          height: selectedPlace ? mapHeight : 0,
-          transition: "height 0.3s ease",
+          height: mapHeight, // 항상 지도 높이 유지
           zIndex: 0,
+          opacity: selectedPlace ? 1 : 0, // 선택 전엔 투명 처리만
+          pointerEvents: selectedPlace ? "auto" : "none", // 선택 전엔 클릭 불가
+          transition: "opacity 0.3s",
         }}
       />
 
       {/* 확정 버튼 */}
-      {selectedPlace && <EditFooter text="?�택?�기" onClick={handleConfirm} />}
+      {selectedPlace && <EditFooter text="선택하기" onClick={handleConfirm} />}
 
       {/* 장소 별칭 입력용 BottomSheet */}
       <PlaceBottomSheet
         ref={bottomSheetRef}
         close={closeBottomSheet}
         apply={handleApply}
+        skip={handleSkip}
         address={draggedAddress.road || draggedAddress.jibun || selectedPlace?.road_address_name || ""}
         alias={alias}
         onAliasChange={(e) => setAlias(e.target.value)}

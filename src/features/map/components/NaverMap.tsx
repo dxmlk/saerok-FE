@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import bubbleTail from "assets/icons/icon/bubble-tail.svg";
 
 export interface MapItemsType {
   collectionId: number;
@@ -138,7 +139,7 @@ const NaverMap = ({ mapRef, markers, onCenterChanged, onOverlayClick }: NaverMap
       </div>
     </button>
     <div class="relative -mt-12 z-0">
-      <img src="/src/assets/icons/icon/bubble-tail.svg" width="22" height="19" />
+      <img src="${bubbleTail}" width="22" height="19" />
     </div>
     <button
       class="collection-overlay-btn w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"

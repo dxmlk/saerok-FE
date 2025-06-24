@@ -53,7 +53,7 @@ const SaerokMain = () => {
         const items = await fetchMyCollections();
         setBirdCount(items.length);
       } catch (err) {
-        console.log("컬렉션 불러오기 실패", err);
+        // console.log("컬렉션 불러오기 실패", err);
       }
     };
 

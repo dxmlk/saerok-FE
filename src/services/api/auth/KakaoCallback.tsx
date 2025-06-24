@@ -11,7 +11,7 @@ const KakaoCallback = () => {
   useEffect(() => {
     const handleKakaoLogin = async () => {
       if (!code) {
-        navigate("/404", { replace: true });
+        navigate("/", { replace: true });
         return;
       }
 
@@ -31,14 +31,14 @@ const KakaoCallback = () => {
         } else if (signupStatus === "COMPLETED") {
           navigate("/saerok");
         } else {
-          console.warn("알 수 없는 회원가입 상태:", signupStatus);
+          // console.warn("알 수 없는 회원가입 상태:", signupStatus);
         }
       } catch (error: any) {
-        console.error("카카오 로그인 실패", error);
+        // console.error("카카오 로그인 실패", error);
         if (error.response) {
-          console.error("응답 상태 코드:", error.response.status);
-          console.error("응답 데이터:", error.response.data);
-          console.error("응답 헤더:", error.response.headers);
+          // console.error("응답 상태 코드:", error.response.status);
+          // console.error("응답 데이터:", error.response.data);
+          // console.error("응답 헤더:", error.response.headers);
         }
         // 로그인 실패 시 안내 또는 리다이렉트
       }

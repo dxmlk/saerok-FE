@@ -70,7 +70,7 @@ export const createRouter = () => {
           element: <MapPage />,
         },
         {
-          path: "/myPage.js",
+          path: "/myPage",
           element: <MyPage />,
         },
         {
@@ -84,11 +84,6 @@ export const createRouter = () => {
         {
           path: "/search/place",
           element: <SearchPlacePage />,
-        },
-
-        {
-          path: "*",
-          element: <NotFoundPage />,
         },
       ],
     },

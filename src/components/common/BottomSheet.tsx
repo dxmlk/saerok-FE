@@ -30,7 +30,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
         <div
           ref={ref}
           role="dialog"
-          className="fixed -bottom-60 pb-60 left-0 right-0 hidden max-h-[90dvh] min-h-100 w-full max-w-500 -translate-x-1/2 flex-col rounded-t-[20px] bg-white  transition-transform duration-0 ease-out"
+          className="fixed -bottom-60 pb-60 left-0 right-0 hidden max-h-[90dvh] min-h-100 w-full -translate-x-1/2 flex-col rounded-t-[20px] bg-white  transition-transform duration-0 ease-out"
         >
           <div className="flex justify-between items-center px-24 rounded-20">
             <div className="flex-grow text-center font-haru text-subtitle-2 text-black py-24">{title}</div>

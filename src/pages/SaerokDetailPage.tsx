@@ -20,7 +20,7 @@ const SaerokDetailPage = () => {
         const res = await fetchCollectionDetail(Number(id));
         setItem(res);
       } catch (err) {
-        console.error("상세 정보 불러오기 실패", err);
+        // console.error("상세 정보 불러오기 실패", err);
       } finally {
         setLoading(false);
       }

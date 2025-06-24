@@ -31,7 +31,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ close, apply }, ref) =>
         <div
           ref={ref}
           role="dialog"
-          className="fixed px-24 -bottom-60 pb-60 left-0 right-0 hidden max-h-[90dvh] min-h-100 w-full max-w-500 -translate-x-1/2 flex-col rounded-t-[20px] bg-white  transition-transform duration-0 ease-out"
+          className="fixed px-24 -bottom-60 pb-60 left-0 right-0 hidden max-h-[90dvh] min-h-100 w-full -translate-x-1/2 flex-col rounded-t-[20px] bg-white  transition-transform duration-0 ease-out"
         >
           <button onClick={handleApply} className="cursor-pointer rounded-10 py-36 text-center text-red text-button-1">
             신고하기
