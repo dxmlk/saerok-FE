@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import bubbleTail from "assets/icons/icon/bubble-tail.svg";
+import bubbleTail from "assets/icons/icon/bubble-tail.svg?url";
 
 export interface MapItemsType {
   collectionId: number;
