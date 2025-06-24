@@ -72,7 +72,18 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
         />
 
         <div className="relative flex items-center justify-between h-60  px-24 pointer-events-auto">
-          <div className="text-black text-headline-1 font-haru mt-32">도감</div>
+          <button
+            onClick={() => {
+              if (window.location.pathname === "/dex") {
+                window.location.reload(); // 완전 새로고침
+              } else {
+                navigate("/dex");
+              }
+            }}
+            className="text-black text-headline-1 font-haru mt-32 cursor-pointer"
+          >
+            도감
+          </button>
           <div className="flex gap-7 mt-28">
             <button
               onClick={() => {
