@@ -85,11 +85,6 @@ export const createRouter = () => {
           path: "/search/place",
           element: <SearchPlacePage />,
         },
-
-        {
-          path: "*",
-          element: <NotFoundPage />,
-        },
       ],
     },
   ]);

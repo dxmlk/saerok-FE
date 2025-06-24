@@ -11,7 +11,7 @@ const KakaoCallback = () => {
   useEffect(() => {
     const handleKakaoLogin = async () => {
       if (!code) {
-        navigate("/404", { replace: true });
+        navigate("/", { replace: true });
         return;
       }
 
