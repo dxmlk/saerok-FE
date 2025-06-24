@@ -76,6 +76,7 @@ export default function DexPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showBookmarkOnly, setShowBookmarkOnly] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // URL parse 헬퍼
   const safeStringArray = (val: unknown): string[] => {
@@ -93,6 +94,21 @@ export default function DexPage() {
       searchTerm: typeof params.searchTerm === "string" ? params.searchTerm : "",
     };
   };
+
+  // 0. 마운트 시점: 필터, 검색어, URL 모두 초기화
+  useEffect(() => {
+    // 페이지가 마운트될 때 무조건 초기화
+    setSelectedFilters({ habitats: [], seasons: [], sizeCategories: [] });
+    setSearchTerm("");
+    // URL도 /dex로 정리 (쿼리 제거)
+    if (location.pathname === "/dex" && location.search) {
+      navigate("/dex", { replace: true });
+    }
+    // 초기화가 완료되었음을 플래그로 표시 (next tick에 실행)
+    setTimeout(() => setIsInitialized(true), 0);
+    syncBookmarks();
+    // eslint-disable-next-line
+  }, []);
 
   // 1️. 마운트 시 URL→Recoil 초기화 + URL에서 searchTerm 삭제 + 북마크 동기화
   useEffect(() => {
@@ -161,10 +177,10 @@ export default function DexPage() {
 
   // 페이징 이펙트
   useEffect(() => {
-    if (!showBookmarkOnly) {
+    if (!isInitialized || !showBookmarkOnly) {
       fetchDexItems(page, selectedFilters, searchTerm);
     }
-  }, [page, selectedFilters, searchTerm, showBookmarkOnly]); // showBookmarkOnly 의존성 추가
+  }, [page, selectedFilters, searchTerm, showBookmarkOnly, isInitialized]); // showBookmarkOnly 의존성 추가
 
   // 무한 스크롤
   useEffect(() => {

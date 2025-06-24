@@ -5,6 +5,7 @@ import { ReactComponent as UserIcon } from "assets/icons/icon/user.svg";
 import { ReactComponent as BellIcon } from "assets/icons/icon/bell.svg";
 import { ReactComponent as LockIcon } from "assets/icons/icon/lock.svg";
 import { ReactComponent as NoticeIcon } from "assets/icons/icon/notice.svg";
+import { ReactComponent as DocumentIcon } from "assets/icons/icon/document.svg";
 
 import MenuItem from "features/mypage/components/MenuItem";
 import Profile from "features/mypage/components/Profile";
@@ -12,7 +13,7 @@ import Profile from "features/mypage/components/Profile";
 import EditNicknamePage from "features/mypage/pages/EditNicknamePage";
 import AccountPage from "features/mypage/pages/AccountPage";
 
-// import FeedbackPage from "features/mypage/pages/FeedbackPage";
+import FeedbackPage from "features/mypage/pages/FeedbackPage";
 // import GuidgePage from "features/mypage/pages/GuidePage";
 // import PublicSettingPage from "features/mypage/pages/PublicSettingPage";
 // import PrivacyPage from "features/mypage/pages/PrivacyPage";
@@ -28,8 +29,8 @@ const MyPage = () => {
     switch (current) {
       case "account":
         return <AccountPage />;
-      // case "feedback":
-      //   return <FeedbackPage />;
+      case "feedback":
+        return <FeedbackPage />;
       // case "guide":
       //   return <GuidgePage />;
       // case "public":
@@ -73,12 +74,12 @@ const MyPage = () => {
           isActive={isLoggedIn ? true : false}
           onClick={() => setParams({ page: "account" })}
         />
-        {/* <MenuItem
+        <MenuItem
           icon={<DocumentIcon />}
           content={<span>의견 보내기</span>}
           isActive
           onClick={() => setParams({ page: "feedback" })}
-        /> */}
+        />
         <MenuItem
           icon={<BellIcon />}
           content={<span>새록 소식 / 이용 가이드</span>}
