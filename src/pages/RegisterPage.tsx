@@ -29,7 +29,7 @@ const RegisterPage = () => {
     }
   }, [isLoggedIn, loading, location, navigate]);
 
-  // ?�네???�정
+  // 닉네임 수정
   const handleSubmit = async () => {
     if (!nickname.trim()) {
       alert("닉네임을 입력해주세요.");

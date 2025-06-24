@@ -14,6 +14,7 @@ import EditNicknamePage from "features/mypage/pages/EditNicknamePage";
 import AccountPage from "features/mypage/pages/AccountPage";
 
 import FeedbackPage from "features/mypage/pages/FeedbackPage";
+import LoadingScreen from "components/common/LoadingScreen";
 // import GuidgePage from "features/mypage/pages/GuidePage";
 // import PublicSettingPage from "features/mypage/pages/PublicSettingPage";
 // import PrivacyPage from "features/mypage/pages/PrivacyPage";
@@ -48,7 +49,7 @@ const MyPage = () => {
 
   const isSubPage = current !== null;
 
-  if (loading) return <div className="p-24 text-body-1">로딩 중..</div>;
+  if (loading) return <LoadingScreen />;
   if (isSubPage) return renderPage();
 
   return (

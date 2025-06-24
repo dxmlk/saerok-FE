@@ -22,6 +22,7 @@ import { fetchDexDetailApi } from "services/api/birds/index";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import Modal from "components/common/Modal";
+import LoadingScreen from "components/common/LoadingScreen";
 
 const EditSaerokPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -167,7 +168,7 @@ const EditSaerokPage = () => {
   };
 
   if (loading) {
-    return <div className="p-24 text-center">불러오는 중..</div>;
+    return <LoadingScreen />;
   }
 
   return (

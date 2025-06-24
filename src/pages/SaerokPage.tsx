@@ -20,7 +20,7 @@ const SaerokPage = () => {
   }, []);
 
   return (
-    <div className="min-h-[100dvh] mb-120">
+    <div className="min-h-[100dvh] mb-120 ">
       <div className={clsx("transition-all ease-in-out")} style={{ opacity }}>
         <SaerokMain />
       </div>

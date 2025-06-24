@@ -1,3 +1,4 @@
+import LoadingScreen from "components/common/LoadingScreen";
 import { useAuth } from "hooks/useAuth";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
@@ -47,7 +48,7 @@ const KakaoCallback = () => {
     handleKakaoLogin();
   }, [code, navigate, refreshAuth]);
 
-  return <div className="flex absolute top-1/2 justify-center w-full h-full">카카오 로그인 중</div>;
+  return <LoadingScreen />;
 };
 
 export default KakaoCallback;
