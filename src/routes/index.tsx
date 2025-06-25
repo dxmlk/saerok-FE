@@ -16,7 +16,7 @@ import MyPage from "pages/MyPage";
 import ProtectedRoute from "components/common/ProtectedRoute";
 import LoginPage from "pages/LoginPage";
 import EditSaerokPage from "pages/EditSaerokPage";
-import NotFoundPage from "pages/NotFoundPage";
+import TestPage from "pages/TestPage";
 
 export const createRouter = () => {
   return createBrowserRouter([
@@ -27,6 +27,7 @@ export const createRouter = () => {
         { path: "login", element: <LoginPage /> },
         { path: "register", element: <RegisterPage /> },
         { path: "/auth/kakao/login", element: <KakaoCallback /> },
+        { path: "/dev-test", element: <TestPage /> },
       ],
     },
     {
