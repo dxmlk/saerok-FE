@@ -22,7 +22,7 @@ export const updateUserInfo = async (payload: { nickname: string }): Promise<Upd
   return response.data;
 };
 
-// 닉네임 사용 가능 여부 조회ㄴ
+// 닉네임 사용 가능 여부 조회
 export interface CheckNicknameResponse {
   isAvailable: boolean;
   reason: string;

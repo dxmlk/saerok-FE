@@ -5,6 +5,7 @@ import NicknameInput from "features/mypage/components/NicknameInput";
 import axios from "axios";
 import { useAuth } from "hooks/useAuth";
 import LoadingScreen from "components/common/LoadingScreen";
+import { updateUserInfo } from "services/api/user";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -40,17 +41,9 @@ const RegisterPage = () => {
       setIsLoading(true);
 
       // API 요청 보내기
-      const response = await axios.patch(
-        "/api/v1/user/me",
-        { nickname },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const result = await updateUserInfo({ nickname });
 
-      if (response.status === 200) {
+      if (result && result.nickname) {
         setSubmitted(true); // 회원가입 완료 상태로 변경
       }
     } catch (error) {
@@ -82,7 +75,7 @@ const RegisterPage = () => {
       {!submitted && (
         <div
           onClick={handleSubmit}
-          className="fixed bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          className="absolute bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
         >
           다음
         </div>
@@ -91,7 +84,7 @@ const RegisterPage = () => {
       {submitted && (
         <div
           onClick={() => navigate(`/saerok`)}
-          className="fixed bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          className="absolute bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
         >
           새록 시작하기
         </div>

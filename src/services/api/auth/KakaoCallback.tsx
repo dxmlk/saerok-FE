@@ -20,8 +20,6 @@ const KakaoCallback = () => {
         localStorage.setItem("accessToken", accessToken);
         await refreshUser();
 
-        console.log("카카오 로그인 응답:", { signupStatus });
-
         if (signupStatus === "PROFILE_REQUIRED") {
           navigate("/register", { state: { fromKakao: true } });
           return;
