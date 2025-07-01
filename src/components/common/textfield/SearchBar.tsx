@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 import { ReactComponent as BackIcon } from "assets/icons/button/back.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
 interface SearchBarProps {
   searchTerm: string;
@@ -15,22 +14,22 @@ interface SearchBarProps {
   onBack?: () => void;
 }
 
-const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, onBlur, onBack }: SearchBarProps) => {
-  const navigate = useNavigate();
-  const [isInputFocused, setIsInputFocused] = useState(false);
+const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
+  ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, onBlur, onBack }, ref) => {
+    const navigate = useNavigate();
+    const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const handleBackClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    navigate(-1);
-  };
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && typeof onSearch === "function") {
-      onSearch(searchTerm);
-    }
-  };
+    const handleBackClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      navigate(-1);
+    };
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && typeof onSearch === "function") {
+        onSearch(searchTerm);
+      }
+    };
 
-  return (
-    <>
+    return (
       <div className="relative w-full">
         <div className="font-pretendard relative h-44 w-full flex flex-row rounded-10 border-2 items-center bg-white border-mainBlue justify-between">
           {onBack ? (
@@ -57,6 +56,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, 
           {!isInputFocused && !onBack && <SearchIcon className="w-22 h-22 ml-14 text-font-whitegrayLight" />}
 
           <input
+            ref={ref}
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -83,8 +83,8 @@ const SearchBar = ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, 
           </button>
         </div>
       </div>
-    </>
-  );
-};
+    );
+  }
+);
 
 export default SearchBar;
