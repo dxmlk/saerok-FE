@@ -85,7 +85,7 @@ const MapPage = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen z-0">
+    <div className="relative w-full h-screen z-0">
       <NaverMap
         mapRef={mapRef}
         markers={markers}

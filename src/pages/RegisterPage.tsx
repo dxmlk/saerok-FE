@@ -62,7 +62,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="h-[100dvh] w-[100dvw] px-24 bg-white">
+    <div className="h-[100dvh] w-full px-24 bg-white">
       {!submitted && (
         <>
           <div className="h-76 w-full bg-background-white flex items-center justify-start  ">

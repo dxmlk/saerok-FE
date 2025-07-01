@@ -25,7 +25,7 @@ const Layout = () => {
   const isActive = (path: string) => location.pathname.startsWith(path);
 
   return (
-    <div className="relative  min-h-[100dvh] w-[100dvw] font-pretendard">
+    <div className="relative  min-h-[100dvh] w-full font-pretendard">
       <div className="relative mx-auto flex min-h-[100dvh] flex-col bg-white shadow-xl justify-center">
         <div className="flex-grow">
           <Outlet />
@@ -33,7 +33,7 @@ const Layout = () => {
 
         {!hideNavBar && (
           <nav
-            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] left-1/2 translate-x-[-50%] w-full fixed bottom-20 
+            className="shadow-[0_0px_15px_0_rgba(0,0,0,0.15)] left-1/2 translate-x-[-50%] w-full max-w-448 fixed bottom-20 
              bg-background-white h-76 rounded-full flex items-center px-44 py-16 justify-between z-50 "
             style={{ width: "calc(100% - 2rem)" }}
           >

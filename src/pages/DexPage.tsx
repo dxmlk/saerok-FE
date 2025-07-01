@@ -250,7 +250,7 @@ export default function DexPage() {
   }, []);
 
   return (
-    <div className="bg-background-whitegray min-h-[100dvh] pb-120">
+    <div className="bg-background-whitegray min-h-[100dvh] w-full pb-120">
       {/* {showMain && (
         <div className={clsx("transition-all ease-in-out")} style={{ opacity }}> */}
       <DexMain
