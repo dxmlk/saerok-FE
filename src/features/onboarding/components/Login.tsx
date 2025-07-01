@@ -17,13 +17,13 @@ const Login = () => {
           <AppleIcon />
           <div>Apple�?계속?�기</div>
         </div> */}
-        <div
+        <button
           onClick={() => (window.location.href = KAKAO_AUTH_URL)}
-          className="flex flex-row h-54 w-full bg-[#FEE500] text-black gap-5 items-center justify-center rounded-10 "
+          className="flex flex-row h-54 w-full bg-[#FEE500] text-black gap-5 items-center justify-center rounded-10 cursor-pointer"
         >
           <KakaoIcon />
           <div>카카오로 계속하기</div>
-        </div>
+        </button>
       </div>
       <div
         onClick={() => setIsModalOpen(true)}

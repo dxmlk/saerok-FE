@@ -26,11 +26,16 @@ const KakaoCallback = () => {
         // 상태 분기
         await refreshUser();
 
+        // 디버깅 코드
+        console.log("카카오 로그인 응답:", { signupStatus });
+
         //회원가입 상태 분기 처리
         if (signupStatus === "PROFILE_REQUIRED") {
           navigate("/register", { state: { fromKakao: true } });
+          return;
         } else if (signupStatus === "COMPLETED") {
           navigate("/saerok");
+          return;
         } else {
           // console.warn("알 수 없는 회원가입 상태:", signupStatus);
         }
