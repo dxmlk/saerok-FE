@@ -7,7 +7,7 @@ const LoginPage = () => {
       <div className={`text-button-1 transition-colors duration-500 text-mainBlue`}>새를 기록하다</div>
       <SplashLogo className={`transition-colors duration-500 text-mainBlue`} />
 
-      <div className="absolute bottom-56 w-full">
+      <div className="absolute bottom-56 w-full flex justify-center">
         <Login />
       </div>
     </div>

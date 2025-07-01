@@ -11,7 +11,7 @@ const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="max-w-480 w-full left-1/2 translate-x-[50%]">
+    <div className="max-w-480 w-full">
       <div className="px-24 flex flex-col justify-center gap-10 font-pretendard font-600 text-20">
         {/* <div className="flex flex-row h-54 w-full bg-black text-white gap-15 items-center justify-center rounded-10 ">
           <AppleIcon />
