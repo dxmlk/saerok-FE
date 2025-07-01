@@ -75,7 +75,8 @@ const RegisterPage = () => {
       {!submitted && (
         <div
           onClick={handleSubmit}
-          className="absolute bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          className="fixed max-w-432 left-1/2 translate-x-[-50%] w-full bottom-44 bg-mainBlue h-52  rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          style={{ width: "calc(100% - 3rem)" }}
         >
           다음
         </div>
@@ -84,7 +85,8 @@ const RegisterPage = () => {
       {submitted && (
         <div
           onClick={() => navigate(`/saerok`)}
-          className="absolute bottom-44 bg-mainBlue h-52 left-24 right-24 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          className="fixed max-w-432 left-1/2 translate-x-[-50%] w-full bottom-44 bg-mainBlue h-52 rounded-10 items-center flex justify-center font-pretendard text-button-1 text-white"
+          style={{ width: "calc(100% - 3rem)" }}
         >
           새록 시작하기
         </div>
