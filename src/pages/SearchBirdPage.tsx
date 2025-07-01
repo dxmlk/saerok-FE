@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SimpleHeader from "components/common/SimpleHeader";
 import SearchBar from "components/common/textfield/SearchBar";
@@ -55,12 +55,19 @@ const SearchBirdPage = () => {
     };
   }, [searchTerm]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
+
   return (
     <div className="min-h-[100dvh] bg-background-whitegray ">
       <SimpleHeader title="이름 찾기" />
 
       <div className="px-24 bg-white pt-10 pb-20 ">
         <SearchBar
+          ref={inputRef}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           onSearch={() => {}}

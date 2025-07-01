@@ -206,11 +206,18 @@ export default function SearchPlacePage() {
 
   const mapHeight = `calc(100vh - ${HEADER_HEIGHT + SEARCHBAR_HEIGHT}px)`;
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
+
   return (
     <div className="relative min-h-[100vh] bg-background-whitegray">
       <SimpleHeader title="장소 찾기" />
       <div className="px-24 bg-white pt-10 pb-20">
         <SearchBar
+          ref={inputRef}
           searchTerm={keyword}
           setSearchTerm={setKeyword}
           onSearch={searchPlaces}

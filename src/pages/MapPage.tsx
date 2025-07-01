@@ -84,6 +84,14 @@ const MapPage = () => {
     }
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isSearching) {
+      inputRef.current?.focus();
+    }
+  }, [isSearching]);
+
   return (
     <div className="relative w-full h-screen z-0">
       <NaverMap
@@ -108,9 +116,10 @@ const MapPage = () => {
 
       {/* 1. 검색 모드: 흰 배경 + 검색창(모든 클릭 차단) */}
       {isSearching && (
-        <div className="fixed inset-0 bg-background-white z-50 flex flex-col">
+        <div className="fixed inset-0 max-w-480 left-1/2 -translate-x-[50%] bg-background-white z-50 flex flex-col">
           <div className="absolute top-20 left-0 right-0 flex-1 flex flex-col">
             <SearchPlaceSelector
+              ref={inputRef}
               onSelect={(place) => {
                 handlePlaceSelected(place);
                 setIsSearching(false);

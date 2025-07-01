@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { filtersState, searchTermState } from "states/dexSearchState";
 import { useNavigate } from "react-router-dom";
@@ -131,10 +131,17 @@ const SearchDexPage = () => {
     setShowSuggestions(false); // 자동완성 닫
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
+
   return (
     <div className="min-h-[100vh] mb-120 bg-white font-pretendard relative">
       <div className="px-24 my-12 flex flex-col gap-12">
         <SearchBar
+          ref={inputRef}
           searchTerm={searchTerm}
           setSearchTerm={(v) => {
             setSearchTerm(v);
