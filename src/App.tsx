@@ -8,7 +8,9 @@ const App = () => {
   return (
     <AuthProvider>
       <Provider>
-        <RouterProvider router={router} />
+        <div className="max-w-480 w-full mx-auto min-h-[100dvh] bg-white">
+          <RouterProvider router={router} />
+        </div>
       </Provider>
     </AuthProvider>
   );

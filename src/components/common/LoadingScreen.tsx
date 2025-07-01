@@ -58,7 +58,7 @@ const LoadingScreen = () => {
 
   return (
     <div className="w-full h-[100dvh] flex justify-center items-center flex-col gap-28">
-      <div className="font-pretendard text-[25px] font-bold whitespace-pre-line">
+      <div className="font-pretendard text-center text-[25px] font-bold whitespace-pre-line">
         {`요청하신 정보를
 불러오는 중이에요.`}
       </div>

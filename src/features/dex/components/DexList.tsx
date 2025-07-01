@@ -35,7 +35,7 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
   if (isInitialLoading) {
     // 최초 진입/새 필터 등에서만 전체 Skeleton
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15">
+      <div className="grid grid-cols-2 gap-15">
         {Array.from({ length: 8 }).map((_, i) => (
           <DexItemSkeleton key={i} />
         ))}
@@ -46,7 +46,7 @@ const DexList = ({ dexItems, bookmarkedBirdIds = [], onToggleBookmark, loading }
   // 기존 리스트
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15">
+      <div className="grid grid-cols-2 gap-15">
         {dexItems.map((item) => (
           <div
             key={item.id}

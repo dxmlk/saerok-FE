@@ -3,7 +3,7 @@ import { ReactComponent as SplashLogo } from "assets/icons/logo/splash.svg";
 
 const LoginPage = () => {
   return (
-    <div className="h-[100dvh] w-[100dvw] flex flex-col font-pretendard justify-center items-center bg-white">
+    <div className="min-h-[100dvh] w-full flex flex-col font-pretendard justify-center items-center bg-white">
       <div className={`text-button-1 transition-colors duration-500 text-mainBlue`}>새를 기록하다</div>
       <SplashLogo className={`transition-colors duration-500 text-mainBlue`} />
 
