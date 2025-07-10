@@ -19,7 +19,6 @@ interface NaverMapProps {
 }
 
 const NAVER_APP_KEY = import.meta.env.VITE_NAVER_APP_KEY;
-
 const ZOOM_THRESHOLD = 18;
 
 const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: NaverMapProps) => {
@@ -27,39 +26,91 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
   const overlayInstancesRef = useRef<any[]>([]);
   const markerInstancesRef = useRef<any[]>([]);
   const [MarkerClustering, setMarkerClustering] = useState<any>(null);
+  const [mapReady, setMapReady] = useState(false);
+  const zoomRef = useRef<number>(17);
 
-  // 1. 네이버맵 스크립트 로드
+  // 1. 네이버맵 스크립트 robust load + 맵 인스턴스 생성
   useEffect(() => {
-    if (document.getElementById("naver-maps-script")) return;
-    const script = document.createElement("script");
-    script.id = "naver-maps-script";
-    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_APP_KEY}`;
-    script.async = true;
-    script.onload = () => {
-      if (!window.naver || !containerRef.current) return;
+    let cancelled = false;
+    function createMap() {
+      if (!window.naver || !window.naver.maps || !containerRef.current) return;
       mapRef.current = new window.naver.maps.Map(containerRef.current, {
         center: new window.naver.maps.LatLng(center.lat, center.lng),
         zoom: 17,
       });
+      setMapReady(true);
       if (onCenterChanged) {
         window.naver.maps.Event.addListener(mapRef.current, "center_changed", () => {
           if (mapRef.current) {
-            const center = (mapRef.current as any).getCenter();
-            onCenterChanged(center.lat(), center.lng());
+            const c = mapRef.current.getCenter();
+            onCenterChanged(c.lat(), c.lng());
           }
         });
       }
-    };
-    document.head.appendChild(script);
+    }
+
+    // script가 없으면 삽입, 있으면 준비까지 반복 체크
+    if (!document.getElementById("naver-maps-script")) {
+      const script = document.createElement("script");
+      script.id = "naver-maps-script";
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_APP_KEY}`;
+      script.async = true;
+      script.onload = () => {
+        if (!cancelled) createMap();
+      };
+      document.head.appendChild(script);
+    } else {
+      // script가 이미 있으면 window.naver.maps가 로딩됐는지 확인
+      if (window.naver && window.naver.maps && containerRef.current) {
+        createMap();
+      } else {
+        const interval = setInterval(() => {
+          if (window.naver && window.naver.maps && containerRef.current) {
+            clearInterval(interval);
+            if (!cancelled) createMap();
+          }
+        }, 60);
+      }
+    }
+
     return () => {
+      cancelled = true;
       markerInstancesRef.current.forEach((marker) => marker.setMap(null));
       markerInstancesRef.current = [];
       overlayInstancesRef.current.forEach((overlay) => overlay.setMap(null));
       overlayInstancesRef.current = [];
+      if (mapRef.current) {
+        mapRef.current = null;
+      }
+      setMapReady(false);
     };
-  }, [mapRef]);
+  }, [mapRef, containerRef]);
 
-  // 2. markerClustering.js 동적 import
+  // 2. 지도 중심 이동: 외부에서 center prop이 변경될 때마다 반영
+  useEffect(() => {
+    if (mapReady && mapRef.current) {
+      const map = mapRef.current as any;
+      const cur = map.getCenter();
+      if (cur.lat() !== center.lat || cur.lng() !== center.lng) {
+        map.setCenter(new window.naver.maps.LatLng(center.lat, center.lng));
+      }
+    }
+  }, [center, mapReady]);
+
+  // 3. 줌 추적 (최신 zoom 값을 zoomRef로 보존)
+  useEffect(() => {
+    if (!mapReady || !mapRef.current) return;
+    const map = mapRef.current as any;
+    zoomRef.current = map.getZoom();
+    const listener = window.naver.maps.Event.addListener(map, "zoom_changed", () => {
+      zoomRef.current = map.getZoom();
+    });
+    return () => {
+      window.naver.maps.Event.removeListener(listener);
+    };
+  }, [mapReady, mapRef.current]);
+
+  // 4. markerClustering.js 동적 import
   useEffect(() => {
     if (!window.naver) return;
     let isMounted = true;
@@ -71,18 +122,17 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
     };
   }, [window.naver]);
 
-  // 3. 마커 및 클러스터/오버레이 관리 + renderByZoom 분리
+  // 5. 마커 및 클러스터/오버레이 관리 + renderByZoom
   useEffect(() => {
-    if (!window.naver || !mapRef.current || !MarkerClustering) return;
+    if (!mapReady || !window.naver || !mapRef.current || !MarkerClustering) return;
     const map = mapRef.current as any;
 
-    // 기존 마커/오버레이 제거
     markerInstancesRef.current.forEach((marker) => marker.setMap(null));
     markerInstancesRef.current = [];
     overlayInstancesRef.current.forEach((overlay) => overlay.setMap(null));
     overlayInstancesRef.current = [];
 
-    // 마커 객체 생성(모두 투명)
+    // 마커 생성
     const markerObjs = markers.map((item) => {
       const marker = new window.naver.maps.Marker({
         position: new window.naver.maps.LatLng(item.latitude, item.longitude),
@@ -100,11 +150,11 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
     });
     markerInstancesRef.current = markerObjs;
 
-    // 클러스터러 생성(초기에는 map: null)
+    // 클러스터러
     const clusterer = new MarkerClustering({
       minClusterSize: 2,
       maxZoom: ZOOM_THRESHOLD,
-      map: null, // 최초엔 map: null(아래에서 세팅)
+      map: null, // 최초엔 꺼둠
       markers: markerObjs,
       disableClickZoom: false,
       gridSize: 60,
@@ -153,7 +203,6 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       },
     });
 
-    // 오버레이 생성 함수
     function addCustomOverlay(item: MapItemsType, showBalloon: boolean) {
       const { collectionId, koreanName, note, imageUrl, latitude, longitude } = item;
       const position = new window.naver.maps.LatLng(latitude, longitude);
@@ -250,7 +299,6 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       overlayInstancesRef.current.push(overlay);
     }
 
-    // 줌 기준 분기 렌더 함수 (zoom은 항상 최신값 직접 전달)
     function renderByZoom(zoom: number) {
       overlayInstancesRef.current.forEach((o) => o.setMap(null));
       overlayInstancesRef.current = [];
@@ -271,11 +319,11 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       }
     }
 
-    // zoom_changed 이벤트: 항상 map.getZoom()의 최신값으로 호출!
+    // 최초 및 줌 변경 시에 renderByZoom 실행
+    renderByZoom(map.getZoom());
     const zoomListener = window.naver.maps.Event.addListener(map, "zoom_changed", () => {
       renderByZoom(map.getZoom());
     });
-    renderByZoom(map.getZoom());
 
     return () => {
       window.naver.maps.Event.removeListener(zoomListener);
@@ -283,7 +331,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       overlayInstancesRef.current = [];
       if (clusterer) clusterer.setMap(null);
     };
-  }, [markers, mapRef.current, onOverlayClick, MarkerClustering]);
+  }, [markers, mapReady, mapRef.current, onOverlayClick, MarkerClustering, center.lat, center.lng]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 };
