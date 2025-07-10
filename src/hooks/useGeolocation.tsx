@@ -6,10 +6,7 @@ interface Coordinates {
 }
 
 const useGeolocation = () => {
-  const [currentMyLocation, setCurrentMyLocation] = useState<Coordinates>({
-    lat: 0,
-    lng: 0,
-  });
+  const [currentMyLocation, setCurrentMyLocation] = useState<Coordinates | null>(null);
   const [locationLoading, setLocationLoading] = useState<boolean>(false);
 
   const getCurPosition = () => {

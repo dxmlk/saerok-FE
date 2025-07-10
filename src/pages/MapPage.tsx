@@ -9,17 +9,47 @@ import ToggleMapMode from "features/map/components/ToggleMapMode";
 import { ReactComponent as DeleteIcon } from "assets/icons/button/delete.svg";
 import { ReactComponent as SearchIcon } from "assets/icons/button/search.svg";
 import { ReactComponent as ReloadingIcon } from "assets/icons/icon/reloading.svg";
+import LoadingScreen from "components/common/LoadingScreen";
+
+const DEFAULT_CENTER = { lat: 37.58939182281775, lng: 127.02990237554194 };
 
 const MapPage = () => {
   const { currentMyLocation, getCurPosition } = useGeolocation();
   const mapRef = useRef<naver.maps.Map | null>(null);
   const [markers, setMarkers] = useState<NearbyCollectionItem[]>([]);
   const [isMineOnly, setIsMineOnly] = useState(false);
-  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
+  const [center, setCenter] = useState<{ lat: number; lng: number }>(DEFAULT_CENTER);
   const [isSearching, setIsSearching] = useState(false);
   const [pendingCenter, setPendingCenter] = useState<{ lat: number; lng: number } | null>(null);
-
+  const [locationReady, setLocationReady] = useState(false); // 위치 허용? 준비 여부
+  const [centerInitialized, setCenterInitialized] = useState(false);
   const navigate = useNavigate();
+
+  // center, currentMyLocation이 0,0이면 무시
+  function isValidLatLng(obj?: { lat: number; lng: number } | null) {
+    return !!obj && !(obj.lat === 0 && obj.lng === 0);
+  }
+
+  // 최초 내 위치 수신 시에만 center 세팅
+  useEffect(() => {
+    if (isValidLatLng(currentMyLocation) && !centerInitialized) {
+      setCenter({ lat: currentMyLocation!.lat, lng: currentMyLocation!.lng });
+      setCenterInitialized(true);
+      setTimeout(() => setLocationReady(true), 250);
+    }
+  }, [currentMyLocation, centerInitialized]);
+
+  // 만약 일정 시간 동안 위치를 못 받으면 fallback (권한 거부, 에러 등)
+  useEffect(() => {
+    if (!locationReady && !centerInitialized) {
+      const timeout = setTimeout(() => {
+        setCenter(DEFAULT_CENTER);
+        setLocationReady(true);
+        setCenterInitialized(true);
+      }, 2500);
+      return () => clearTimeout(timeout);
+    }
+  }, [locationReady, centerInitialized]);
 
   // 지도 중심 기준 주변 컬렉션 조회
   const fetchAndSetNearbyCollections = async (centerLat: number, centerLng: number, radiusMeters = 500) => {
@@ -48,13 +78,6 @@ const MapPage = () => {
     }
   };
 
-  // 최초 렌더/내 위치 이동 시 지도 중심 갱신
-  useEffect(() => {
-    if (currentMyLocation) {
-      setCenter({ lat: currentMyLocation.lat, lng: currentMyLocation.lng });
-    }
-  }, [currentMyLocation]);
-
   // 중심좌표, isMineOnly 변경시 주변 컬렉션 다시 조회
   useEffect(() => {
     if (center) {
@@ -78,7 +101,6 @@ const MapPage = () => {
   const handlePlaceSelected = ({ lat, lng }: { lat: number; lng: number }) => {
     setCenter({ lat, lng });
     setIsSearching(false);
-    -setIsSearching(false);
     if (mapRef.current) {
       mapRef.current.setCenter(new window.naver.maps.LatLng(lat, lng));
     }
@@ -94,9 +116,13 @@ const MapPage = () => {
 
   return (
     <div className="relative w-full h-screen z-0">
+      {!locationReady && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center"></div>
+      )}
       <NaverMap
         mapRef={mapRef}
         markers={markers}
+        center={center!}
         onCenterChanged={handleMapCenterChanged}
         onOverlayClick={(id: number) => navigate(`/saerok-detail/${id}`)}
       />
@@ -116,7 +142,7 @@ const MapPage = () => {
 
       {/* 1. 검색 모드: 흰 배경 + 검색창(모든 클릭 차단) */}
       {isSearching && (
-        <div className="fixed inset-0 max-w-480 left-1/2 -translate-x-[50%] bg-background-white z-50 flex flex-col">
+        <div className="fixed inset-0 max-w-500 left-1/2 -translate-x-[50%] w-full h-full bg-background-white z-50 flex flex-col">
           <div className="absolute top-20 left-0 right-0 flex-1 flex flex-col">
             <SearchPlaceSelector
               ref={inputRef}

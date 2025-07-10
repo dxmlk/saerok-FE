@@ -70,7 +70,7 @@ export default {
         "body-4": ["15px", { lineHeight: "25px", letterSpacing: "0", fontWeight: "400" }],
         "caption-1": ["13px", { lineHeight: "16px", letterSpacing: "0", fontWeight: "400" }],
         "caption-3": ["12px", { lineHeight: "14px", letterSpacing: "0", fontWeight: "400" }],
-        "button-1": ["18px", { lineHeight: "21px", letterSpacing: "0", fontWeight: "700" }],
+        "button-1": ["18px", { lineHeight: "21px", letterSpacing: "0", fontWeight: "500" }],
         "button-2": ["15px", { lineHeight: "18px", letterSpacing: "0", fontWeight: "600" }],
         "headline-1": ["30px", { lineHeight: "33px", letterSpacing: "0" }],
         "headline-2": ["22px", { lineHeight: "33px", letterSpacing: "0" }],

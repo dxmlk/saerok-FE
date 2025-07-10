@@ -45,7 +45,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
 
           <button
             onClick={handleApply}
-            className="font-pretendard mt-20 border-t border-1 border-background-whitegray h-96 text-font-mainBlue text-button-1"
+            className="font-pretendard mt-20 pt-24 border-t border-1 border-background-whitegray pb-44 text-font-mainBlue text-button-1"
           >
             완료
           </button>

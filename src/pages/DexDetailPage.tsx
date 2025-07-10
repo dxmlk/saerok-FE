@@ -158,34 +158,36 @@ const DexDetailPage = () => {
             onClick={() => handleAddSaerok()}
             className="flex justify-center items-center w-40 h-40 absolute bottom-8 right-8 rounded-full bg-glassmorphism z-10 cursor-pointer"
           >
-            <img src={addSaerokPng} alt="?�록 추�?" className="w-24 h-24 object-contain" />
+            <img src={addSaerokPng} alt="새록 추가" className="w-24 h-24 object-contain" />
           </button>
         </div>
 
-        <div className="flex flex-row flex-wrap justify-start gap-7 px-8 mt-18 font-pretendard">
-          {/* 계절 */}
-          {seasonText && (
-            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100 stroke-background-white text-background-white text-body-1 ">
-              <SeasonIcon className="w-17 h-17" />
-              <div>{seasonText}</div>
-            </div>
-          )}
+        <div className="w-full overflow-x-auto scrollbar-hide mt-18">
+          <div className="flex flex-row flex-nowrap gap-7 font-pretendard h-33 px-8 min-w-max">
+            {/* 계절 */}
+            {seasonText && (
+              <div className=" px-12  h-33 flex flex-row items-center gap-5  bg-mainBlue rounded-100 stroke-background-white text-background-white text-body-1 ">
+                <SeasonIcon className="w-17 h-17" />
+                <div>{seasonText}</div>
+              </div>
+            )}
 
-          {/* 서식지 */}
-          {habitatText && (
-            <div className="w-fit px-12  h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100 stroke-background-white text-background-white text-body-1 ">
-              <HabitatIcon className="w-17 h-17" />
-              <div>{habitatText}</div>
-            </div>
-          )}
+            {/* 서식지 */}
+            {habitatText && (
+              <div className=" px-12  h-33 flex flex-row items-center gap-5  bg-mainBlue rounded-100 stroke-background-white text-background-white text-body-1 ">
+                <HabitatIcon className="w-17 h-17" />
+                <div>{habitatText}</div>
+              </div>
+            )}
 
-          {/* 크기 */}
-          {bird.sizeCategory && (
-            <div className="w-fit px-12 h-33 flex flex-row justify-center items-center gap-5  bg-mainBlueLight rounded-100  text-background-white text-body-1 ">
-              <SizeIcon className="w-17 h-17 fill-white" />
-              <div>{bird.sizeCategory}</div>
-            </div>
-          )}
+            {/* 크기 */}
+            {bird.sizeCategory && (
+              <div className=" px-12 h-33 flex flex-row items-center gap-5  bg-mainBlue rounded-100  text-background-white text-body-1 ">
+                <SizeIcon className="w-17 h-17 fill-white" />
+                <div>{bird.sizeCategory}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

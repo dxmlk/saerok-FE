@@ -17,14 +17,20 @@ const SearchPlaceSelector = forwardRef<HTMLInputElement, SearchPlaceSelectorProp
     const [keyword, setKeyword] = useState("");
     const [places, setPlaces] = useState<KakaoPlace[]>([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
+    const [kakaoReady, setKakaoReady] = useState(false);
 
     useEffect(() => {
-      if ((window as any).kakao) return; // 이미 있으면 중복 로딩 방지
+      if ((window as any).kakao && (window as any).kakao.maps?.services) {
+        setKakaoReady(true);
+        return;
+      }
       const script = document.createElement("script");
       script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}&autoload=false&libraries=services`;
       script.async = true;
       script.onload = () => {
-        (window as any).kakao.maps.load(() => {});
+        (window as any).kakao.maps.load(() => {
+          setKakaoReady(true);
+        });
       };
       document.head.appendChild(script);
       return () => {
@@ -34,10 +40,11 @@ const SearchPlaceSelector = forwardRef<HTMLInputElement, SearchPlaceSelectorProp
 
     const searchPlaces = () => {
       if (!keyword.trim()) return;
-      const kakao = (window as any).kakao;
-      if (!kakao?.maps?.services) {
+      if (!kakaoReady) {
+        alert("카카오맵 로딩 중");
         return;
       }
+      const kakao = (window as any).kakao;
       const ps = new kakao.maps.services.Places();
       ps.keywordSearch(keyword, (data: KakaoPlace[], status: string) => {
         setSearchPerformed(true);
