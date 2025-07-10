@@ -162,8 +162,8 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
         {
           content: `
             <div style="
-              width: 48px;
-              height: 48px;
+              width: 45px;
+              height: 45px;
               background: #F7BE65;
               border-radius: 50%;
               box-shadow: 0 0 12px 3px rgba(255,200,0,0.55), 0 2px 6px 0 rgba(0,0,0,0.13);
@@ -208,12 +208,13 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       const position = new window.naver.maps.LatLng(latitude, longitude);
       const content = showBalloon
         ? `<div class="flex flex-col items-center gap-10">
-            <button
+            
+        <button
               type="button"
-              class="collection-overlay-btn relative gap-7 flex flex-col items-center bg-[#FEFEFE] rounded-[20px] min-w-[100px] max-w-[172px] px-16 py-16 z-10"
+              class="collection-overlay-btn relative gap-7 flex flex-col items-center bg-[#FEFEFE] rounded-[10px] min-w-[100px] max-w-[172px] px-16 py-16 z-10"
               data-collection-id="${collectionId}"
             >
-              <div class="font-moneygraphy text-body-3 text-black mb-1">${koreanName}</div>
+              <div class="font-moneygraphy text-body-3 text-black">${koreanName ?? "이름 모를 새"}</div>
               <div
                 class="font-pretendard text-caption-1 text-center text-font-black"
                 style="
@@ -232,7 +233,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
               <img src="${bubbleTail}" width="22" height="19" />
             </div>
             <button
-              class="collection-overlay-btn w-[48px] h-[48px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
+              class="collection-overlay-btn w-[45px] h-[45px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
               data-collection-id="${collectionId}"
               type="button"
             >
@@ -241,7 +242,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
           </div>`
         : `<div class="flex flex-col items-center gap-10">
             <button
-              class="collection-overlay-btn w-[48px] h-[48px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
+              class="collection-overlay-btn w-[45px] h-[45px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
               data-collection-id="${collectionId}"
               type="button"
             >

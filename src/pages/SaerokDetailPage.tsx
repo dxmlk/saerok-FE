@@ -6,6 +6,7 @@ import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
 import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
 import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
 import { useAuth } from "hooks/useAuth";
+import LoadingScreen from "components/common/LoadingScreen";
 
 const SaerokDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,7 +31,7 @@ const SaerokDetailPage = () => {
 
   const isMine = item?.user.nickname === user?.nickname;
 
-  if (!item) return <div className="p-24">존재하지 않는 컬렉션입니다.</div>;
+  if (!item) return <LoadingScreen />;
 
   return (
     <div className="min-h-[100vh] mb-120 bg-white ">

@@ -10,9 +10,15 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
   const [showNotice, setShowNotice] = useState(false);
   const [noticeText, setNoticeText] = useState("");
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isFirstMount = useRef(true);
 
   //  isMineOnly가 변할 때마다 안내문구 보여줌
   useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     if (isMineOnly) {
@@ -50,7 +56,7 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
           <GlobeIcon className={`w-24 h-24 ${isMineOnly ? "stroke-font-whitegrayLight" : "stroke-font-mainBlue"}`} />
         </div>
       </button>
-      {showNotice && (
+      {showNotice && !isFirstMount && (
         <div className="whitespace-nowrap fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-10 bg-glassmorphism h-50  px-24 py-15 font-haru text-subtitle-2 text-black shadow-xl transition-opacity duration-300">
           {noticeText}
         </div>
