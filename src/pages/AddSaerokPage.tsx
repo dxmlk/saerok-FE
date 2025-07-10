@@ -117,6 +117,13 @@ const AddSaerokPage = () => {
     initializedRef.current = true;
   }, []);
 
+  useEffect(() => {
+    if (!form.date) {
+      const today = new Date().toISOString().split("T")[0];
+      setDate(today);
+    }
+  }, []);
+
   return (
     <>
       <EditHeader
