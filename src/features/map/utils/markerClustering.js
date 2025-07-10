@@ -634,7 +634,12 @@ Cluster.prototype = {
       members = this._clusterMember;
 
     for (var i = 0, ii = members.length; i < ii; i++) {
-      members[i].setMap(map);
+      if (this.getCount() === 1 && typeof window.showCustomOverlay === "function") {
+        members[i].setMap(null);
+        window.showCustomOverlay(members[i]);
+      } else {
+        members[i].setMap(map);
+      }
     }
 
     if (marker) {
