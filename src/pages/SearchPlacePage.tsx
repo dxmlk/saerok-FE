@@ -172,8 +172,11 @@ export default function SearchPlacePage() {
     // console.log("드래그 주소 변경됨:", draggedAddress);
   }, [draggedAddress]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   // 5) 바텀시트 열기 (별칭 입력)
   const handleConfirm = () => {
+    inputRef.current?.blur();
     if (!selectedPlace || !markerPos) return;
     setAlias(""); // 초기화
     openBottomSheet(); // 바텀시트 열기
@@ -206,11 +209,9 @@ export default function SearchPlacePage() {
 
   const mapHeight = `calc(100vh - ${HEADER_HEIGHT + SEARCHBAR_HEIGHT}px)`;
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     inputRef.current?.focus();
-  });
+  }, []);
 
   return (
     <div className="relative min-h-[100vh] bg-background-whitegray">
@@ -220,6 +221,7 @@ export default function SearchPlacePage() {
           ref={inputRef}
           searchTerm={keyword}
           setSearchTerm={setKeyword}
+          hideLeftIcon={true}
           onSearch={searchPlaces}
           placeholder="장소를 검색하세요"
         />

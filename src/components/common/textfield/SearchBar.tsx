@@ -9,13 +9,14 @@ interface SearchBarProps {
   setSearchTerm: (value: string) => void;
   onSearch: (keyword: string) => void;
   placeholder: string;
+  hideLeftIcon?: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
   onBack?: () => void;
 }
 
 const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
-  ({ searchTerm, setSearchTerm, onSearch, placeholder, onFocus, onBlur, onBack }, ref) => {
+  ({ searchTerm, setSearchTerm, onSearch, placeholder, hideLeftIcon, onFocus, onBlur, onBack }, ref) => {
     const navigate = useNavigate();
     const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -32,28 +33,31 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
     return (
       <div className="relative w-full">
         <div className="font-pretendard relative h-44 w-full flex flex-row rounded-10 border-2 items-center bg-white border-mainBlue justify-between">
-          {onBack ? (
-            <button
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={onBack}
-              className="w-17 h-17 ml-14 text-mainBlue"
-              tabIndex={-1}
-            >
-              <BackIcon />
-            </button>
-          ) : (
-            isInputFocused && (
+          {!hideLeftIcon &&
+            (onBack ? (
               <button
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={handleBackClick}
+                onClick={onBack}
                 className="w-17 h-17 ml-14 text-mainBlue"
                 tabIndex={-1}
               >
                 <BackIcon />
               </button>
-            )
+            ) : (
+              isInputFocused && (
+                <button
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={handleBackClick}
+                  className="w-17 h-17 ml-14 text-mainBlue"
+                  tabIndex={-1}
+                >
+                  <BackIcon />
+                </button>
+              )
+            ))}
+          {!isInputFocused && !onBack && !hideLeftIcon && (
+            <SearchIcon className="w-22 h-22 ml-14 text-font-whitegrayLight" />
           )}
-          {!isInputFocused && !onBack && <SearchIcon className="w-22 h-22 ml-14 text-font-whitegrayLight" />}
 
           <input
             ref={ref}
@@ -75,7 +79,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
               if (onBlur) onBlur();
             }}
             placeholder={placeholder}
-            className="outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 "
+            className={`outline-none flex w-full items-center text-body-2 placeholder-font-whitegrayLight mx-10 ${hideLeftIcon ? "ml-20" : ""} `}
           />
 
           <button onClick={() => setSearchTerm("")} tabIndex={-1}>

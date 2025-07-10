@@ -125,7 +125,7 @@ const AddSaerokPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="w-full mb-60">
       <EditHeader
         leftContent={<span className="text-headline-2 font-moneygraphy text-font-black">새록 작성하기</span>}
         rightContent={
@@ -259,7 +259,7 @@ const AddSaerokPage = () => {
           />
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 

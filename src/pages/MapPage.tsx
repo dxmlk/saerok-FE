@@ -142,7 +142,7 @@ const MapPage = () => {
 
       {/* 1. 검색 모드: 흰 배경 + 검색창(모든 클릭 차단) */}
       {isSearching && (
-        <div className="fixed inset-0 w-full h-full bg-background-white z-50 flex flex-col">
+        <div className="fixed inset-0 max-w-500 left-1/2 -translate-x-[50%] w-full h-full bg-background-white z-50 flex flex-col">
           <div className="absolute top-20 left-0 right-0 flex-1 flex flex-col">
             <SearchPlaceSelector
               ref={inputRef}
