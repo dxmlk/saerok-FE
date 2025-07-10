@@ -42,7 +42,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
       if (onCenterChanged) {
         window.naver.maps.Event.addListener(mapRef.current, "center_changed", () => {
           if (mapRef.current) {
-            const c = mapRef.current.getCenter();
+            const c = (mapRef.current as any).getCenter();
             onCenterChanged(c.lat(), c.lng());
           }
         });
