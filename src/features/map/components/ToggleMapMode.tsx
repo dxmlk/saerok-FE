@@ -47,6 +47,10 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
         // style={{
         //   boxShadow: "0px 2px 8px 0px rgba(35, 53, 137, 0.10)",
         // }}
+        style={{
+          filter: "drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5))",
+          bottom: "calc(120px + env(safe-area-inset-bottom, 0px))",
+        }}
       >
         <div
           className={`w-36 h-36 flex items-center justify-center rounded-full bg-white shadow
