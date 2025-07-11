@@ -34,7 +34,7 @@ const SaerokDetailPage = () => {
   if (!item) return <LoadingScreen />;
 
   return (
-    <div className="min-h-[100vh] mb-120 bg-white ">
+    <div className="min-h-[100vh]">
       <SaerokDetailHeader birdId={item.bird.birdId} collectionId={item.collectionId} isMine={isMine} />
 
       {loading ? (
