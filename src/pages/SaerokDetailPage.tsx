@@ -41,6 +41,7 @@ const SaerokDetailPage = () => {
         <SaerokInfoSkeleton />
       ) : (
         <SaerokInfo
+          collectionId={item.collectionId}
           img={item.imageUrl}
           date={item.discoveredDate}
           address={item.address}

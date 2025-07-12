@@ -49,6 +49,7 @@ const SaerokInfo = ({
   const navigate = useNavigate();
   const { bottomSheetRef, openBottomSheet, closeBottomSheet } = useBottomSheet();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   function formatDate(dateString: string) {
     if (!dateString) return "";
@@ -61,7 +62,11 @@ const SaerokInfo = ({
   };
 
   const handleDexClick = () => {
-    navigate(`/dex-detail/${birdInfo.birdId}`);
+    if (birdInfo.koreanName) {
+      navigate(`/dex-detail/${birdInfo.birdId}`);
+    } else {
+      setIsAlertOpen(true);
+    }
   };
 
   const handleSortClick = () => {
@@ -162,6 +167,22 @@ const SaerokInfo = ({
             handleLeftClick={() => setIsModalOpen(false)}
             handleRightClick={() => setIsModalOpen(false)}
             isDeleted={true}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isAlertOpen && (
+          <Modal
+            maintext="새 정보를 입력하시겠어요?"
+            subtext="이름 모를 새는 도감 확인이 불가능해요."
+            lefttext="돌아가기"
+            righttext="입력하기"
+            handleLeftClick={() => setIsAlertOpen(false)}
+            handleRightClick={() => {
+              setIsAlertOpen(false);
+              navigate(`/edit-saerok/${collectionId}`);
+            }}
           />
         )}
       </AnimatePresence>
