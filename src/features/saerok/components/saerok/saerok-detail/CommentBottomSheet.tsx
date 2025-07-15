@@ -9,9 +9,10 @@ interface Props {
   close: () => void;
   items: CommentBoxProps[];
   isFull: boolean;
+  onDelete: (commentId: number) => void;
 }
 
-const BottomSheet = forwardRef<HTMLDivElement, Props>(({ close, items, isFull }, ref) => {
+const BottomSheet = forwardRef<HTMLDivElement, Props>(({ close, items, isFull, onDelete }, ref) => {
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation(); // prevent the click event from bubbling up to the overlay
     close(); // close the BottomSheet when the close button is clicked
@@ -55,7 +56,9 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ close, items, isFull },
               }}
             >
               {items.length > 0 ? (
-                items.map((item) => <CommentBox key={item.commentId} {...item} />)
+                items.map((item) => (
+                  <CommentBox handleDelete={() => onDelete(item.commentId)} key={item.commentId} {...item} />
+                ))
               ) : (
                 <EmptyPage bgColor="gray" upperText="아직 댓글이 없어요!" lowerText="댓글을 남겨보세요." />
               )}
