@@ -1,7 +1,10 @@
 import { ReactComponent as SortIcon } from "assets/icons/button/sort.svg";
 import DropdownTest from "./DropdownTest";
+import CommentActionDropdown from "./CommentActionDropdown";
+import { deleteCollectionCommentApi } from "services/api/collections";
 
 interface CommentBoxProps {
+  handleDelete: () => void;
   commentId: number;
   userId: number;
   nickname: string;
@@ -14,6 +17,7 @@ interface CommentBoxProps {
 }
 
 const CommentBox = ({
+  handleDelete,
   commentId,
   userId,
   nickname,
@@ -25,12 +29,7 @@ const CommentBox = ({
   updatedAt,
 }: CommentBoxProps) => {
   const handleModify = () => {};
-  const handleDelete = () => {
-    /* 삭제 로직 */
-  };
-  const handleReport = () => {
-    /* 신고 로직 */
-  };
+  const handleReport = () => {};
 
   return (
     <div className="h-auto w-full py-12 px-14 bg-background-white rounded-20">
@@ -46,9 +45,12 @@ const CommentBox = ({
                 {updatedAt.toString().split("T")[0]}
               </span>
             </div>
-            <button>
-              <SortIcon className="w-17 h-17" />
-            </button>
+            <CommentActionDropdown
+              isMine={isMine}
+              onModify={handleModify}
+              onDelete={handleDelete}
+              onReport={handleReport}
+            />
           </div>
           {/* 댓글 75자 최대 */}
           <div className="w-full font-pretendard text-font-black text-caption-1-2">{content}</div>

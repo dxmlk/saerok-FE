@@ -3,6 +3,7 @@ import { ReactComponent as CommentIcon } from "assets/icons/button/comment.svg";
 import useBottomSheet from "hooks/useBottomSheet";
 import {
   createCollectionCommentApi,
+  deleteCollectionCommentApi,
   fetchCollectionCommentListApi,
   getCollectionCommentCountApi,
 } from "services/api/collections";
@@ -60,6 +61,16 @@ const CollectionCommentButton = ({ collectionId }: CollectionCommentButtonProps)
     } catch {}
   };
 
+  const handleDelete = async (commentId: number) => {
+    try {
+      await deleteCollectionCommentApi(collectionId, commentId);
+      const items = await fetchCollectionCommentListApi(collectionId);
+      setCommentList(items);
+      const count = await getCollectionCommentCountApi(collectionId);
+      commentCount.current = count;
+    } catch {}
+  };
+
   return (
     <>
       <button
@@ -70,7 +81,13 @@ const CollectionCommentButton = ({ collectionId }: CollectionCommentButtonProps)
         <CommentIcon className="stroke-font-black" />
         <span className="text-subtitle-3 text-font-black">{commentCount.current}</span>
       </button>
-      <CommentBottomSheet ref={bottomSheetRef} close={closeBottomSheet} items={commentList} isFull={isFull} />
+      <CommentBottomSheet
+        ref={bottomSheetRef}
+        close={closeBottomSheet}
+        onDelete={handleDelete}
+        items={commentList}
+        isFull={isFull}
+      />
       {isOpen && <CommentInputBar onSubmit={handleSubmit} />}
     </>
   );
