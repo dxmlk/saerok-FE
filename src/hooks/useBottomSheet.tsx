@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useRef } from "react";
+import { MutableRefObject, useCallback, useRef, useState } from "react";
 
 interface Metrics {
   initTouchPosition: number | null;
@@ -10,6 +10,9 @@ interface Metrics {
 const TRANSFORM_DURATION = "200ms";
 
 const useBottomSheet = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isFull, setIsFull] = useState(false);
+
   const bottomSheetRef = useCallback((bottomSheetElement: HTMLDivElement) => {
     if (!bottomSheetElement || !bottomSheetElement?.parentElement) {
       return;
@@ -83,6 +86,9 @@ const useBottomSheet = () => {
       bottomSheetElement.style.transitionDuration = TRANSFORM_DURATION;
       bottomSheetElement.style.transform = `translateY(0px)`;
     }, 10);
+
+    setIsOpen(true);
+    setIsFull(false);
   };
 
   const openCommentBottomSheet = () => {
@@ -90,12 +96,14 @@ const useBottomSheet = () => {
     const backdropElement = backdrop.current;
     if (!bottomSheetElement || !backdropElement) return;
 
+    bottomSheetElement.style.transform = `translateY(100%)`;
+
     bottomSheetElement.style.transitionDuration = "0ms";
     bottomSheetElement.style.display = "flex";
     backdropElement.style.display = "flex";
 
     const bottomSheetHeight = bottomSheetElement.clientHeight;
-    const minHeight = 544; //  최소 높이
+    const minHeight = window.innerHeight * 0.67;
     const initialTranslateY = bottomSheetHeight - minHeight;
 
     metrics.current.closingY = initialTranslateY / 2;
@@ -104,6 +112,8 @@ const useBottomSheet = () => {
       bottomSheetElement.style.transitionDuration = TRANSFORM_DURATION;
       bottomSheetElement.style.transform = `translateY(${initialTranslateY}px)`;
     }, 10);
+    setIsOpen(true);
+    setIsFull(false);
   };
 
   const closeBottomSheet = () => {
@@ -120,6 +130,8 @@ const useBottomSheet = () => {
       bottomSheetElement.style.display = "none";
       backdropElement.style.display = "none";
     }, 150);
+    setIsOpen(false);
+    setIsFull(false);
   };
 
   // 바텀시트 드래그
@@ -167,6 +179,7 @@ const useBottomSheet = () => {
 
     if (finalTransformValue < closingY) {
       bottomSheetElement.style.transform = `translateY(0px)`;
+      setIsFull(true);
     } else {
       closeBottomSheet();
     }
@@ -192,7 +205,7 @@ const useBottomSheet = () => {
     leave: handleEnd,
   };
 
-  return { bottomSheetRef, contentRef, openBottomSheet, openCommentBottomSheet, closeBottomSheet };
+  return { bottomSheetRef, contentRef, openBottomSheet, openCommentBottomSheet, closeBottomSheet, isOpen, isFull };
 };
 
 export default useBottomSheet;

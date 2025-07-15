@@ -12,7 +12,6 @@ import { ReactComponent as BracketIcon } from "assets/icons/bracket.svg";
 import { useNavigate } from "react-router-dom";
 import useBottomSheet from "hooks/useBottomSheet";
 import ReportBottomSheet from "./ReportBottomSheet";
-import CommentBottomSheet from "./CommentBottomSheet";
 import { AnimatePresence } from "framer-motion";
 import Modal from "components/common/Modal";
 import { useEffect, useRef, useState } from "react";
@@ -21,6 +20,8 @@ import {
   getCollectionLikeStatusApi,
   toggleCollectionLikeApi,
 } from "services/api/collections";
+import CollectionLikeButton from "./LikeButton";
+import CollectionCommentButton from "./CommentButton";
 
 interface SaerokInfoProps {
   collectionId: number;
@@ -53,44 +54,6 @@ const SaerokInfo = ({
   isMine = false,
 }: SaerokInfoProps) => {
   const navigate = useNavigate();
-  const [isLiked, setIsLiked] = useState<boolean | null>(null);
-  const likeCount = useRef(0);
-
-  // 좋아요 상태 조회
-  useEffect(() => {
-    if (!collectionId) return;
-    const fetchLikeStatus = async () => {
-      try {
-        const isLiked = await getCollectionLikeStatusApi(collectionId);
-        setIsLiked(isLiked);
-      } catch (err) {
-        // console.error("좋아요 상태 조회 실패", err);
-      }
-    };
-    const fetchLikeCount = async () => {
-      try {
-        const items = await fetchCollectionLikeListApi(collectionId);
-        likeCount.current = items.length;
-      } catch (err) {
-        // console.error("좋아요 개수 조회 실패", err);
-      }
-    };
-
-    fetchLikeStatus();
-    fetchLikeCount();
-  }, []);
-
-  const toggleLike = async (collectionId: number) => {
-    console.log("toggleLike 클릭, 현재 isLiked는 ", isLiked);
-    try {
-      await toggleCollectionLikeApi(collectionId);
-      setIsLiked(!isLiked);
-      if (!isLiked) likeCount.current += 1;
-      else likeCount.current -= 1;
-    } catch {
-      // console.error("좋아요 토글 실패", err);
-    }
-  };
 
   // report 바텀시트용 훅
   const {
@@ -98,12 +61,7 @@ const SaerokInfo = ({
     openBottomSheet: openReportBottomSheet,
     closeBottomSheet: closeReportBottomSheet,
   } = useBottomSheet();
-  // comment 바텀시트용 훅
-  const {
-    bottomSheetRef: commentSheetRef,
-    openCommentBottomSheet,
-    closeBottomSheet: closeCommentBottomSheet,
-  } = useBottomSheet();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -136,7 +94,7 @@ const SaerokInfo = ({
 
   return (
     <>
-      <div className="w-full min-h-screen bg-background-whitegray pb-120">
+      <div className="w-full max-w-500 min-h-screen bg-background-whitegray pb-120">
         <img src={img ?? ""} className="w-full h-auto object-cover rounded-b-20" />
         <div className="mx-24 -mt-25 ">
           <div className="relative -mb-19 h-60">
@@ -175,19 +133,8 @@ const SaerokInfo = ({
               {note}
             </div>
             <div className=" flex flex-row justify-around font-pretendard divide-x-1 divide-background-whitegray">
-              <button
-                onClick={() => toggleLike(collectionId)}
-                className="outline-none cursor-pointer py-16 pl-14 pr-21 w-full flex justify-between"
-              >
-                <HeartIcon
-                  className={`text-font-black ${isLiked ? "stroke-none fill-red" : "stroke-font-black fill-none"}`}
-                />
-                <span className="text-subtitle-3 text-font-black">{likeCount.current}</span>
-              </button>
-              <button onClick={openCommentBottomSheet} className="py-16 pl-15 pr-19 w-full flex justify-between">
-                <CommentIcon className="stroke-font-black" />
-                <span className="text-subtitle-3 text-font-black">0</span>
-              </button>
+              <CollectionLikeButton collectionId={collectionId} />
+              <CollectionCommentButton collectionId={collectionId} />
             </div>
           </div>
         </div>
@@ -216,7 +163,6 @@ const SaerokInfo = ({
         </div>
       </div>
       <ReportBottomSheet ref={reportSheetRef} close={closeReportBottomSheet} apply={handleApply} />
-      <CommentBottomSheet ref={commentSheetRef} close={closeCommentBottomSheet} />
 
       <AnimatePresence>
         {isModalOpen && (

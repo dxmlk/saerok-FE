@@ -27,7 +27,7 @@ const BottomSheet = forwardRef<HTMLDivElement, Props>(({ children, close, title,
   return (
     <BottomSheetPortal>
       <div
-        className="fixed max-w-480 w-full bottom-0 left-1/2 -translate-x-[50%] top-0 z-[100] hidden bg-black/50"
+        className="fixed max-w-500 w-full bottom-0 left-1/2 -translate-x-[50%] top-0 z-[100] hidden bg-black/50"
         onClick={handleOverlayClick}
       >
         <div

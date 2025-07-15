@@ -230,7 +230,7 @@ export const getCollectionCommentLikeStatusApi = async (commentId: number) => {
 };
 
 // 컬렉션 댓글 목록 조회
-export const fetchCollectionCommentLListApi = async (collectionId: number) => {
+export const fetchCollectionCommentListApi = async (collectionId: number) => {
   const res = await axiosPrivate.get(`collections/${collectionId}/comments`);
   return res.data.items;
 };

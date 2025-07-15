@@ -60,7 +60,7 @@ const DexMain = ({ birdCount, selectedFilters, searchTerm, onToggleBookmarkView 
         }}
       />
 
-      <div className="fixed top-0 w-full max-w-480  left-1/2 translate-x-[-50%] h-84 z-50 pointer-events-none">
+      <div className="fixed top-0 w-full max-w-500  left-1/2 translate-x-[-50%] h-84 z-50 pointer-events-none">
         <div
           className="absolute top-0 left-0 w-full h-84 transition-opacity duration-300 pointer-events-none"
           style={{

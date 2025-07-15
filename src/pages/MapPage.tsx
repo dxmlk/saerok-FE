@@ -115,7 +115,7 @@ const MapPage = () => {
   }, [isSearching]);
 
   return (
-    <div className="relative w-full h-screen z-0">
+    <div className="relative w-full max-w-500 h-screen z-0">
       {!locationReady && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center"></div>
       )}

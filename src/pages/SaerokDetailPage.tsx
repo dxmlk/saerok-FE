@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { fetchCollectionDetail, CollectionDetail } from "services/api/collections/index";
-import SaerokInfo from "features/saerok/components/saerok/SaerokInfo";
-import SaerokDetailHeader from "features/saerok/components/saerok/SaerokDetailHeader";
+import SaerokInfo from "features/saerok/components/saerok/saerok-detail/SaerokInfo";
+import SaerokDetailHeader from "features/saerok/components/saerok/saerok-detail/SaerokDetailHeader";
 import { SaerokInfoSkeleton } from "components/common/SkeletonItem";
 import { useAuth } from "hooks/useAuth";
 import LoadingScreen from "components/common/LoadingScreen";
@@ -34,7 +34,7 @@ const SaerokDetailPage = () => {
   if (!item) return <LoadingScreen />;
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] w-full max-w-500 ">
       <SaerokDetailHeader birdId={item.bird.birdId} collectionId={item.collectionId} isMine={isMine} />
 
       {loading ? (

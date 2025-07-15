@@ -4,7 +4,7 @@ import { ReactComponent as EditIcon } from "assets/icons/button/edit.svg";
 import { ReactComponent as SortIcon } from "assets/icons/button/sort.svg";
 import { AnimatePresence } from "framer-motion";
 import Modal from "components/common/Modal";
-import ReportBottomSheet from "features/saerok/components/saerok/ReportBottomSheet";
+import ReportBottomSheet from "features/saerok/components/saerok/saerok-detail/ReportBottomSheet";
 import useBottomSheet from "hooks/useBottomSheet";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
