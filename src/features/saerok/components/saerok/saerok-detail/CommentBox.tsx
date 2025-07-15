@@ -47,12 +47,9 @@ const CommentBox = ({
                 {updatedAt.toString().split("T")[0]}
               </span>
             </div>
-            <CommentActionDropdown
-              isMine={isMine}
-              onModify={handleModify}
-              onDelete={handleDelete}
-              onReport={handleReport}
-            />
+            <button>
+              <SortIcon className="w-17 h-17" />
+            </button>
           </div>
           {/* 댓글 75자 최대 */}
           <div className="w-full font-pretendard text-font-black text-caption-1-2">{content}</div>
