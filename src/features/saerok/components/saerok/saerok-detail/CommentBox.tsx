@@ -1,5 +1,4 @@
 import { ReactComponent as SortIcon } from "assets/icons/button/sort.svg";
-import CommentActionDropdown from "./CommentActionDropdown";
 import DropdownTest from "./DropdownTest";
 
 interface CommentBoxProps {
