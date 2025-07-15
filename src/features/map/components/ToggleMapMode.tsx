@@ -40,7 +40,7 @@ const ToggleMapMode = ({ isMineOnly, onToggle }: ToggleMapModeProps) => {
   return (
     <>
       <button
-        className={`z-40 absolute bottom-120 right-24 w-72 h-44 flex items-center px-3 rounded-full transition-colors duration-300
+        className={`absolute z-40 bottom-120 right-24 w-72 h-44 flex items-center px-3 rounded-full transition-colors duration-300
         ${isMineOnly ? "bg-font-whitegrayLight" : "bg-mainBlue"}`}
         onClick={() => onToggle(!isMineOnly)}
         aria-pressed={isMineOnly}

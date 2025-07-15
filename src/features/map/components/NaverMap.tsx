@@ -233,7 +233,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
               <img src="${bubbleTail}" width="22" height="19" />
             </div>
             <button
-              class="collection-overlay-btn w-[45px] h-[45px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
+              class="collection-overlay-btn w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
               data-collection-id="${collectionId}"
               type="button"
             >
@@ -242,7 +242,7 @@ const NaverMap = ({ mapRef, markers, center, onCenterChanged, onOverlayClick }: 
           </div>`
         : `<div class="flex flex-col items-center gap-10">
             <button
-              class="collection-overlay-btn w-[45px] h-[45px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
+              class="collection-overlay-btn w-[60px] h-[60px] rounded-full border-[3px] border-white bg-white overflow-hidden box-border"
               data-collection-id="${collectionId}"
               type="button"
             >

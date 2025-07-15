@@ -4,7 +4,7 @@ import { ReactComponent as EditIcon } from "assets/icons/button/edit.svg";
 import { ReactComponent as SortIcon } from "assets/icons/button/sort.svg";
 import { AnimatePresence } from "framer-motion";
 import Modal from "components/common/Modal";
-import ReportBottomSheet from "features/saerok/components/saerok/ReportBottomSheet";
+import ReportBottomSheet from "features/saerok/components/saerok/saerok-detail/ReportBottomSheet";
 import useBottomSheet from "hooks/useBottomSheet";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -44,7 +44,7 @@ const CollectionDetailHeader = ({ birdId, collectionId, isMine }: any) => {
       >
         <BackIcon className="w-17 h-17" />
       </button>
-      <div className="flex flex-row gap-9">
+      {/* <div className="flex flex-row gap-9">
         <button
           onClick={handleGoToDex}
           className="w-40 h-40 rounded-full bg-mainBlue z-10 flex items-center justify-center"
@@ -67,7 +67,7 @@ const CollectionDetailHeader = ({ birdId, collectionId, isMine }: any) => {
             <SortIcon className="w-20 h-20" />
           </button>
         )}
-      </div>
+      </div> */}
 
       <ReportBottomSheet ref={bottomSheetRef} close={closeBottomSheet} apply={handleApply} />
 
