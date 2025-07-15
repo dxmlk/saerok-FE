@@ -85,6 +85,27 @@ const useBottomSheet = () => {
     }, 10);
   };
 
+  const openCommentBottomSheet = () => {
+    const bottomSheetElement = bottomSheet.current;
+    const backdropElement = backdrop.current;
+    if (!bottomSheetElement || !backdropElement) return;
+
+    bottomSheetElement.style.transitionDuration = "0ms";
+    bottomSheetElement.style.display = "flex";
+    backdropElement.style.display = "flex";
+
+    const bottomSheetHeight = bottomSheetElement.clientHeight;
+    const minHeight = 544; //  최소 높이
+    const initialTranslateY = bottomSheetHeight - minHeight;
+
+    metrics.current.closingY = initialTranslateY / 2;
+
+    setTimeout(() => {
+      bottomSheetElement.style.transitionDuration = TRANSFORM_DURATION;
+      bottomSheetElement.style.transform = `translateY(${initialTranslateY}px)`;
+    }, 10);
+  };
+
   const closeBottomSheet = () => {
     const bottomSheetElement = bottomSheet.current;
     const backdropElement = backdrop.current;
@@ -171,7 +192,7 @@ const useBottomSheet = () => {
     leave: handleEnd,
   };
 
-  return { bottomSheetRef, contentRef, openBottomSheet, closeBottomSheet };
+  return { bottomSheetRef, contentRef, openBottomSheet, openCommentBottomSheet, closeBottomSheet };
 };
 
 export default useBottomSheet;

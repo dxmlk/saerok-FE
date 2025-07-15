@@ -1,4 +1,5 @@
 import axiosPrivate from "../axiosPrivate";
+import axiosPublic from "../axiosPublic";
 
 export interface CreateCollectionRequest {
   birdId: number | null;
@@ -190,4 +191,73 @@ export const deleteCollectionApi = async (collectionId: number): Promise<void> =
 // 컬렉션 이미지 삭제 (DELETE)
 export const deleteCollectionImageApi = async (collectionId: number, imageId: number): Promise<void> => {
   await axiosPrivate.delete(`/collections/${collectionId}/images/${imageId}`);
+};
+
+// 컬렉션 좋아요 토글
+export const toggleCollectionLikeApi = async (collectionId: number) => {
+  const res = await axiosPrivate.post(`/collections/${collectionId}/like`);
+  return res.data.isLiked;
+};
+
+// 컬렉션을 좋아요한 사용자 목록
+export const fetchCollectionLikeListApi = async (collectionId: number) => {
+  const rest = await axiosPublic.get(`/collections/${collectionId}/like/users`);
+  return rest.data.items;
+};
+
+// 컬렉션 좋아요 상태 조회
+export const getCollectionLikeStatusApi = async (collectionId: number) => {
+  const res = await axiosPrivate.get(`/collections/${collectionId}/like/status`);
+  return res.data.isLiked;
+};
+
+// 내가 좋아요한 컬렉션 ID 목록
+export const fetchMyCollectionListApi = async () => {
+  const res = await axiosPrivate.get("collections/liked");
+  return res.data.items;
+};
+
+// 컬렉션 댓글 좋아요 토글
+export const toggleCollectionCommentLikeApi = async (commentId: number) => {
+  const res = await axiosPrivate.post(`collections/comments/${commentId}/like`);
+  return res.data.isLiked;
+};
+
+// 컬렉션 댓글 좋아요 상태 조회
+export const getCollectionCommentLikeStatusApi = async (commentId: number) => {
+  const res = await axiosPrivate.get(`collections/comments/${commentId}/like/status`);
+  return res.data.isLiked;
+};
+
+// 컬렉션 댓글 목록 조회
+export const fetchCollectionCommentLListApi = async (collectionId: number) => {
+  const res = await axiosPrivate.get(`collections/${collectionId}/comments`);
+  return res.data.items;
+};
+
+// 컬렉션 댓글 작성
+export const createCollectionCommentApi = async (collectionId: number, content: string) => {
+  const res = await axiosPrivate.post(`collections/${collectionId}/comments`, {
+    content,
+  });
+  return res.data.commentId;
+};
+
+// 컬렉션 댓글 삭제
+export const deleteCollectionCommentApi = async (collectionId: number, commentId: number) => {
+  await axiosPrivate.delete(`collections/${collectionId}/comments/${commentId}`);
+};
+
+// 컬렉션 댓글 수정
+export const patchCollectionCommentApi = async (collectionId: number, commentId: number, content: string) => {
+  const res = await axiosPrivate.patch(`collections/${collectionId}/comments/${commentId}`, {
+    content,
+  });
+  return res.data.content;
+};
+
+// 컬렉션 댓글 수 조회
+export const getCollectionCommentCountApi = async (collectionId: number) => {
+  const res = await axiosPublic.get(`collections/${collectionId}/comments/count`);
+  return res.data.count;
 };
